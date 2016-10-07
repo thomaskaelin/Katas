@@ -40,6 +40,7 @@ namespace Random.Test
             _fakeRolledNumberGenerator = A.Fake<RolledNumberGenerator>();
             _fakeRolledNumberToResultStringConverter = A.Fake<RolledNumberToResultStringConverter>();
             _fakeRolledResultStringPrinter = A.Fake<RolledResultStringPrinter>();
+            A.Fake<DiceValueToStringResultMapping>();
 
             _target = new DiceRollerAndPrinter(_fakeRolledNumberGenerator, _fakeRolledNumberToResultStringConverter, _fakeRolledResultStringPrinter);
         }

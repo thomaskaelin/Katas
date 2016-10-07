@@ -1,4 +1,5 @@
 ﻿using System;
+using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -8,39 +9,44 @@ namespace Random.Test
     public class RolledNumberToStringConverterTest
     {
         private RolledNumberToResultStringConverter _target;
+        private DiceValueToStringResultMapping _fakeMapping;
+
 
         [SetUp]
         public void SetUp()
         {
-            _target = new RolledNumberToResultStringConverter();
+            _fakeMapping = A.Fake<DiceValueToStringResultMapping>();
+            _target = new RolledNumberToResultStringConverter(_fakeMapping);
         }
 
-        [TestCase(1, "Oh no! You got a 1. :-(")]
-        [TestCase(2, "Try harder! You only got a 2.")]
-        [TestCase(3, "You are below average! You got a 3.")]
-        [TestCase(4, "You are above average! You got a 4.")]
-        [TestCase(5, "Nice one! You got a 5.")]
-        [TestCase(6, "Awesome roll! You got a 6. :-)")]
-        public void Convert_WithValidInput_ReturnExpectedResult(int rolledNumber, string expectedResult)
+        [Test]
+        public void Convert_WithValidInput_ReturnExpectedResult()
         {
+            // Arrange
+            const int rolledNumber = 2;
+            const string stringResult = "Sugus";
+
+            A.CallTo(() => _fakeMapping.HasMapping(rolledNumber)).Returns(true);
+            A.CallTo(() => _fakeMapping.GetStringResult(rolledNumber)).Returns(stringResult);
+
             // Act
             var result = _target.Convert(rolledNumber);
 
             // Assert
-            result.Should().Be(expectedResult);
+            Assert.AreEqual(stringResult, result);
         }
 
-        [TestCase(0)]
-        [TestCase(8)]
-        [TestCase(90)]
-        [TestCase(83)]
-        public void Convert_WithInValidInput_ThrowException(int rolledNumber)
+        [Test]
+        public void Convert_WithInvalidInput_ThrowExcpetion()
         {
-            // Arrange
+            //Arrange
+            const int rolledNumber = 2;
+            A.CallTo(() => _fakeMapping.HasMapping(rolledNumber)).Returns(false);
             Action act = () => _target.Convert(rolledNumber);
 
             // Act & Assert
             act.ShouldThrow<InvalidNumberException>();
         }
+        
     }
 }

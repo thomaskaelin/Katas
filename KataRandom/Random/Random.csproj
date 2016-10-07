@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiceValueToStringResultMapping.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="InvalidNumberException.cs" />
     <Compile Include="DiceRollerAndPrinter.cs" />

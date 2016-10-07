@@ -2,27 +2,25 @@
 {
     public class DiceRollerAndPrinter
     {
-        private readonly RolledNumberGenerator _rolledNumberGenerator;
-        private readonly RolledNumberToResultStringConverter _rolledNumberToResultStringConverter;
-        private readonly RolledResultStringPrinter _rolledResultStringPrinter;
-
+        private readonly RolledNumberGenerator _generator;
+        private readonly RolledNumberToResultStringConverter _converter;
+        private readonly RolledResultStringPrinter _printer;
 
         public DiceRollerAndPrinter(
-            RolledNumberGenerator rolledNumberGenerator, 
-            RolledNumberToResultStringConverter rolledNumberToResultStringConverter,
-            RolledResultStringPrinter rolledResultStringPrinter)
+            RolledNumberGenerator generator, 
+            RolledNumberToResultStringConverter converter,
+            RolledResultStringPrinter printer)
         {
-            _rolledNumberGenerator = rolledNumberGenerator;
-            _rolledNumberToResultStringConverter = rolledNumberToResultStringConverter;
-            _rolledResultStringPrinter = rolledResultStringPrinter;
+            _generator = generator;
+            _converter = converter;
+            _printer = printer;
         }
-
 
         public void RollAndPrint()
         {
-            var rolledNumber = _rolledNumberGenerator.Roll();
-            var resultString = _rolledNumberToResultStringConverter.Convert(rolledNumber);
-            _rolledResultStringPrinter.Print(resultString);
+            var rolledNumber = _generator.Roll();
+            var resultString = _converter.Convert(rolledNumber);
+            _printer.Print(resultString);
         }
     }
 }
