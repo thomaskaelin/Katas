@@ -64,8 +64,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DiceSimulatorTest.cs" />
+    <Compile Include="DiceRollerAndPrinterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DiceTest.cs" />
+    <Compile Include="RandomIndexGeneratorTest.cs" />
+    <Compile Include="RolledNumberGeneratorTest.cs" />
+    <Compile Include="RolledNumberToStringConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
