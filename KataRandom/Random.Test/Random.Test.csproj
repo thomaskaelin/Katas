@@ -65,12 +65,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DiceRollerAndPrinterTest.cs" />
-    <Compile Include="DiceValueToStringResultMappingTest.cs" />
+    <Compile Include="DiceValueToResultStringMappingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DiceTest.cs" />
-    <Compile Include="RandomIndexGeneratorTest.cs" />
-    <Compile Include="RolledNumberGeneratorTest.cs" />
-    <Compile Include="RolledNumberToStringConverterTest.cs" />
+    <Compile Include="RandomNumberGeneratorTest.cs" />
+    <Compile Include="DiceRollerTest.cs" />
+    <Compile Include="DiceValueToResultStringConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -80,6 +80,9 @@
       <Project>{07D2CB14-028E-4AEC-A282-4AFA47EEE8FD}</Project>
       <Name>Random</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aufgabenstellung.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -40,16 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DiceValueToStringResultMapping.cs" />
+    <Compile Include="DiceValueToResultStringMapping.cs" />
     <Compile Include="Dice.cs" />
-    <Compile Include="InvalidNumberException.cs" />
+    <Compile Include="InvalidDiceValueException.cs" />
     <Compile Include="DiceRollerAndPrinter.cs" />
     <Compile Include="LongRunningOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomIndexGenerator.cs" />
-    <Compile Include="RolledNumberGenerator.cs" />
-    <Compile Include="RolledNumberToResultStringConverter.cs" />
-    <Compile Include="RolledResultStringPrinter.cs" />
+    <Compile Include="RandomNumberGenerator.cs" />
+    <Compile Include="DiceRoller.cs" />
+    <Compile Include="DiceValueToResultStringConverter.cs" />
+    <Compile Include="ResultStringPrinter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

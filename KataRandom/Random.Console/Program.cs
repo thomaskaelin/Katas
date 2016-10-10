@@ -2,10 +2,24 @@
 {
     public class Program
     {
-       
         public static void Main(string[] args)
         {
-            var mapping = new DiceValueToStringResultMapping();
+            var mapping = CreateMapping();
+            var dice = CreateDice(mapping);
+            var roller = CreateRoller(dice);
+            var converter = CreateConverter(mapping);
+            var printer = CreatePrinter();
+            var diceRollerAndPrinter = new DiceRollerAndPrinter(roller, converter, printer);
+
+            diceRollerAndPrinter.RollAndPrint();
+
+            System.Console.ReadKey();
+        }
+
+        private static DiceValueToResultStringMapping CreateMapping()
+        {
+            var mapping = new DiceValueToResultStringMapping();
+
             mapping.AddMapping(1, "Oh no! You got a 1. :-(");
             mapping.AddMapping(2, "Try harder! You only got a 2.");
             mapping.AddMapping(3, "You are below average! You got a 3.");
@@ -13,17 +27,30 @@
             mapping.AddMapping(5, "Nice one! You got a 5.");
             mapping.AddMapping(6, "Awesome roll! You got a 6. :-)");
 
-            var dice = new Dice(mapping.Values);
-            var indexGenerator = new RandomIndexGenerator();
-            var longRunningOperation = new LongRunningOperation();
-            var generator = new RolledNumberGenerator(dice, longRunningOperation, indexGenerator);
-            var stringConverter = new RolledNumberToResultStringConverter(mapping);
-            var stringPrint = new RolledResultStringPrinter();
-            
-            var diceRollerAndPrinter = new DiceRollerAndPrinter(generator, stringConverter, stringPrint);
-            diceRollerAndPrinter.RollAndPrint();
+            return mapping;
+        }
 
-            System.Console.ReadKey();
+        private static Dice CreateDice(DiceValueToResultStringMapping mapping)
+        {
+            return new Dice(mapping.DiceValues);
+        }
+
+        private static DiceRoller CreateRoller(Dice dice)
+        {
+            var longRunningOperation = new LongRunningOperation();
+            var randomNumberGenerator = new RandomNumberGenerator();
+
+            return new DiceRoller(dice, longRunningOperation, randomNumberGenerator);
+        }
+
+        private static DiceValueToResultStringConverter CreateConverter(DiceValueToResultStringMapping mapping)
+        {
+            return new DiceValueToResultStringConverter(mapping);
+        }
+
+        private static ResultStringPrinter CreatePrinter()
+        {
+            return new ResultStringPrinter();
         }
     }
 }

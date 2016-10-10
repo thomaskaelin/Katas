@@ -2,9 +2,8 @@
 
 namespace Random
 {
-    public class RolledResultStringPrinter
+    public class ResultStringPrinter
     {
-
         public virtual void Print(string resultString)
         {
             Console.WriteLine(resultString);

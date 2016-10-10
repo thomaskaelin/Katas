@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using FakeItEasy;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Random.Test
 {
     [TestFixture]
-    public class RolledNumberGeneratorTest
+    public class DiceRollerTest
     {
-        private RolledNumberGenerator _target;
+        private DiceRoller _target;
+        private readonly List<int> _diceValues = new List<int> { 19, 42, 5 };
         private Dice _fakeDice;
-        private readonly List <int> _values = new List<int> {19, 42, 5};
         private LongRunningOperation _fakeLongRunningOperation;
-        private RandomIndexGenerator _fakeRandomIndexGenerator;
+        private RandomNumberGenerator _fakeRandomNumberGenerator;
 
         [SetUp]
         public void SetUp()
         {
             _fakeDice = A.Fake<Dice>();
             _fakeLongRunningOperation = A.Fake<LongRunningOperation>();
-            _fakeRandomIndexGenerator = A.Fake<RandomIndexGenerator>();
+            _fakeRandomNumberGenerator = A.Fake<RandomNumberGenerator>();
 
-            _target = new RolledNumberGenerator(_fakeDice, _fakeLongRunningOperation, _fakeRandomIndexGenerator);
+            _target = new DiceRoller(_fakeDice, _fakeLongRunningOperation, _fakeRandomNumberGenerator);
         }
 
         [TestCase(0)]
@@ -29,16 +30,16 @@ namespace Random.Test
         public void Roll_ReturnsExpectedResult(int returnedIndex)
         {
             // Arrange
-            A.CallTo(() => _fakeDice.Values).Returns(_values);
-            A.CallTo(() => _fakeRandomIndexGenerator.GetRandomIndex(A<int>.Ignored)).Returns(returnedIndex);
+            A.CallTo(() => _fakeDice.Values).Returns(_diceValues);
+            A.CallTo(() => _fakeRandomNumberGenerator.GetRandomNumber(A<int>.Ignored)).Returns(returnedIndex);
             A.CallTo(() => _fakeLongRunningOperation.DoSomething()).DoesNothing();
             
             // Act
             var result = _target.Roll();
 
             // Assert
-            var expectedRollNumber = _values[returnedIndex];
-            Assert.AreEqual(expectedRollNumber, result);
+            var expectedDiceValue = _diceValues[returnedIndex];
+            result.Should().Be(expectedDiceValue);
         }
     }
 }

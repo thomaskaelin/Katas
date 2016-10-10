@@ -2,24 +2,21 @@
 {
     public class DiceRollerAndPrinter
     {
-        private readonly RolledNumberGenerator _generator;
-        private readonly RolledNumberToResultStringConverter _converter;
-        private readonly RolledResultStringPrinter _printer;
+        private readonly DiceRoller _roller;
+        private readonly DiceValueToResultStringConverter _converter;
+        private readonly ResultStringPrinter _printer;
 
-        public DiceRollerAndPrinter(
-            RolledNumberGenerator generator, 
-            RolledNumberToResultStringConverter converter,
-            RolledResultStringPrinter printer)
+        public DiceRollerAndPrinter(DiceRoller roller, DiceValueToResultStringConverter converter, ResultStringPrinter printer)
         {
-            _generator = generator;
+            _roller = roller;
             _converter = converter;
             _printer = printer;
         }
 
         public void RollAndPrint()
         {
-            var rolledNumber = _generator.Roll();
-            var resultString = _converter.Convert(rolledNumber);
+            var rolledValue = _roller.Roll();
+            var resultString = _converter.Convert(rolledValue);
             _printer.Print(resultString);
         }
     }
