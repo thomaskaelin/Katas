@@ -47,7 +47,7 @@ namespace Chess_Kata.Test
             PruefeZielposition(ersteZielposition, Spalte.C, Zeile._4);
         }
 
-       [Test]
+        [Test]
         public void GibZielpositionenFuerFigur_BauerStehtAufC8_LiefertKeineZielpositionen()
         {
             var figur = SetzeBauer(Spalte.C, Zeile._8, Farbe.Weiss);
@@ -57,8 +57,20 @@ namespace Chess_Kata.Test
             result.Should().BeEmpty();
         }
 
-       [Test]
-        public void GibZielpositionenFuerFigur_BauerStehtAufC4_Blockiert_LiefertKeineZielpositionen()
+        [Test]
+        public void GibZielpositionenFuerFigur_BauerStehtAufF2_BlockierenderGegnerAufF4_LiefertKeineZielpositionen()
+        {
+            var bauerWeiss = SetzeBauer(Spalte.F, Zeile._2, Farbe.Weiss);
+            var bauerSchwarz = SetzeBauer(Spalte.F, Zeile._4, Farbe.Schwarz);
+
+            var result = _target.GibZielpositionenFuerFigur(bauerWeiss);
+
+            result.Count().Should().Be(1);
+            PruefeZielposition(result.ToList()[0], Spalte.F, Zeile._3);
+        }
+
+        [Test]
+        public void GibZielpositionenFuerFigur_BauerStehtAufC4_BlockierenderGegnerAufC5_LiefertKeineZielpositionen()
         {
             var bauerWeiss = SetzeBauer(Spalte.C, Zeile._4, Farbe.Weiss);
             var bauerSchwarz = SetzeBauer(Spalte.C, Zeile._5, Farbe.Schwarz);
@@ -90,9 +102,9 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(3);
 
-            PruefeZielposition(result.ToList()[0], Spalte.D, Zeile._6);
-            PruefeZielposition(result.ToList()[1], Spalte.F, Zeile._6);
-            PruefeZielposition(result.ToList()[2], Spalte.E, Zeile._6);
+            PruefeZielposition(result.ToList()[0], Spalte.E, Zeile._6);
+            PruefeZielposition(result.ToList()[1], Spalte.D, Zeile._6);
+            PruefeZielposition(result.ToList()[2], Spalte.F, Zeile._6);
         }
 
         [Test]
@@ -105,8 +117,8 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(2);
 
-            PruefeZielposition(result.ToList()[0], Spalte.B, Zeile._5);
-            PruefeZielposition(result.ToList()[1], Spalte.A, Zeile._5);
+            PruefeZielposition(result.ToList()[0], Spalte.A, Zeile._5);
+            PruefeZielposition(result.ToList()[1], Spalte.B, Zeile._5);
         }
 
         [Test]
@@ -119,10 +131,9 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(2);
 
-            PruefeZielposition(result.ToList()[0], Spalte.G, Zeile._5);
-            PruefeZielposition(result.ToList()[1], Spalte.H, Zeile._5);
+            PruefeZielposition(result.ToList()[0], Spalte.H, Zeile._5);
+            PruefeZielposition(result.ToList()[1], Spalte.G, Zeile._5);
         }
-
 
         private IFigur SetzeBauer(Spalte spalte, Zeile zeile, Farbe farbe)
         {
@@ -137,6 +148,5 @@ namespace Chess_Kata.Test
             zielposition.Zeile.Should().Be(zeile);
             zielposition.Spalte.Should().Be(spalte);
         }
-
     }
 }

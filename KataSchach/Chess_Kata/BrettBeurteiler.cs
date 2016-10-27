@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Chess_Kata
 {
@@ -14,62 +13,42 @@ namespace Chess_Kata
 
         public IEnumerable<Position> GibZielpositionenFuerFigur(IFigur figur)
         {
-            var positionVonFigur = _brett.HolePosition(figur);
             var zielpositionen = new List<Position>();
-            var zeile = positionVonFigur.Zeile;
-            var spalte = positionVonFigur.Spalte;
 
-            if (zeile != Zeile._8)
+            if (!IstFigurAufLetzterZeile(figur))
             {
-                var eineZeileHoch = zeile.Erhoehen();
-
-                if (spalte != Spalte.A)
-                {
-                    var eineSpalteLinks = spalte.Verringern();
-
-                    var positionEineHochLinks = new Position(eineSpalteLinks, eineZeileHoch);
-                    if (IstFeldVonGegnerBelegt(positionEineHochLinks, figur))
-                    {
-                        zielpositionen.Add(positionEineHochLinks);
-                    }
-                }
-
-                if (spalte != Spalte.H)
-                {
-                    var eineSpalteRechts = spalte.Erhoehen();
-
-                    var positionEineHochRechts = new Position(eineSpalteRechts, eineZeileHoch);
-                    if (IstFeldVonGegnerBelegt(positionEineHochRechts, figur))
-                    {
-                        zielpositionen.Add(positionEineHochRechts);
-                    }
-
-                }
-
-                
-                
-
-                var positionEineZeileHoch = new Position(positionVonFigur.Spalte, eineZeileHoch);
-                if (IstFeldBelegt(positionEineZeileHoch))
-                {
-                    return zielpositionen;
-                    
-                }
-                zielpositionen.Add(positionEineZeileHoch);
-
-                if (zeile == Zeile._2)
-                {
-                    var zweiZeilenHoch = eineZeileHoch.Erhoehen();
-                    var positionZweiZeilenHoch = new Position(positionVonFigur.Spalte, zweiZeilenHoch);
-                    if (!IstFeldBelegt(positionZweiZeilenHoch))
-                    {
-                        zielpositionen.Add(positionZweiZeilenHoch);
-                    }
-                }
+                VerarbeiteFeldEinsOben(figur, zielpositionen);
+                VerarbeiteFeldZweiOben(figur, zielpositionen);
+                VerarbeiteFeldObenLinks(figur, zielpositionen);
+                VerarbeiteFeldObenRechts(figur, zielpositionen);
             }
 
             return zielpositionen;
+        }
 
+        private Position HolePosition(IFigur figur)
+        {
+            return _brett.HolePosition(figur);
+        }
+
+        private bool IstFigurAufLetzterZeile(IFigur figur)
+        {
+            return HolePosition(figur).Zeile == Zeile._8;
+        }
+
+        private bool IstFigurAufStartZeile(IFigur figur)
+        {
+            return HolePosition(figur).Zeile == Zeile._2;
+        }
+
+        private bool IstErsteSpalte(IFigur figur)
+        {
+            return HolePosition(figur).Spalte == Spalte.A;
+        }
+
+        private bool IstFigurInLetzterSpalte(IFigur figur)
+        {
+            return HolePosition(figur).Spalte == Spalte.H;
         }
 
         private bool IstFeldBelegt(Position position)
@@ -83,10 +62,78 @@ namespace Chess_Kata
             {
                 return false;
             }
+
             var figur = _brett.HoleFigur(position);
             return figur.Farbe != meineFigur.Farbe;
         }
 
-        
+        private void VerarbeiteFeldEinsOben(IFigur figur, ICollection<Position> zielpositionen)
+        {
+            var position = HolePosition(figur);
+            var positionEineZeileHoch = position.NachOben();
+
+            if (IstFeldBelegt(positionEineZeileHoch))
+            {
+                return;
+            }
+
+            zielpositionen.Add(positionEineZeileHoch);
+        }
+
+        private void VerarbeiteFeldZweiOben(IFigur figur, ICollection<Position> zielpositionen)
+        {
+            if (!IstFigurAufStartZeile(figur))
+            {
+                return;
+            }
+
+            var position = HolePosition(figur);
+            var positionEineZeileHoch = position.NachOben();
+            var positionzweiZeilenHoch = positionEineZeileHoch.NachOben();
+
+            if (IstFeldBelegt(positionEineZeileHoch))
+            {
+                return;
+            }
+
+            if (IstFeldBelegt(positionzweiZeilenHoch))
+            {
+                return;
+            }
+            
+            zielpositionen.Add(positionzweiZeilenHoch);
+        }
+
+        private void VerarbeiteFeldObenLinks(IFigur figur, ICollection<Position> zielpositionen)
+        {
+            if (IstErsteSpalte(figur))
+                return;
+
+            var position = HolePosition(figur);
+            var positionEineHochEineLinks = position.NachLinks().NachOben();
+
+            if (!IstFeldVonGegnerBelegt(positionEineHochEineLinks, figur))
+            {
+                return;
+            }
+
+            zielpositionen.Add(positionEineHochEineLinks);
+        }
+
+        private void VerarbeiteFeldObenRechts(IFigur figur, ICollection<Position> zielpositionen)
+        {
+            if (IstFigurInLetzterSpalte(figur))
+                return;
+
+            var position = HolePosition(figur);
+            var positionEineHochEineRechts = position.NachRechts().NachOben();
+
+            if (!IstFeldVonGegnerBelegt(positionEineHochEineRechts, figur))
+            {
+                return;
+            }
+
+            zielpositionen.Add(positionEineHochEineRechts);
+        }
     }
 }
