@@ -1,0 +1,10 @@
+﻿- Unittests Extensionmethoden
+- Unittests Fluentinterface Positionen
+- Basisklasse für Brettbeurteiler
+- Brettbeurteiler umbenennen
+- Mit schwarzen Figuren ziehen
+- Weitere Figuren
+- Anforderung 2 implementieren
+- Unittests für Bauer & Turm
+- Unittests Brettbeurteiler aufteilen (zu BauerBrettBeurteilen, TurmBrettBeurteiler)
+- Methode "Bewegen" auf Figur (?) >> Oder: "Generische Figur" mit Typ

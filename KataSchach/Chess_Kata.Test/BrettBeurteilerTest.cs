@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+
+// ReSharper disable PossibleMultipleEnumeration
+// ReSharper disable UnusedVariable
 
 namespace Chess_Kata.Test
 {
@@ -27,11 +31,8 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(2);
 
-            var ersteZielposition = result.First();
-            PruefeZielposition(ersteZielposition, Spalte.B, Zeile._3);
-
-            var zweiteZielposition = result.Last();
-            PruefeZielposition(zweiteZielposition, Spalte.B, Zeile._4);
+            PruefeZielposition(result, Spalte.B, Zeile._3);
+            PruefeZielposition(result, Spalte.B, Zeile._4);
         }
 
         [Test]
@@ -43,8 +44,7 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(1);
 
-            var ersteZielposition = result.First();
-            PruefeZielposition(ersteZielposition, Spalte.C, Zeile._4);
+            PruefeZielposition(result, Spalte.C, Zeile._4);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Chess_Kata.Test
             var result = _target.GibZielpositionenFuerFigur(bauerWeiss);
 
             result.Count().Should().Be(1);
-            PruefeZielposition(result.ToList()[0], Spalte.F, Zeile._3);
+            PruefeZielposition(result, Spalte.F, Zeile._3);
         }
 
         [Test]
@@ -102,9 +102,9 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(3);
 
-            PruefeZielposition(result.ToList()[0], Spalte.E, Zeile._6);
-            PruefeZielposition(result.ToList()[1], Spalte.D, Zeile._6);
-            PruefeZielposition(result.ToList()[2], Spalte.F, Zeile._6);
+            PruefeZielposition(result, Spalte.E, Zeile._6);
+            PruefeZielposition(result, Spalte.D, Zeile._6);
+            PruefeZielposition(result, Spalte.F, Zeile._6);
         }
 
         [Test]
@@ -117,8 +117,8 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(2);
 
-            PruefeZielposition(result.ToList()[0], Spalte.A, Zeile._5);
-            PruefeZielposition(result.ToList()[1], Spalte.B, Zeile._5);
+            PruefeZielposition(result, Spalte.A, Zeile._5);
+            PruefeZielposition(result, Spalte.B, Zeile._5);
         }
 
         [Test]
@@ -131,8 +131,111 @@ namespace Chess_Kata.Test
 
             result.Count().Should().Be(2);
 
-            PruefeZielposition(result.ToList()[0], Spalte.H, Zeile._5);
-            PruefeZielposition(result.ToList()[1], Spalte.G, Zeile._5);
+            PruefeZielposition(result, Spalte.H, Zeile._5);
+            PruefeZielposition(result, Spalte.G, Zeile._5);
+        }
+
+        [Test]
+        public void GibZielpositionenFuerFigur_TurmStehtAufE4_LiefertZielpositionen()
+        {
+            var figur = SetzeTurm(Spalte.A, Zeile._8, Farbe.Weiss);
+            var result = _target.GibZielpositionenFuerFigur(figur);
+
+            result.Count().Should().Be(14);
+
+            PruefeZielposition(result, Spalte.A, Zeile._4);
+            PruefeZielposition(result, Spalte.B, Zeile._4);
+            PruefeZielposition(result, Spalte.C, Zeile._4);
+            PruefeZielposition(result, Spalte.D, Zeile._4);
+            PruefeZielposition(result, Spalte.F, Zeile._4);
+            PruefeZielposition(result, Spalte.G, Zeile._4);
+            PruefeZielposition(result, Spalte.H, Zeile._4);
+
+            PruefeZielposition(result, Spalte.E, Zeile._1);
+            PruefeZielposition(result, Spalte.E, Zeile._2);
+            PruefeZielposition(result, Spalte.E, Zeile._3);
+            PruefeZielposition(result, Spalte.E, Zeile._5);
+            PruefeZielposition(result, Spalte.E, Zeile._6);
+            PruefeZielposition(result, Spalte.E, Zeile._7);
+            PruefeZielposition(result, Spalte.E, Zeile._8);
+
+        }
+
+        [Test]
+        public void GibZielpositionenFuerFigur_TurmStehtAufA8_LiefertZielpositionen()
+        {
+            var figur = SetzeTurm(Spalte.A, Zeile._8, Farbe.Weiss);
+            var result = _target.GibZielpositionenFuerFigur(figur);
+
+            result.Count().Should().Be(14);
+            
+            PruefeZielposition(result, Spalte.B, Zeile._8);
+            PruefeZielposition(result, Spalte.C, Zeile._8);
+            PruefeZielposition(result, Spalte.D, Zeile._8);
+            PruefeZielposition(result, Spalte.E, Zeile._8);
+            PruefeZielposition(result, Spalte.F, Zeile._8);
+            PruefeZielposition(result, Spalte.G, Zeile._8);
+            PruefeZielposition(result, Spalte.H, Zeile._8);
+
+            PruefeZielposition(result, Spalte.A, Zeile._1);
+            PruefeZielposition(result, Spalte.A, Zeile._2);
+            PruefeZielposition(result, Spalte.A, Zeile._3);
+            PruefeZielposition(result, Spalte.A, Zeile._4);
+            PruefeZielposition(result, Spalte.A, Zeile._5);
+            PruefeZielposition(result, Spalte.A, Zeile._6);
+            PruefeZielposition(result, Spalte.A, Zeile._7);
+        }
+
+        [Test]
+        public void GibZielpositionenFuerFigur_TurmStehtAufH1_LiefertZielpositionen()
+        {
+            var figur = SetzeTurm(Spalte.H, Zeile._1, Farbe.Weiss);
+            var result = _target.GibZielpositionenFuerFigur(figur);
+
+            result.Count().Should().Be(14);
+
+            PruefeZielposition(result, Spalte.A, Zeile._1);
+            PruefeZielposition(result, Spalte.B, Zeile._1);
+            PruefeZielposition(result, Spalte.C, Zeile._1);
+            PruefeZielposition(result, Spalte.D, Zeile._1);
+            PruefeZielposition(result, Spalte.E, Zeile._1);
+            PruefeZielposition(result, Spalte.F, Zeile._1);
+            PruefeZielposition(result, Spalte.G, Zeile._1);
+
+            PruefeZielposition(result, Spalte.H, Zeile._2);
+            PruefeZielposition(result, Spalte.H, Zeile._3);
+            PruefeZielposition(result, Spalte.H, Zeile._4);
+            PruefeZielposition(result, Spalte.H, Zeile._5);
+            PruefeZielposition(result, Spalte.H, Zeile._6);
+            PruefeZielposition(result, Spalte.H, Zeile._7);
+            PruefeZielposition(result, Spalte.H, Zeile._8);
+        }
+
+        [Test]
+        public void GibZielPositionenFuerFigur_TurmStehtAufD4_BlockiertAufAllenSeiten()
+        {
+            var startFigur = SetzeTurm(Spalte.D, Zeile._4, Farbe.Weiss);
+            var gegnerFigurEins = SetzeBauer(Spalte.D, Zeile._5, Farbe.Schwarz);
+            var gegnerFigurZwei = SetzeTurm(Spalte.B, Zeile._4, Farbe.Schwarz);
+            var freundFigurEins = SetzeBauer(Spalte.E, Zeile._4, Farbe.Weiss);
+            var freundFigurZwei = SetzeTurm(Spalte.D, Zeile._2, Farbe.Weiss);
+
+            var result = _target.GibZielpositionenFuerFigur(startFigur);
+
+            result.Count().Should().Be(4);
+
+            PruefeZielposition(result, Spalte.B, Zeile._4);
+            PruefeZielposition(result, Spalte.C, Zeile._4);
+            PruefeZielposition(result, Spalte.D, Zeile._3);
+            PruefeZielposition(result, Spalte.D, Zeile._5);
+        }
+
+        private IFigur SetzeTurm(Spalte spalte, Zeile zeile, Farbe farbe)
+        {
+            IFigur figur = new Turm(farbe);
+            var position = new Position(spalte, zeile);
+            _brett.SetzeFigur(position, figur);
+            return figur;
         }
 
         private IFigur SetzeBauer(Spalte spalte, Zeile zeile, Farbe farbe)
@@ -143,10 +246,10 @@ namespace Chess_Kata.Test
             return figur;
         }
 
-        private static void PruefeZielposition(Position zielposition, Spalte spalte, Zeile zeile)
+        private static void PruefeZielposition(IEnumerable<Position> zielpositionen, Spalte spalte, Zeile zeile)
         {
-            zielposition.Zeile.Should().Be(zeile);
-            zielposition.Spalte.Should().Be(spalte);
+            var passendeZielpositionen = zielpositionen.Where(position => position.Spalte == spalte && position.Zeile == zeile);
+            passendeZielpositionen.Count().Should().Be(1);
         }
     }
 }

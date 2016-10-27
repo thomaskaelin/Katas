@@ -41,14 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bauer.cs" />
+    <Compile Include="BauerBrettBeurteiler.cs" />
     <Compile Include="Brett.cs" />
     <Compile Include="BrettBeurteiler.cs" />
     <Compile Include="Farbe.cs" />
+    <Compile Include="IBrettBeurteiler.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="IFigur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spalte.cs" />
+    <Compile Include="Turm.cs" />
+    <Compile Include="TurmBrettBeurteiler.cs" />
     <Compile Include="Zeile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OffeneArbeiten.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

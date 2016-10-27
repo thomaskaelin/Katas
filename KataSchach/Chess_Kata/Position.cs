@@ -26,5 +26,10 @@
         {
             return new Position(Spalte.Erhoehen(), Zeile);
         }
+
+        public Position NachUnten()
+        {
+            return new Position(Spalte, Zeile.Verringern());
+        }
     }
 }

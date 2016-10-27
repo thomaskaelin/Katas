@@ -21,5 +21,12 @@ namespace Chess_Kata
 
             return (Zeile)(zeileAlsInt + 1);
         }
+
+        public static Zeile Verringern(this Zeile zeile)
+        {
+            var zeileAlsInt = (int) zeile;
+
+            return (Zeile) (zeileAlsInt - 1);
+        }
     }
 }
