@@ -1,4 +1,5 @@
-﻿- Unittests Extensionmethoden
+﻿- Brett: Verschachteltes Dictionary vermeiden (Position als Key --> GetHashCode() + Equals() nötig)
+- Unittests Extensionmethoden
 - Unittests Fluentinterface Positionen
 - Basisklasse für Brettbeurteiler
 - Brettbeurteiler umbenennen
