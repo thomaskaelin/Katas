@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogPlugin.Core", "DialogPlugin.Core\DialogPlugin.Core.csproj", "{3A2D2F99-6C85-4B32-BB8C-F9B80831CF27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogPlugin.Android", "DialogPlugin.Android\DialogPlugin.Android.csproj", "{8398BDD3-39A8-4464-BF87-A029127940E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A2D2F99-6C85-4B32-BB8C-F9B80831CF27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A2D2F99-6C85-4B32-BB8C-F9B80831CF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A2D2F99-6C85-4B32-BB8C-F9B80831CF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A2D2F99-6C85-4B32-BB8C-F9B80831CF27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8398BDD3-39A8-4464-BF87-A029127940E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8398BDD3-39A8-4464-BF87-A029127940E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8398BDD3-39A8-4464-BF87-A029127940E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8398BDD3-39A8-4464-BF87-A029127940E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
