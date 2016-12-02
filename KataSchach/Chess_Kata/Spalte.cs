@@ -11,21 +11,4 @@
         G = 7,
         H = 8
     }
-
-    public static class SpaltenExtenstion
-    {
-        public static Spalte Erhoehen(this Spalte spalte)
-        {
-            var spalteAlsInt = (int)spalte;
-
-            return (Spalte)(spalteAlsInt + 1);
-        }
-
-        public static Spalte Verringern(this Spalte spalte)
-        {
-            var spalteAlsInt = (int)spalte;
-
-            return (Spalte)(spalteAlsInt - 1);
-        }
-    }
 }

@@ -28,7 +28,7 @@ namespace Chess_Kata
 
         private bool IstFigurAufLetzterZeile(IFigur figur)
         {
-            return HolePosition(figur).Zeile == Zeile._8;
+            return HolePosition(figur).Zeile.IstLetzteZeile();
         }
 
         private bool IstFigurAufStartZeile(IFigur figur)
@@ -38,12 +38,12 @@ namespace Chess_Kata
 
         private bool IstErsteSpalte(IFigur figur)
         {
-            return HolePosition(figur).Spalte == Spalte.A;
+            return HolePosition(figur).Spalte.IstErsteSpalte();
         }
 
         private bool IstFigurInLetzterSpalte(IFigur figur)
         {
-            return HolePosition(figur).Spalte == Spalte.H;
+            return HolePosition(figur).Spalte.IstLetzteSpalte();
         }
 
         private bool IstFeldBelegt(Position position)

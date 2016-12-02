@@ -71,6 +71,8 @@
     <Compile Include="BrettBeurteilerTest.cs" />
     <Compile Include="BrettTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpalteExtensionsTest.cs" />
+    <Compile Include="ZeileExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

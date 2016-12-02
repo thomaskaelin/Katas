@@ -18,25 +18,25 @@ namespace Chess_Kata
             Bewegungen(
                 figur, 
                 zielpositionen, 
-                aktuellePosition => aktuellePosition.Spalte != Spalte.A,
+                aktuellePosition => !aktuellePosition.Spalte.IstErsteSpalte(),
                 aktuellePosition => aktuellePosition.NachLinks());
 
             Bewegungen(
                 figur, 
                 zielpositionen, 
-                aktuellePosition => aktuellePosition.Spalte != Spalte.H,
+                aktuellePosition => !aktuellePosition.Spalte.IstLetzteSpalte(),
                 aktuellePosition => aktuellePosition.NachRechts());
 
             Bewegungen(
                 figur, 
                 zielpositionen, 
-                aktuellePosition => aktuellePosition.Zeile != Zeile._1,
+                aktuellePosition => !aktuellePosition.Zeile.IstErsteZeile(),
                 aktuellePosition => aktuellePosition.NachUnten());
 
             Bewegungen(
                 figur, 
                 zielpositionen, 
-                aktuellePosition => aktuellePosition.Zeile != Zeile._8,
+                aktuellePosition => !aktuellePosition.Zeile.IstLetzteZeile(),
                 aktuellePosition => aktuellePosition.NachOben());
 
         }

@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+
 namespace Chess_Kata
 {
     public enum Zeile
@@ -11,22 +12,5 @@ namespace Chess_Kata
         _6 = 6,
         _7 = 7,
         _8 = 8
-    }
-
-    public static class ZeilenExtensions
-    {
-        public static Zeile Erhoehen(this Zeile zeile)
-        {
-            var zeileAlsInt = (int) zeile;
-
-            return (Zeile)(zeileAlsInt + 1);
-        }
-
-        public static Zeile Verringern(this Zeile zeile)
-        {
-            var zeileAlsInt = (int) zeile;
-
-            return (Zeile) (zeileAlsInt - 1);
-        }
     }
 }

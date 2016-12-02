@@ -50,9 +50,11 @@
     <Compile Include="IFigur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spalte.cs" />
+    <Compile Include="SpaltenExtenstion.cs" />
     <Compile Include="Turm.cs" />
     <Compile Include="TurmBrettBeurteiler.cs" />
     <Compile Include="Zeile.cs" />
+    <Compile Include="ZeilenExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="OffeneArbeiten.txt" />
