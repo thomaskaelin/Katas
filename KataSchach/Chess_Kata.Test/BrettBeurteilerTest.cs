@@ -138,7 +138,7 @@ namespace Chess_Kata.Test
         [Test]
         public void GibZielpositionenFuerFigur_TurmStehtAufE4_LiefertZielpositionen()
         {
-            var figur = SetzeTurm(Spalte.A, Zeile._8, Farbe.Weiss);
+            var figur = SetzeTurm(Spalte.E, Zeile._4, Farbe.Weiss);
             var result = _target.GibZielpositionenFuerFigur(figur);
 
             result.Count().Should().Be(14);
