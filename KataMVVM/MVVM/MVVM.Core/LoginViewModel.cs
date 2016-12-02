@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace MVVM.Core
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : ViewModelBase
     {
         private string _username;
         private string _password;
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler LoginSucceeded;
 
@@ -19,7 +15,7 @@ namespace MVVM.Core
         {
             _username = string.Empty;
             _password = string.Empty;
-            LoginCommand = new Command(LoginCommandExecute, LoginCommandCanExecute);
+            LoginCommand = new RelayCommand(LoginCommandExecute, LoginCommandCanExecute);
         }
 
         private bool LoginCommandCanExecute()
@@ -35,21 +31,14 @@ namespace MVVM.Core
             }
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public string Username
         {
             get { return _username; }
             set
             {
-                if (_username != value)
+                if (Set(ref _username, value))
                 {
-                    _username = value;
-                    OnPropertyChanged();
-                    LoginCommand.OnCanExecuteChanged();
+                    LoginCommand.RaiseCanExecuteChanged();
                 }
                 
             }
@@ -60,16 +49,14 @@ namespace MVVM.Core
             get { return _password; }
             set
             {
-                if (_password != value)
+                if (Set(ref _password, value))
                 {
-                    _password = value;
-                    OnPropertyChanged();
-                    LoginCommand.OnCanExecuteChanged();
+                    LoginCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        public Command LoginCommand
+        public RelayCommand LoginCommand
         {
             get;
             private set;
