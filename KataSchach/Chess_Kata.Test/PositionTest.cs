@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -27,8 +28,7 @@ namespace Chess_Kata.Test
         {
             var result = _testee.NachOben();
 
-            result.Spalte.Should().Be(Spalte.E);
-            result.Zeile.Should().Be(Zeile._4);
+            result.Should().Be(new Position(Spalte.E, Zeile._4));
         }
 
         [Test]
@@ -44,8 +44,7 @@ namespace Chess_Kata.Test
         {
             var result = _testee.NachUnten();
 
-            result.Spalte.Should().Be(Spalte.E);
-            result.Zeile.Should().Be(Zeile._2);
+            result.Should().Be(new Position(Spalte.E, Zeile._2));
         }
 
         [Test]
@@ -53,8 +52,7 @@ namespace Chess_Kata.Test
         {
             var result = _testee.NachLinks();
 
-            result.Spalte.Should().Be(Spalte.D);
-            result.Zeile.Should().Be(Zeile._3);
+            result.Should().Be(new Position(Spalte.D, Zeile._3));
         }
 
         [Test]
@@ -62,8 +60,69 @@ namespace Chess_Kata.Test
         {
             var result = _testee.NachRechts();
 
-            result.Spalte.Should().Be(Spalte.F);
-            result.Zeile.Should().Be(Zeile._3);
+            result.Should().Be(new Position(Spalte.F, Zeile._3));
+        }
+
+        [Test]
+        public void Equals_MitGleicherPosition_LiefertTrue()
+        {
+            var result = _testee.Equals(new Position(Spalte.E, Zeile._3));
+            result.Should().BeTrue();
+        }
+
+        [Test]
+        public void Equals_MitUnterschiedlicherPosition_LiefertFalse()
+        {
+            var result = _testee.Equals(new Position(Spalte.E, Zeile._4));
+            result.Should().BeFalse();
+        }
+
+        [Test]
+        public void EqualsVonBasisklasse_MitNull_LiefertFalse()
+        {
+            object input = null;
+            var result = _testee.Equals(input);
+            result.Should().BeFalse();
+        }
+
+        [Test]
+        public void EqualsVonBasisklasse_MitString_LiefertFalse()
+        {
+            string input = "Test";
+            var result = _testee.Equals(input);
+            result.Should().BeFalse();
+        }
+
+        [Test]
+        public void EqualsVonBasisklasse_MitGleicherPosition_LiefertTrue()
+        {
+            object input = new Position(Spalte.E, Zeile._3);
+            var result = _testee.Equals(input);
+            result.Should().BeTrue();
+        }
+
+        [Test]
+        public void EqualsVonBasisklasse_MitUnterschiedlicherPosition_LiefertFalse()
+        {
+            object input = new Position(Spalte.E, Zeile._2);
+            var result = _testee.Equals(input);
+            result.Should().BeFalse();
+        }
+
+        [Test]
+        public void GetHashCode_MitVerschiedenenPositionen_LiefertKorrekteWerte()
+        {
+            var position1 = new Position(Spalte.A, Zeile._1);
+            var position2 = new Position(Spalte.A, Zeile._1);
+            var position3 = new Position(Spalte.B, Zeile._2);
+
+            var result1 = position1.GetHashCode();
+            var result2 = position2.GetHashCode();
+            var result3 = position3.GetHashCode();
+
+            result1.Should().Be(result2);
+            result1.Should().NotBe(result3);
+
         }
 
 

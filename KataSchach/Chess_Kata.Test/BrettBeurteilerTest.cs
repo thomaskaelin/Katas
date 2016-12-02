@@ -248,7 +248,8 @@ namespace Chess_Kata.Test
 
         private static void PruefeZielposition(IEnumerable<Position> zielpositionen, Spalte spalte, Zeile zeile)
         {
-            var passendeZielpositionen = zielpositionen.Where(position => position.Spalte == spalte && position.Zeile == zeile);
+            var gesuchtePosition = new Position(spalte, zeile);
+            var passendeZielpositionen = zielpositionen.Where(position => position.Equals(gesuchtePosition));
             passendeZielpositionen.Count().Should().Be(1);
         }
     }
