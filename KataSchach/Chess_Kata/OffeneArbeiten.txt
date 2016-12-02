@@ -1,5 +1,4 @@
-﻿- Brett: Verschachteltes Dictionary vermeiden (Position als Key --> GetHashCode() + Equals() nötig)
-- Basisklasse für Brettbeurteiler
+﻿- Basisklasse für Brettbeurteiler
 - Brettbeurteiler umbenennen
 - Mit schwarzen Figuren ziehen
 - Weitere Figuren
