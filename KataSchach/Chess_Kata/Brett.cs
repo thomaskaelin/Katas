@@ -1,53 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chess_Kata
 {
     public class Brett
     {
-        private readonly Dictionary<Zeile, Dictionary<Spalte, IFigur>> _figuren;
+        private readonly Dictionary<Position, IFigur> _figuren;
 
         public Brett()
         {
-            _figuren = new Dictionary<Zeile, Dictionary<Spalte, IFigur>>();
+            _figuren = new Dictionary<Position, IFigur>();
 
-            foreach (Zeile zeile in Enum.GetValues(typeof(Zeile)))
+            foreach (Spalte spalte in Enum.GetValues(typeof(Spalte)))
             {
-                _figuren[zeile] = new Dictionary<Spalte, IFigur>();
-
-                foreach (Spalte spalte in Enum.GetValues(typeof(Spalte)))
+                foreach (Zeile zeile in Enum.GetValues(typeof(Zeile)))
                 {
-                    _figuren[zeile][spalte] = null;
+                    var position = new Position(spalte, zeile);
+                    _figuren[position] = null;
                 }
             }
         }
 
         public void SetzeFigur(Position position, IFigur figur)
         {
-            _figuren[position.Zeile][position.Spalte] = figur;
+            _figuren[position] = figur;
         }
 
         public IFigur HoleFigur(Position position)
         {
-            return _figuren[position.Zeile][position.Spalte];
+            return _figuren[position];
         }
 
         public Position HolePosition(IFigur figur)
         {
-            foreach (var zeile in _figuren.Keys)
+            foreach (var kvp in _figuren)
             {
-                foreach (var spalte in _figuren[zeile].Keys)
+                if (kvp.Value == figur)
                 {
-                    var eineFigur = _figuren[zeile][spalte];
-
-                    if (eineFigur == figur)
-                    {
-                        return new Position(spalte, zeile);
-                    }
+                    var positionDerFigur = kvp.Key;
+                    return new Position(positionDerFigur.Spalte, positionDerFigur.Zeile);
                 }
             }
 
