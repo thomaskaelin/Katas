@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM.Core", "MVVM.Core\MVVM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM.Test", "MVVM.Test\MVVM.Test.csproj", "{FDFAAF4B-0B5B-41A3-B59B-6EBC2CE56B02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM.Android", "MVVM.Android\MVVM.Android.csproj", "{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{FDFAAF4B-0B5B-41A3-B59B-6EBC2CE56B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDFAAF4B-0B5B-41A3-B59B-6EBC2CE56B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDFAAF4B-0B5B-41A3-B59B-6EBC2CE56B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA73F1B-3C6A-4FBB-AF85-DA16F80D6108}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
