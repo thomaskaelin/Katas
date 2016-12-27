@@ -20,64 +20,58 @@ namespace Tennis
 
         public void PlayerAScores()
         {
-            /*if (_scorePlayerA == Point.Game)
-            {
-                throw new InvalidOperationException();
-            }*/
-            PlayerScores(ref _scorePlayerB, ref _scorePlayerA);
+            PlayerScores(ref _scorePlayerA, ref _scorePlayerB);
         }
 
         public void PlayerBScores()
         {
-            PlayerScores(ref _scorePlayerA, ref _scorePlayerB);
+            PlayerScores(ref _scorePlayerB, ref _scorePlayerA);
         }
 
-        private static void PlayerScores(ref Point firstScore, ref Point secondScore)
+        private static void PlayerScores(ref Point pointOfScoringPlayer, ref Point pointOfOtherPlayer)
         {
-            if (secondScore == Point.Game)
+            if (pointOfScoringPlayer == Point.Game)
             {
                 throw new InvalidOperationException();
             }
-            if (firstScore == Point._40 && secondScore == Point._40)
+
+            if (pointOfScoringPlayer == Point._40 && pointOfOtherPlayer == Point._40)
             {
-                secondScore = Point.Advantage;
+                pointOfScoringPlayer = Point.Advantage;
             }
-            else if (firstScore == Point.Advantage)
+            else if (pointOfOtherPlayer == Point.Advantage)
             {
-                firstScore = Point._40;
+                pointOfOtherPlayer = Point._40;
             }
             else
             {
-                secondScore = (Point)((int)secondScore + 1);
+                pointOfScoringPlayer = (Point)((int)pointOfScoringPlayer + 1);
             }
         }
 
         public string GetScore()
         {
-            var score = string.Empty;
             if (_scorePlayerA == Point.Advantage)
             {
-                score = Point.Advantage.AsString() + "A";
+                return Point.Advantage.AsString() + "A";
             }
-            else if (_scorePlayerB == Point.Advantage)
+
+            if (_scorePlayerB == Point.Advantage)
             {
-                score = Point.Advantage.AsString() + "B";
+                return Point.Advantage.AsString() + "B";
             }
-            else if (_scorePlayerA == Point.Game)
+
+            if (_scorePlayerA == Point.Game)
             {
-                score = Point.Game.AsString()+"A";
+                return Point.Game.AsString()+"A";
             }
-            else if (_scorePlayerB == Point.Game)
+
+            if (_scorePlayerB == Point.Game)
             {
-                score = Point.Game.AsString() + "B";
+                return Point.Game.AsString() + "B";
             }
-            else 
-            {
-                score = $"{_scorePlayerA.AsString()}-{_scorePlayerB.AsString()}";
-            }
-            return score;
+
+            return $"{_scorePlayerA.AsString()}-{_scorePlayerB.AsString()}";
         }
-
-
     }
 }

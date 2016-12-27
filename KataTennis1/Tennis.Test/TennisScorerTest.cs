@@ -8,8 +8,7 @@ namespace Tennis.Test
     public class TennisScorerTest
     {
         private TennisScorer _testee;
-
-
+        
         private void CallGetScoreAndCheckResult(string expectedResult)
         {
             var result = _testee.GetScore();
