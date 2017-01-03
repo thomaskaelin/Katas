@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace Tennis.StateMachine
+namespace Tennis.Contract
 {
     public enum TennisState
     {

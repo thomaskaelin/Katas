@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using FluentAssertions;
 using NUnit.Framework;
+using Tennis.Contract;
 using Tennis.StateMachine;
 
 namespace Tennis.Test

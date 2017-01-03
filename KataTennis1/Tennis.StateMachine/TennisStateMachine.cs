@@ -1,4 +1,6 @@
-﻿namespace Tennis.StateMachine
+﻿using Tennis.Contract;
+
+namespace Tennis.StateMachine
 {
     public class TennisStateMachine :StateMachine<TennisState, TennisEvent>
     {

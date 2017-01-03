@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.StateMachine", "Tenn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Contract", "Tennis.Contract\Tennis.Contract.csproj", "{485B1BD5-E633-4433-BBC2-F9770915C9E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Appccelerate", "Tennis.Appccelerate\Tennis.Appccelerate.csproj", "{4F6E374D-6F46-4435-9BB9-46B041283440}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F6E374D-6F46-4435-9BB9-46B041283440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F6E374D-6F46-4435-9BB9-46B041283440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F6E374D-6F46-4435-9BB9-46B041283440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F6E374D-6F46-4435-9BB9-46B041283440}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

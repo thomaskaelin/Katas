@@ -1,4 +1,4 @@
-﻿namespace Tennis.StateMachine
+﻿namespace Tennis.Contract
 {
     public enum TennisEvent
     {

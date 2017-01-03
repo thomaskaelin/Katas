@@ -1,4 +1,4 @@
-﻿namespace Tennis
+﻿namespace Tennis.Contract
 {
     public interface ITennisScorer
     {

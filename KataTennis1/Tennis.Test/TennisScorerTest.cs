@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
+using Tennis.Contract;
 
 namespace Tennis.Test
 {
@@ -239,6 +240,14 @@ namespace Tennis.Test
         protected override ITennisScorer CreateTestee()
         {
             return new Tennis.TennisScorer();
+        }
+    }
+
+    class AppccelerateTest : TennisScorerTest
+    {
+        protected override ITennisScorer CreateTestee()
+        {
+            return new Tennis.Appccelerate.TennisScorer();
         }
     }
 }
