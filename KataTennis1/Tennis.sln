@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "Tennis\Tennis.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Test", "Tennis.Test\Tennis.Test.csproj", "{819634C9-C7F3-4F82-A3D3-FF121E910550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.StateMachine", "Tennis.StateMachine\Tennis.StateMachine.csproj", "{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Contract", "Tennis.Contract\Tennis.Contract.csproj", "{485B1BD5-E633-4433-BBC2-F9770915C9E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{819634C9-C7F3-4F82-A3D3-FF121E910550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{819634C9-C7F3-4F82-A3D3-FF121E910550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{819634C9-C7F3-4F82-A3D3-FF121E910550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{485B1BD5-E633-4433-BBC2-F9770915C9E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

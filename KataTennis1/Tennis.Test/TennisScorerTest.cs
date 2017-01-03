@@ -5,9 +5,9 @@ using NUnit.Framework;
 namespace Tennis.Test
 {
     [TestFixture]
-    public class TennisScorerTest
+    public abstract class TennisScorerTest
     {
-        private TennisScorer _testee;
+        private ITennisScorer _testee;
         
         private void CallGetScoreAndCheckResult(string expectedResult)
         {
@@ -18,8 +18,10 @@ namespace Tennis.Test
         [SetUp]
         public void SetUp()
         {
-            _testee = new TennisScorer();
+            _testee = CreateTestee();
         }
+
+        protected abstract ITennisScorer CreateTestee();
 
         [Test]
         public void GetScore_NoOneScored_0to0()
@@ -221,6 +223,22 @@ namespace Tennis.Test
             // Act & Assert
             Action act = () => { _testee.PlayerBScores(); };
             act.ShouldThrow<InvalidOperationException>();
+        }
+    }
+
+    class StateMachineTennisScorer : TennisScorerTest
+    {
+        protected override ITennisScorer CreateTestee()
+        {
+            return new Tennis.StateMachine.TennisScorer();
+        }
+    }
+
+    class NormalTennisScorerTest : TennisScorerTest
+    {
+        protected override ITennisScorer CreateTestee()
+        {
+            return new Tennis.TennisScorer();
         }
     }
 }

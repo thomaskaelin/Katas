@@ -2,7 +2,7 @@
 
 namespace Tennis
 {
-    public class TennisScorer
+    public class TennisScorer : ITennisScorer
     {
         private Point _scorePlayerA;
         private Point _scorePlayerB;
