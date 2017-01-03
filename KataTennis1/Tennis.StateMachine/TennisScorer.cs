@@ -42,7 +42,7 @@ namespace Tennis.StateMachine
             _stateMachine.AddTransition(TennisState._30to30, TennisEvent.AScores, TennisState._40to30);
             _stateMachine.AddTransition(TennisState._30to30, TennisEvent.BScores, TennisState._30to40);
 
-            _stateMachine.AddTransition(TennisState._30to40, TennisEvent.AScores, TennisState._40to40);
+            _stateMachine.AddTransition(TennisState._30to40, TennisEvent.AScores, TennisState.Deuce);
             _stateMachine.AddTransition(TennisState._30to40, TennisEvent.BScores, TennisState.GameB);
 
             _stateMachine.AddTransition(TennisState._40to0, TennisEvent.AScores, TennisState.GameA);
@@ -52,15 +52,15 @@ namespace Tennis.StateMachine
             _stateMachine.AddTransition(TennisState._40to15, TennisEvent.BScores, TennisState._40to30);
 
             _stateMachine.AddTransition(TennisState._40to30, TennisEvent.AScores, TennisState.GameA);
-            _stateMachine.AddTransition(TennisState._40to30, TennisEvent.BScores, TennisState._40to40);
+            _stateMachine.AddTransition(TennisState._40to30, TennisEvent.BScores, TennisState.Deuce);
 
-            _stateMachine.AddTransition(TennisState._40to40, TennisEvent.AScores, TennisState.AdvantageA);
-            _stateMachine.AddTransition(TennisState._40to40, TennisEvent.BScores, TennisState.AdvantageB);
+            _stateMachine.AddTransition(TennisState.Deuce, TennisEvent.AScores, TennisState.AdvantageA);
+            _stateMachine.AddTransition(TennisState.Deuce, TennisEvent.BScores, TennisState.AdvantageB);
 
             _stateMachine.AddTransition(TennisState.AdvantageA, TennisEvent.AScores, TennisState.GameA);
-            _stateMachine.AddTransition(TennisState.AdvantageA, TennisEvent.BScores, TennisState._40to40);
+            _stateMachine.AddTransition(TennisState.AdvantageA, TennisEvent.BScores, TennisState.Deuce);
 
-            _stateMachine.AddTransition(TennisState.AdvantageB, TennisEvent.AScores, TennisState._40to40);
+            _stateMachine.AddTransition(TennisState.AdvantageB, TennisEvent.AScores, TennisState.Deuce);
             _stateMachine.AddTransition(TennisState.AdvantageB, TennisEvent.BScores, TennisState.GameB);
         }
 

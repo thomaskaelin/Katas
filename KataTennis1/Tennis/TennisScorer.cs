@@ -72,6 +72,11 @@ namespace Tennis
                 return Point.Game.AsString() + "B";
             }
 
+            if (_scorePlayerA == Point._40 && _scorePlayerB == Point._40)
+            {
+                return "Deuce";
+            }
+
             return $"{_scorePlayerA.AsString()}-{_scorePlayerB.AsString()}";
         }
     }

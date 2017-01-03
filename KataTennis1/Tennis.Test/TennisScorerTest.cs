@@ -129,7 +129,7 @@ namespace Tennis.Test
             _testee.PlayerBScores();
 
             // Act & Assert
-            CallGetScoreAndCheckResult("40-40");
+            CallGetScoreAndCheckResult("Deuce");
         }
 
         [Test]
@@ -178,7 +178,7 @@ namespace Tennis.Test
             _testee.PlayerBScores();
 
             // Act & Assert
-            CallGetScoreAndCheckResult("40-40");
+            CallGetScoreAndCheckResult("Deuce");
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace Tennis.Test
             _testee.PlayerAScores();
 
             // Act & Assert
-            CallGetScoreAndCheckResult("40-40");
+            CallGetScoreAndCheckResult("Deuce");
         }
 
         [Test]

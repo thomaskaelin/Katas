@@ -49,7 +49,7 @@ namespace Tennis.Appccelerate
             _stateMachine.In(TennisState._30to30).On(TennisEvent.AScores).Goto(TennisState._40to30);
             _stateMachine.In(TennisState._30to30).On(TennisEvent.BScores).Goto(TennisState._30to40);
 
-            _stateMachine.In(TennisState._30to40).On(TennisEvent.AScores).Goto(TennisState._40to40);
+            _stateMachine.In(TennisState._30to40).On(TennisEvent.AScores).Goto(TennisState.Deuce);
             _stateMachine.In(TennisState._30to40).On(TennisEvent.BScores).Goto(TennisState.GameB);
 
             _stateMachine.In(TennisState._40to0).On(TennisEvent.AScores).Goto(TennisState.GameA);
@@ -59,15 +59,15 @@ namespace Tennis.Appccelerate
             _stateMachine.In(TennisState._40to15).On(TennisEvent.BScores).Goto(TennisState._40to30);
 
             _stateMachine.In(TennisState._40to30).On(TennisEvent.AScores).Goto(TennisState.GameA);
-            _stateMachine.In(TennisState._40to30).On(TennisEvent.BScores).Goto(TennisState._40to40);
+            _stateMachine.In(TennisState._40to30).On(TennisEvent.BScores).Goto(TennisState.Deuce);
 
-            _stateMachine.In(TennisState._40to40).On(TennisEvent.AScores).Goto(TennisState.AdvantageA);
-            _stateMachine.In(TennisState._40to40).On(TennisEvent.BScores).Goto(TennisState.AdvantageB);
+            _stateMachine.In(TennisState.Deuce).On(TennisEvent.AScores).Goto(TennisState.AdvantageA);
+            _stateMachine.In(TennisState.Deuce).On(TennisEvent.BScores).Goto(TennisState.AdvantageB);
 
             _stateMachine.In(TennisState.AdvantageA).On(TennisEvent.AScores).Goto(TennisState.GameA);
-            _stateMachine.In(TennisState.AdvantageA).On(TennisEvent.BScores).Goto(TennisState._40to40);
+            _stateMachine.In(TennisState.AdvantageA).On(TennisEvent.BScores).Goto(TennisState.Deuce);
 
-            _stateMachine.In(TennisState.AdvantageB).On(TennisEvent.AScores).Goto(TennisState._40to40);
+            _stateMachine.In(TennisState.AdvantageB).On(TennisEvent.AScores).Goto(TennisState.Deuce);
             _stateMachine.In(TennisState.AdvantageB).On(TennisEvent.BScores).Goto(TennisState.GameB);
 
             _stateMachine.Initialize(TennisState._0to0);

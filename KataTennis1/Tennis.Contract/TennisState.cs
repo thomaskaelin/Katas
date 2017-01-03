@@ -18,7 +18,7 @@ namespace Tennis.Contract
         _40to0,
         _40to15,
         _40to30,
-        _40to40,
+        Deuce,
         AdvantageA,
         AdvantageB,
         GameA,

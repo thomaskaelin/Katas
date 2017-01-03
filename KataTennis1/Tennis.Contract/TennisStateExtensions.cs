@@ -38,8 +38,8 @@ namespace Tennis.Contract
                     return "40-15";
                 case TennisState._40to30:
                     return "40-30";
-                case TennisState._40to40:
-                    return "40-40";
+                case TennisState.Deuce:
+                    return "Deuce";
                 case TennisState.AdvantageA:
                     return "AdvantageA";
                 case TennisState.AdvantageB:
