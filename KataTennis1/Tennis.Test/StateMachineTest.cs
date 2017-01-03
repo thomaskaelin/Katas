@@ -9,33 +9,33 @@ namespace Tennis.Test
     [TestFixture]
     public class StateMachineTest
     {
-        private StateMachine.StateMachine _testee;
+        private StateMachine.StateMachine<TennisState, TennisEvent> _testee;
 
         [SetUp]
         public void SetUp()
         {
-            _testee = new StateMachine.StateMachine();
+            _testee = new StateMachine.StateMachine<TennisState, TennisEvent>();
         }
 
         [Test]
         public void DoEvent_WithProperInitializedStateMachine_ModifiesActualState()
         {
             // Arrange
-            _testee.SetInitial(State._0to0);
-            _testee.AddTransition(State._0to0, Event.AScores, State._15to0);
+            _testee.SetInitial(TennisState._0to0);
+            _testee.AddTransition(TennisState._0to0, TennisEvent.AScores, TennisState._15to0);
 
             // Act
-            _testee.DoEvent(Event.AScores);
+            _testee.DoEvent(TennisEvent.AScores);
 
             // Assert
-            _testee.ActualState.Should().Be(State._15to0);
+            _testee.ActualState.Should().Be(TennisState._15to0);
         }
 
         [Test]
         public void AddTransition_WithSameTransitionAddedTwice_ThrowsInvalidOperationException()
         {
             // Arrange
-            Action act = () => _testee.AddTransition(State._0to0, Event.AScores, State._15to0);
+            Action act = () => _testee.AddTransition(TennisState._0to0, TennisEvent.AScores, TennisState._15to0);
 
             // Act & Assert
             act();
@@ -46,8 +46,8 @@ namespace Tennis.Test
         public void DoEvent_WithoutTransitionsForActualState_ThrowsInvalidOperationException()
         {
             // Arrange
-            _testee.SetInitial(State._0to0);
-            Action act = () => _testee.DoEvent(Event.AScores);
+            _testee.SetInitial(TennisState._0to0);
+            Action act = () => _testee.DoEvent(TennisEvent.AScores);
 
             // Act & Assert
             act.ShouldThrow<InvalidOperationException>();
@@ -57,10 +57,10 @@ namespace Tennis.Test
         public void DoEvent_WithoutTransitionsForEvent_ThrowsInvalidOperationException()
         {
             // Arrange
-            _testee.SetInitial(State._0to0);
-            _testee.AddTransition(State._0to0, Event.AScores, State._15to0);
+            _testee.SetInitial(TennisState._0to0);
+            _testee.AddTransition(TennisState._0to0, TennisEvent.AScores, TennisState._15to0);
 
-            Action act = () => _testee.DoEvent(Event.BScores);
+            Action act = () => _testee.DoEvent(TennisEvent.BScores);
 
             // Act & Assert
             act.ShouldThrow<InvalidOperationException>();

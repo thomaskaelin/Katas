@@ -1,7 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace Tennis.StateMachine
 {
-    public enum State
+    public enum TennisState
     {
         _0to0, 
         _0to15,

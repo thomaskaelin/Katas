@@ -1,6 +1,6 @@
 ﻿namespace Tennis.StateMachine
 {
-    public enum Event
+    public enum TennisEvent
     {
         AScores,
         BScores

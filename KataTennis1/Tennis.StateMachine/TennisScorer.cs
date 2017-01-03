@@ -8,64 +8,64 @@ namespace Tennis.StateMachine
 {
     public class TennisScorer : ITennisScorer
     {
-        private readonly StateMachine _stateMachine;
+        private readonly TennisStateMachine _stateMachine;
         public TennisScorer()
         {
-            _stateMachine = new StateMachine();
-            _stateMachine.SetInitial(State._0to0);
-            _stateMachine.AddTransition(State._0to0, Event.AScores, State._15to0);
-            _stateMachine.AddTransition(State._0to0, Event.BScores, State._0to15);
+            _stateMachine = new TennisStateMachine();
+            _stateMachine.SetInitial(TennisState._0to0);
+            _stateMachine.AddTransition(TennisState._0to0, TennisEvent.AScores, TennisState._15to0);
+            _stateMachine.AddTransition(TennisState._0to0, TennisEvent.BScores, TennisState._0to15);
 
-            _stateMachine.AddTransition(State._0to15, Event.AScores, State._15to15);
-            _stateMachine.AddTransition(State._0to15, Event.BScores, State._0to30);
+            _stateMachine.AddTransition(TennisState._0to15, TennisEvent.AScores, TennisState._15to15);
+            _stateMachine.AddTransition(TennisState._0to15, TennisEvent.BScores, TennisState._0to30);
 
-            _stateMachine.AddTransition(State._0to30, Event.AScores, State._15to30);
-            _stateMachine.AddTransition(State._0to30, Event.BScores, State._0to40);
+            _stateMachine.AddTransition(TennisState._0to30, TennisEvent.AScores, TennisState._15to30);
+            _stateMachine.AddTransition(TennisState._0to30, TennisEvent.BScores, TennisState._0to40);
 
-            _stateMachine.AddTransition(State._0to40, Event.AScores, State._15to40);
-            _stateMachine.AddTransition(State._0to40, Event.BScores, State.GameB);
+            _stateMachine.AddTransition(TennisState._0to40, TennisEvent.AScores, TennisState._15to40);
+            _stateMachine.AddTransition(TennisState._0to40, TennisEvent.BScores, TennisState.GameB);
 
-            _stateMachine.AddTransition(State._15to0, Event.AScores, State._30to0);
-            _stateMachine.AddTransition(State._15to0, Event.BScores, State._15to15);
+            _stateMachine.AddTransition(TennisState._15to0, TennisEvent.AScores, TennisState._30to0);
+            _stateMachine.AddTransition(TennisState._15to0, TennisEvent.BScores, TennisState._15to15);
 
-            _stateMachine.AddTransition(State._15to15, Event.AScores, State._30to15);
-            _stateMachine.AddTransition(State._15to15, Event.BScores, State._15to30);
+            _stateMachine.AddTransition(TennisState._15to15, TennisEvent.AScores, TennisState._30to15);
+            _stateMachine.AddTransition(TennisState._15to15, TennisEvent.BScores, TennisState._15to30);
 
-            _stateMachine.AddTransition(State._15to30, Event.AScores, State._30to30);
-            _stateMachine.AddTransition(State._15to30, Event.BScores, State._15to40);
+            _stateMachine.AddTransition(TennisState._15to30, TennisEvent.AScores, TennisState._30to30);
+            _stateMachine.AddTransition(TennisState._15to30, TennisEvent.BScores, TennisState._15to40);
 
-            _stateMachine.AddTransition(State._15to40, Event.AScores, State._30to40);
-            _stateMachine.AddTransition(State._15to40, Event.BScores, State.GameB);
+            _stateMachine.AddTransition(TennisState._15to40, TennisEvent.AScores, TennisState._30to40);
+            _stateMachine.AddTransition(TennisState._15to40, TennisEvent.BScores, TennisState.GameB);
 
-            _stateMachine.AddTransition(State._30to0, Event.AScores, State._40to0);
-            _stateMachine.AddTransition(State._30to0, Event.BScores, State._30to15);
+            _stateMachine.AddTransition(TennisState._30to0, TennisEvent.AScores, TennisState._40to0);
+            _stateMachine.AddTransition(TennisState._30to0, TennisEvent.BScores, TennisState._30to15);
 
-            _stateMachine.AddTransition(State._30to15, Event.AScores, State._40to15);
-            _stateMachine.AddTransition(State._30to15, Event.BScores, State._30to30);
+            _stateMachine.AddTransition(TennisState._30to15, TennisEvent.AScores, TennisState._40to15);
+            _stateMachine.AddTransition(TennisState._30to15, TennisEvent.BScores, TennisState._30to30);
 
-            _stateMachine.AddTransition(State._30to30, Event.AScores, State._40to30);
-            _stateMachine.AddTransition(State._30to30, Event.BScores, State._30to40);
+            _stateMachine.AddTransition(TennisState._30to30, TennisEvent.AScores, TennisState._40to30);
+            _stateMachine.AddTransition(TennisState._30to30, TennisEvent.BScores, TennisState._30to40);
 
-            _stateMachine.AddTransition(State._30to40, Event.AScores, State._40to40);
-            _stateMachine.AddTransition(State._30to40, Event.BScores, State.GameB);
+            _stateMachine.AddTransition(TennisState._30to40, TennisEvent.AScores, TennisState._40to40);
+            _stateMachine.AddTransition(TennisState._30to40, TennisEvent.BScores, TennisState.GameB);
 
-            _stateMachine.AddTransition(State._40to0, Event.AScores, State.GameA);
-            _stateMachine.AddTransition(State._40to0, Event.BScores, State._40to15);
+            _stateMachine.AddTransition(TennisState._40to0, TennisEvent.AScores, TennisState.GameA);
+            _stateMachine.AddTransition(TennisState._40to0, TennisEvent.BScores, TennisState._40to15);
 
-            _stateMachine.AddTransition(State._40to15, Event.AScores, State.GameA);
-            _stateMachine.AddTransition(State._40to15, Event.BScores, State._40to30);
+            _stateMachine.AddTransition(TennisState._40to15, TennisEvent.AScores, TennisState.GameA);
+            _stateMachine.AddTransition(TennisState._40to15, TennisEvent.BScores, TennisState._40to30);
 
-            _stateMachine.AddTransition(State._40to30, Event.AScores, State.GameA);
-            _stateMachine.AddTransition(State._40to30, Event.BScores, State._40to40);
+            _stateMachine.AddTransition(TennisState._40to30, TennisEvent.AScores, TennisState.GameA);
+            _stateMachine.AddTransition(TennisState._40to30, TennisEvent.BScores, TennisState._40to40);
 
-            _stateMachine.AddTransition(State._40to40, Event.AScores, State.AdvantageA);
-            _stateMachine.AddTransition(State._40to40, Event.BScores, State.AdvantageB);
+            _stateMachine.AddTransition(TennisState._40to40, TennisEvent.AScores, TennisState.AdvantageA);
+            _stateMachine.AddTransition(TennisState._40to40, TennisEvent.BScores, TennisState.AdvantageB);
 
-            _stateMachine.AddTransition(State.AdvantageA, Event.AScores, State.GameA);
-            _stateMachine.AddTransition(State.AdvantageA, Event.BScores, State._40to40);
+            _stateMachine.AddTransition(TennisState.AdvantageA, TennisEvent.AScores, TennisState.GameA);
+            _stateMachine.AddTransition(TennisState.AdvantageA, TennisEvent.BScores, TennisState._40to40);
 
-            _stateMachine.AddTransition(State.AdvantageB, Event.AScores, State._40to40);
-            _stateMachine.AddTransition(State.AdvantageB, Event.BScores, State.GameB);
+            _stateMachine.AddTransition(TennisState.AdvantageB, TennisEvent.AScores, TennisState._40to40);
+            _stateMachine.AddTransition(TennisState.AdvantageB, TennisEvent.BScores, TennisState.GameB);
 
 
 
@@ -77,45 +77,45 @@ namespace Tennis.StateMachine
         {
             switch (_stateMachine.ActualState)
             {
-                case State._0to0:
+                case TennisState._0to0:
                     return "0-0";
-                case State._15to0:
+                case TennisState._15to0:
                     return "15-0";
-                case State._0to15:
+                case TennisState._0to15:
                     return "0-15";
-                case State._0to30:
+                case TennisState._0to30:
                     return "0-30";
-                case State._0to40:
+                case TennisState._0to40:
                     return "0-40";
-                case State._15to15:
+                case TennisState._15to15:
                     return "15-15";
-                case State._15to30:
+                case TennisState._15to30:
                     return "15-30";
-                case State._15to40:
+                case TennisState._15to40:
                     return "15-40";
-                case State._30to0:
+                case TennisState._30to0:
                     return "30-0";
-                case State._30to15:
+                case TennisState._30to15:
                     return "30-15";
-                case State._30to30:
+                case TennisState._30to30:
                     return "30-30";
-                case State._30to40:
+                case TennisState._30to40:
                     return "30-40";
-                case State._40to0:
+                case TennisState._40to0:
                     return "40-0";
-                case State._40to15:
+                case TennisState._40to15:
                     return "40-15";
-                case State._40to30:
+                case TennisState._40to30:
                     return "40-30";
-                case State._40to40:
+                case TennisState._40to40:
                     return "40-40";
-                case State.AdvantageA:
+                case TennisState.AdvantageA:
                     return "AdvantageA";
-                case State.AdvantageB:
+                case TennisState.AdvantageB:
                     return "AdvantageB";
-                case State.GameA:
+                case TennisState.GameA:
                     return "GameA";
-                case State.GameB:
+                case TennisState.GameB:
                     return "GameB";
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -124,12 +124,12 @@ namespace Tennis.StateMachine
 
         public void PlayerAScores()
         {
-            _stateMachine.DoEvent(Event.AScores);
+            _stateMachine.DoEvent(TennisEvent.AScores);
         }
 
         public void PlayerBScores()
         {
-            _stateMachine.DoEvent(Event.BScores);
+            _stateMachine.DoEvent(TennisEvent.BScores);
         }
     }
 }

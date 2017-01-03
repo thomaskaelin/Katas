@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace Tennis.StateMachine
 {
-    public class StateMachine
+    public class StateMachine <TState, TEvent>
     {
-        public State ActualState { get; private set; }
+        public TState ActualState { get; private set; }
 
-        private readonly Dictionary<State, Dictionary<Event, State>> _transitions = new Dictionary<State, Dictionary<Event, State>>();
+        private readonly Dictionary<TState, Dictionary<TEvent, TState>> _transitions = new Dictionary<TState, Dictionary<TEvent, TState>>();
 
-        public void AddTransition(State from, Event with, State to)
+        public void AddTransition(TState from, TEvent with, TState to)
         {
             if (!_transitions.ContainsKey(from))
             {
-                _transitions.Add(from, new Dictionary<Event, State>());    
+                _transitions.Add(from, new Dictionary<TEvent, TState>());    
             }
             if (_transitions[from].ContainsKey(with))
             {
@@ -23,12 +23,12 @@ namespace Tennis.StateMachine
             _transitions[from][with] = to;
         }
 
-        public void SetInitial(State initial)
+        public void SetInitial(TState initial)
         {
             ActualState = initial;
         }
 
-        public void DoEvent(Event @event)
+        public void DoEvent(TEvent @event)
         {
             if (!_transitions.ContainsKey(ActualState) || !_transitions[ActualState].ContainsKey(@event))
             {
