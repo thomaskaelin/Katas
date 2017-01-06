@@ -1,11 +1,10 @@
 ﻿using System;
-using System.CodeDom;
 using Appccelerate.StateMachine;
 using Appccelerate.StateMachine.Extensions;
 using Appccelerate.StateMachine.Machine;
 using Tennis.Contract;
 
-namespace Tennis.Appccelerate
+namespace Tennis.StateMachine.Appccelerate
 {
     public class TennisScorer : ExtensionBase<TennisState, TennisEvent>, ITennisScorer
     {
@@ -16,6 +15,7 @@ namespace Tennis.Appccelerate
         public TennisScorer()
         {
             _stateMachine = new PassiveStateMachine<TennisState, TennisEvent>();
+
             _stateMachine.In(TennisState._0to0).On(TennisEvent.AScores).Goto(TennisState._15to0);
             _stateMachine.In(TennisState._0to0).On(TennisEvent.BScores).Goto(TennisState._0to15);
 

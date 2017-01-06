@@ -1,6 +1,6 @@
 ﻿using Tennis.Contract;
 
-namespace Tennis.StateMachine
+namespace Tennis.StateMachine.Manual
 {
     public class TennisScorer : ITennisScorer
     {
@@ -8,7 +8,9 @@ namespace Tennis.StateMachine
         public TennisScorer()
         {
             _stateMachine = new TennisStateMachine();
+
             _stateMachine.SetInitial(TennisState._0to0);
+
             _stateMachine.AddTransition(TennisState._0to0, TennisEvent.AScores, TennisState._15to0);
             _stateMachine.AddTransition(TennisState._0to0, TennisEvent.BScores, TennisState._0to15);
 

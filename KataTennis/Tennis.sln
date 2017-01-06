@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "Tennis\Tennis.csproj", "{B1F60F6C-3367-43D0-9369-4DA23409DF20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Normal", "Tennis.Normal\Tennis.Normal.csproj", "{B1F60F6C-3367-43D0-9369-4DA23409DF20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Test", "Tennis.Test\Tennis.Test.csproj", "{819634C9-C7F3-4F82-A3D3-FF121E910550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.StateMachine", "Tennis.StateMachine\Tennis.StateMachine.csproj", "{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.StateMachine.Manual", "Tennis.StateMachine.Manual\Tennis.StateMachine.Manual.csproj", "{B2591F09-42F6-4FCF-9F27-0AB10B5FF1CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Contract", "Tennis.Contract\Tennis.Contract.csproj", "{485B1BD5-E633-4433-BBC2-F9770915C9E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.Appccelerate", "Tennis.Appccelerate\Tennis.Appccelerate.csproj", "{4F6E374D-6F46-4435-9BB9-46B041283440}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis.StateMachine.Appccelerate", "Tennis.StateMachine.Appccelerate\Tennis.StateMachine.Appccelerate.csproj", "{4F6E374D-6F46-4435-9BB9-46B041283440}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

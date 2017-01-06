@@ -1,7 +1,7 @@
 ﻿using System;
 using Tennis.Contract;
 
-namespace Tennis
+namespace Tennis.Normal
 {
     public class TennisScorer : ITennisScorer
     {

@@ -227,27 +227,27 @@ namespace Tennis.Test
         }
     }
 
-    class StateMachineTennisScorer : TennisScorerTest
+    internal class ManualStateMachineTennisScorer : TennisScorerTest
     {
         protected override ITennisScorer CreateTestee()
         {
-            return new Tennis.StateMachine.TennisScorer();
+            return new StateMachine.Manual.TennisScorer();
         }
     }
 
-    class NormalTennisScorerTest : TennisScorerTest
+    internal class NormalTennisScorerTest : TennisScorerTest
     {
         protected override ITennisScorer CreateTestee()
         {
-            return new Tennis.TennisScorer();
+            return new Normal.TennisScorer();
         }
     }
 
-    class AppccelerateTest : TennisScorerTest
+    internal class AppccelerateStateMachineTennisScorer : TennisScorerTest
     {
         protected override ITennisScorer CreateTestee()
         {
-            return new Tennis.Appccelerate.TennisScorer();
+            return new StateMachine.Appccelerate.TennisScorer();
         }
     }
 }

@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using FluentAssertions;
 using NUnit.Framework;
 using Tennis.Contract;
-using Tennis.StateMachine;
+using Tennis.StateMachine.Manual;
 
 namespace Tennis.Test
 {
     [TestFixture]
     public class StateMachineTest
     {
-        private StateMachine.StateMachine<TennisState, TennisEvent> _testee;
+        private StateMachine<TennisState, TennisEvent> _testee;
 
         [SetUp]
         public void SetUp()
         {
-            _testee = new StateMachine.StateMachine<TennisState, TennisEvent>();
+            _testee = new StateMachine<TennisState, TennisEvent>();
         }
 
         [Test]
@@ -68,4 +67,3 @@ namespace Tennis.Test
         }
     }
 }
-

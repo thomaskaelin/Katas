@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Tennis.StateMachine
+namespace Tennis.StateMachine.Manual
 {
     public class StateMachine <TState, TEvent>
     {

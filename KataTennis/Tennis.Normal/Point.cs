@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tennis
+namespace Tennis.Normal
 {
     public enum Point
     {
