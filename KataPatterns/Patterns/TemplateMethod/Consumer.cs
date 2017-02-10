@@ -4,12 +4,13 @@ namespace Patterns.TemplateMethod
 {
     public abstract class Consumer
     {
-        public void Consume()
+        public List<string> Consume()
         {
-            var unsortedList = new List<string> { "Hallo", "Tschau", "Hoi" };
-            Sort(unsortedList);
+            var list = new List<string> { "A", "C", "B" };
+            Sort(list);
+            return list;
         }
 
-        protected abstract List<string> Sort(List<string> unsortedStrings);
+        protected abstract void Sort(List<string> list);
     }
 }

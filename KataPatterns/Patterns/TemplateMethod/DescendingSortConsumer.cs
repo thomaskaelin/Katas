@@ -4,9 +4,10 @@ namespace Patterns.TemplateMethod
 {
     public class DescendingSortConsumer : Consumer
     {
-        protected override List<string> Sort(List<string> unsortedStrings)
+        protected override void Sort(List<string> list)
         {
-            throw new System.NotImplementedException();
+            list.Sort();
+            list.Reverse();
         }
     }
 }

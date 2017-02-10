@@ -4,6 +4,6 @@ namespace Patterns.Strategy
 {
     public interface ISortStrategy
     {
-        List<string> Sort(List<string> unsortedStrings);
+        void Sort(List<string> list);
     }
 }

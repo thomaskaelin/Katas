@@ -4,9 +4,10 @@ namespace Patterns.Strategy
 {
     public class DescendingSortStrategy : ISortStrategy
     {
-        public List<string> Sort(List<string> unsortedStrings)
+        public void Sort(List<string> list)
         {
-            throw new System.NotImplementedException();
+            list.Sort();
+            list.Reverse();
         }
     }
 }

@@ -11,10 +11,12 @@ namespace Patterns.Strategy
             _sortStrategy = sortStrategy;
         }
 
-        public void Consume()
+        public List<string> Consume()
         {
-            var unsortedList = new List<string> {"Hallo", "Tschau", "Hoi"};
-            _sortStrategy.Sort(unsortedList);
+            var list = new List<string> {"B", "A", "C"};
+            _sortStrategy.Sort(list);
+
+            return list;
         }
     }
 }
