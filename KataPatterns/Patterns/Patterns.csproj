@@ -52,6 +52,12 @@
     <Compile Include="Decorator\ExceptionDecorator.cs" />
     <Compile Include="Decorator\ICalculator.cs" />
     <Compile Include="Facade\LoggerFacade.cs" />
+    <Compile Include="FactoryMethod\AscendingSortConsumer.cs" />
+    <Compile Include="FactoryMethod\AscendingSortStrategy.cs" />
+    <Compile Include="FactoryMethod\Consumer.cs" />
+    <Compile Include="FactoryMethod\DescendingSortConsumer.cs" />
+    <Compile Include="FactoryMethod\DescendingSortStrategy.cs" />
+    <Compile Include="FactoryMethod\ISortStrategy.cs" />
     <Compile Include="Proxy\CachingProxy.cs" />
     <Compile Include="Proxy\ICalculator.cs" />
     <Compile Include="Proxy\LongRunningCalculator.cs" />
