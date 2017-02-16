@@ -61,7 +61,9 @@
     <Compile Include="Strategy\AscendingSortStrategyFixture.cs" />
     <Compile Include="Strategy\ConsumerFixture.cs" />
     <Compile Include="Strategy\DescendingSortStrategyFixture.cs" />
-    <Compile Include="TemplateMethod\ConsumerFixture.cs" />
+    <Compile Include="TemplateMethod\AscendingSortConsumerFixture.cs" />
+    <Compile Include="TemplateMethod\ConsumerFixtureBase.cs" />
+    <Compile Include="TemplateMethod\DescendingSortConsumerFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

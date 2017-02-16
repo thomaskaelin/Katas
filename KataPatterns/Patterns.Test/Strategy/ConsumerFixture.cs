@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
 using Patterns.Strategy;
@@ -9,35 +11,37 @@ namespace Patterns.Test.Strategy
     public class ConsumerFixture
     {
         private Consumer _testee;
+        private ISortStrategy _fakeSortStrategy;
 
-        [Test]
-        public void Consume_WithAscendingSortStrategy_ReturnsAscendingSortedList()
+        [SetUp]
+        public void SetUp()
         {
-            // Arrange
-            var sortStrategy = new AscendingSortStrategy();
-            _testee = new Consumer(sortStrategy);
-          
-            // Act
-            var result = _testee.Consume();
-
-            // Assert
-            var expectedList = new List<string> {"A", "B", "C"};
-            result.Should().Equal(expectedList);
+            _fakeSortStrategy = A.Fake<ISortStrategy>();
+            _testee = new Consumer(_fakeSortStrategy);
         }
 
         [Test]
-        public void Consume_WithDescendingSortStrategy_ReturnsDescendingSortedList()
+        public void Consume_CallsSort_WithCorrectParameters()
         {
             // Arrange
-            var sortStrategy = new DescendingSortStrategy();
-            _testee = new Consumer(sortStrategy);
+            var expectedList = new List<string> { "B", "A", "C" };
+
+            A.CallTo(() => _fakeSortStrategy.Sort(A<List<string>>.Ignored)).Invokes((List<string> unsortedList) =>
+            {
+                // Check parameter values
+                unsortedList.Should().BeEquivalentTo(expectedList);
+
+                // Modify parameter value for checking result
+                unsortedList.Clear();
+                unsortedList.Add("Z");
+            });
 
             // Act
-            var result = _testee.Consume();
+            var result =_testee.Consume();
 
             // Assert
-            var expectedList = new List<string> { "C", "B", "A" };
-            result.Should().Equal(expectedList);
+            result.Count.Should().Be(1);
+            result.First().Should().Be("Z");
         }
     }
 }
