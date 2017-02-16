@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composite\MathOperationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\SingletonFixture.cs" />
     <Compile Include="Strategy\AscendingSortStrategyFixture.cs" />
