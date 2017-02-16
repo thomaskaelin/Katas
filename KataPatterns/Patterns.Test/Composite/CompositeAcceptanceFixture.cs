@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Patterns.Composite;
 
 namespace Patterns.Test.Composite
 {
     [TestFixture]
-    public class MathOperationFixture
+    public class CompositeAcceptanceFixture
     {
         [Test]
         public void MathOperations_AcceptanceTest()

@@ -56,8 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Composite\MathOperationFixture.cs" />
+    <Compile Include="Composite\CompositeAcceptanceFixture.cs" />
+    <Compile Include="Decorator\DecoratorAcceptanceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\ProxyAcceptanceFixture.cs" />
     <Compile Include="Singleton\SingletonFixture.cs" />
     <Compile Include="Strategy\AscendingSortStrategyFixture.cs" />
     <Compile Include="Strategy\ConsumerFixture.cs" />

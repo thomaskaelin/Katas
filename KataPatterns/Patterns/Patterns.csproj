@@ -48,7 +48,13 @@
     <Compile Include="Composite\IMathOperation.cs" />
     <Compile Include="Composite\MultComposite.cs" />
     <Compile Include="Composite\Number.cs" />
+    <Compile Include="Decorator\Calculator.cs" />
+    <Compile Include="Decorator\ExceptionDecorator.cs" />
+    <Compile Include="Decorator\ICalculator.cs" />
     <Compile Include="Facade\LoggerFacade.cs" />
+    <Compile Include="Proxy\CachingProxy.cs" />
+    <Compile Include="Proxy\ICalculator.cs" />
+    <Compile Include="Proxy\LongRunningCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\Singleton.cs" />
     <Compile Include="Strategy\AscendingSortStrategy.cs" />
@@ -62,6 +68,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
