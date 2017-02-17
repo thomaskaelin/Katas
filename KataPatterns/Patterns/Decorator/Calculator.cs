@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Patterns.Decorator
+﻿namespace Patterns.Decorator
 {
     public class Calculator : ICalculator
     {
