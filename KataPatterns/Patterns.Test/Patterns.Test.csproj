@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composite\CompositeAcceptanceFixture.cs" />
+    <Compile Include="Composite\AddCompositeFixture.cs" />
+    <Compile Include="Composite\MultCompositeFixture.cs" />
+    <Compile Include="Composite\NumberFixture.cs" />
     <Compile Include="Decorator\DecoratorAcceptanceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\ProxyAcceptanceFixture.cs" />
