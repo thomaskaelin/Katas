@@ -62,6 +62,7 @@
     <Compile Include="Composite\NumberFixture.cs" />
     <Compile Include="Decorator\DecoratorAcceptanceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\CachingProxyFixture.cs" />
     <Compile Include="Proxy\ProxyAcceptanceFixture.cs" />
     <Compile Include="Singleton\SingletonFixture.cs" />
     <Compile Include="Strategy\AscendingSortStrategyFixture.cs" />
