@@ -24,14 +24,33 @@ namespace Patterns.Test.Decorator
         public void Divide_DelegatesToCalculator()
         {
             // Arrange
-            var value1 = 10;
-            var value2 = 2;
-         
+            const int value1 = 10;
+            const int value2 = 2;
+            const float expectedResult = 5;
+
+            A.CallTo(() => _fakeCalculator.Divide(value1, value2)).Returns(expectedResult);
+
             // Act
-            _testee.Divide(value1, value2);
+            var result = _testee.Divide(value1, value2);
 
             // Assert
-            A.CallTo(() => _fakeCalculator.Divide(value1, value2)).MustHaveHappened();
+            result.Should().Be(expectedResult);
+        }
+
+        [Test]
+        public void Divide_WithException_ReturnsExpectedResult()
+        {
+            // Arrange
+            var value1 = 10;
+            var value2 = 0;
+            A.CallTo(() => _fakeCalculator.Divide(value1, value2)).Throws<DivideByZeroException>();
+
+            // Act
+            var result = _testee.Divide(value1, value2);
+
+            // Assert
+            result.Should().Be(ExceptionDecorator.DivideByZeroResult);
+
         }
     }
 }

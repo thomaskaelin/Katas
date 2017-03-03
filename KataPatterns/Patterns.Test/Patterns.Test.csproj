@@ -65,6 +65,7 @@
     <Compile Include="Decorator\ExceptionDecoratorFixture.cs" />
     <Compile Include="FactoryMethod\AscendingSortConsumerFixture.cs" />
     <Compile Include="FactoryMethod\AscendingSortStrategyFixture.cs" />
+    <Compile Include="FactoryMethod\ConsumerFixture.cs" />
     <Compile Include="FactoryMethod\DescendingSortConsumerFixture.cs" />
     <Compile Include="FactoryMethod\DescendingSortStrategyFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
