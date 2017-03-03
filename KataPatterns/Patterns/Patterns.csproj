@@ -51,6 +51,11 @@
     <Compile Include="Abstract Factory\IFactory.cs" />
     <Compile Include="Abstract Factory\IModifierStrategy.cs" />
     <Compile Include="Abstract Factory\ISortStrategy.cs" />
+    <Compile Include="Adapter\NewSortStrategy.cs" />
+    <Compile Include="Adapter\SortStrategy.cs" />
+    <Compile Include="Adapter\Client.cs" />
+    <Compile Include="Adapter\INewSortStrategy.cs" />
+    <Compile Include="Adapter\ISortStrategy.cs" />
     <Compile Include="Composite\AddComposite.cs" />
     <Compile Include="Composite\IMathOperation.cs" />
     <Compile Include="Composite\MultComposite.cs" />
