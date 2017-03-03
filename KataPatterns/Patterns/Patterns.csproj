@@ -44,6 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract Factory\Factory.cs" />
+    <Compile Include="Abstract Factory\ModifierStrategy.cs" />
+    <Compile Include="Abstract Factory\SortStrategy.cs" />
+    <Compile Include="Abstract Factory\Client.cs" />
+    <Compile Include="Abstract Factory\IFactory.cs" />
+    <Compile Include="Abstract Factory\IModifierStrategy.cs" />
+    <Compile Include="Abstract Factory\ISortStrategy.cs" />
     <Compile Include="Composite\AddComposite.cs" />
     <Compile Include="Composite\IMathOperation.cs" />
     <Compile Include="Composite\MultComposite.cs" />
