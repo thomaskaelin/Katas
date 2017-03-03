@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="AbstractFactory\AbstractFactoryAcceptanceFixture.cs" />
     <Compile Include="Adapter\AdapterAcceptanceFixture.cs" />
+    <Compile Include="Command\CommandAcceptanceTest.cs" />
     <Compile Include="Composite\CompositeAcceptanceFixture.cs" />
     <Compile Include="Composite\AddCompositeFixture.cs" />
     <Compile Include="Composite\MultCompositeFixture.cs" />

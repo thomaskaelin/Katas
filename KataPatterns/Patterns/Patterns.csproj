@@ -56,6 +56,12 @@
     <Compile Include="Adapter\Client.cs" />
     <Compile Include="Adapter\INewSortStrategy.cs" />
     <Compile Include="Adapter\ISortStrategy.cs" />
+    <Compile Include="Command\BoldCommand.cs" />
+    <Compile Include="Command\CodeCommand.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\ItalicCommand.cs" />
+    <Compile Include="Command\WikiText.cs" />
+    <Compile Include="Command\WikiCommandManager.cs" />
     <Compile Include="Composite\AddComposite.cs" />
     <Compile Include="Composite\IMathOperation.cs" />
     <Compile Include="Composite\MultComposite.cs" />
