@@ -76,6 +76,10 @@
     <Compile Include="FactoryMethod\DescendingSortConsumer.cs" />
     <Compile Include="FactoryMethod\DescendingSortStrategy.cs" />
     <Compile Include="FactoryMethod\ISortStrategy.cs" />
+    <Compile Include="Observer\IObserver.cs" />
+    <Compile Include="Observer\Model.cs" />
+    <Compile Include="Observer\Observer.cs" />
+    <Compile Include="Observer\Subject.cs" />
     <Compile Include="Proxy\CachingProxy.cs" />
     <Compile Include="Proxy\ICalculator.cs" />
     <Compile Include="Proxy\LongRunningCalculator.cs" />
