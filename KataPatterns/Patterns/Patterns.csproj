@@ -85,6 +85,11 @@
     <Compile Include="Proxy\LongRunningCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\Singleton.cs" />
+    <Compile Include="State\AirState.cs" />
+    <Compile Include="State\Animal.cs" />
+    <Compile Include="State\IState.cs" />
+    <Compile Include="State\LandState.cs" />
+    <Compile Include="State\WaterState.cs" />
     <Compile Include="Strategy\AscendingSortStrategy.cs" />
     <Compile Include="Strategy\Consumer.cs" />
     <Compile Include="Strategy\DescendingSortStrategy.cs" />
