@@ -4,7 +4,7 @@ namespace Patterns.Adapter
 {
     public class NewSortStrategy : INewSortStrategy
     {
-        private readonly ISortStrategy _sortStrategy;
+        private ISortStrategy _sortStrategy;
 
         public NewSortStrategy()
         {

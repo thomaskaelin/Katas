@@ -62,6 +62,9 @@
     <Compile Include="AbstractFactory\ModifierStrategyFixture.cs" />
     <Compile Include="AbstractFactory\SortStrategyFixture.cs" />
     <Compile Include="Adapter\AdapterAcceptanceFixture.cs" />
+    <Compile Include="Adapter\ClientFixture.cs" />
+    <Compile Include="Adapter\NewSortStrategyFixture.cs" />
+    <Compile Include="Adapter\SortStrategyFixture.cs" />
     <Compile Include="Command\BoldCommandFixture.cs" />
     <Compile Include="Command\CodeCommandFixture.cs" />
     <Compile Include="Command\CommandAcceptanceTest.cs" />
