@@ -90,7 +90,11 @@
     <Compile Include="Proxy\CachingProxyFixture.cs" />
     <Compile Include="Proxy\ProxyAcceptanceFixture.cs" />
     <Compile Include="Singleton\SingletonFixture.cs" />
+    <Compile Include="State\AirStatueFixture.cs" />
+    <Compile Include="State\AnimalFixture.cs" />
+    <Compile Include="State\LandStateFixture.cs" />
     <Compile Include="State\StateAcceptanceTest.cs" />
+    <Compile Include="State\WaterStateFixture.cs" />
     <Compile Include="Strategy\AscendingSortStrategyFixture.cs" />
     <Compile Include="Strategy\ConsumerFixture.cs" />
     <Compile Include="Strategy\DescendingSortStrategyFixture.cs" />
