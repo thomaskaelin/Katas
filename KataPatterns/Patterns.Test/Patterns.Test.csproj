@@ -83,7 +83,9 @@
     <Compile Include="FactoryMethod\ConsumerFixture.cs" />
     <Compile Include="FactoryMethod\DescendingSortConsumerFixture.cs" />
     <Compile Include="FactoryMethod\DescendingSortStrategyFixture.cs" />
+    <Compile Include="Observer\ModelFixture.cs" />
     <Compile Include="Observer\ObserverAcceptanceFixture.cs" />
+    <Compile Include="Observer\ObserverFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\CachingProxyFixture.cs" />
     <Compile Include="Proxy\ProxyAcceptanceFixture.cs" />
