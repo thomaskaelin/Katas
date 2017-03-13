@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Patterns.Command
+﻿namespace Patterns.Command
 {
     public class BoldCommand : ICommand
     {
