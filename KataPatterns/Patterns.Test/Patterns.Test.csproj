@@ -57,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFactory\AbstractFactoryAcceptanceFixture.cs" />
+    <Compile Include="AbstractFactory\ClientFixture.cs" />
+    <Compile Include="AbstractFactory\FactoryFixture.cs" />
+    <Compile Include="AbstractFactory\ModifierStrategyFixture.cs" />
+    <Compile Include="AbstractFactory\SortStrategyFixture.cs" />
     <Compile Include="Adapter\AdapterAcceptanceFixture.cs" />
     <Compile Include="Command\BoldCommandFixture.cs" />
     <Compile Include="Command\CodeCommandFixture.cs" />
