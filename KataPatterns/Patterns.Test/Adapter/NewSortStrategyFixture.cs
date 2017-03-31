@@ -31,5 +31,24 @@ namespace Patterns.Test.Adapter
             var sortedList = new List<string> { "A", "B", "C" };
             result.Should().BeEquivalentTo(sortedList);
         }
+
+        [Test]
+        public void Sort_CallsSortOnSortStrategy()
+        {
+            // Arrange
+            var unsortedList = new List<string> { "B", "C", "A" };
+            var fakeSort = A.Fake<ISortStrategy>();
+            A.CallTo(() => fakeSort.Sort(A<List<string>>.Ignored)).Invokes((List<string> input) =>
+            {
+                // Assert
+                var expectedList = new List<string> { "A", "B", "C" };
+                input.Should().BeEquivalentTo(expectedList);
+            });
+            // Act
+            _testee.Sort(unsortedList);
+
+            // Assert
+            A.CallTo(() => fakeSort.Sort(A<List<string>>.Ignored)).MustHaveHappened();
+        }
     }
 }

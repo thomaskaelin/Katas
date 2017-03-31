@@ -5,14 +5,14 @@ using Patterns.Observer;
 namespace Patterns.Test.Observer
 {
     [TestFixture]
-    public class ModelFixture
+    public class ModelFixture : SubjectFixtureBase
     {
         private Model _testee;
 
-        [SetUp]
-        public void SetUp()
+        public override Subject CreateTestee()
         {
             _testee = new Model();
+            return _testee;
         }
 
         [Test]
@@ -20,9 +20,10 @@ namespace Patterns.Test.Observer
         {
             // Act
             _testee.Refresh();
-
+            
             // Assert
             _testee.Value.Should().Be("NewValue");
         }
+        
     }
 }

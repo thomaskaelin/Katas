@@ -27,5 +27,38 @@ namespace Patterns.Test.Command
             A.CallTo(() => _fakeCommand.Do()).MustHaveHappened();
         }
 
+        [Test]
+        public void Undo_CallsUndoOnCommand_ExpectedNumberOfTimes()
+        {
+            // Arrange
+            const uint numberOfSteps = 3;
+            _testee.Execute(_fakeCommand);
+            _testee.Execute(_fakeCommand);
+            _testee.Execute(_fakeCommand);
+            
+            // Act
+            _testee.Undo(numberOfSteps);
+
+            // Assert
+            A.CallTo(() => _fakeCommand.Undo()).MustHaveHappened(Repeated.Exactly.Times((int)numberOfSteps));
+        }
+
+        [Test]
+        public void Redo_CallsDoOnCommand()
+        {
+            // Arrange
+            const uint numberOfSteps = 3;
+            _testee.Execute(_fakeCommand);
+            _testee.Execute(_fakeCommand);
+            _testee.Execute(_fakeCommand);
+            _testee.Undo(numberOfSteps);
+
+            // Act
+            _testee.Redo(numberOfSteps);
+
+            // Assert
+            A.CallTo(() => _fakeCommand.Do()).MustHaveHappened();
+        }
+
     }
 }

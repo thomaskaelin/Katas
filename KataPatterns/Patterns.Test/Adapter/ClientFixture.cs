@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FakeItEasy;
+using FluentAssertions;
 using NUnit.Framework;
 using Patterns.Adapter;
 
@@ -27,6 +28,5 @@ namespace Patterns.Test.Adapter
             // Arrange
             A.CallTo(() => _fakeSortStrategy.Sort(A<List<string>>.Ignored)).MustHaveHappened();
         }
-
     }
 }
