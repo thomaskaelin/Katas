@@ -11,25 +11,13 @@ namespace Patterns.Test.Adapter
     public class NewSortStrategyFixture
     {
         private NewSortStrategy _testee;
+        private ISortStrategy _fakeSortStrategy;
 
         [SetUp]
         public void SetUp()
         {
-            _testee = new NewSortStrategy();
-        }
-        
-        [Test]
-        public void Sort_ReturnsExpectedList()
-        {
-            // Arrange
-            var unsortedList = new List<string> { "B", "C", "A" };
-
-            // Act
-            var result = _testee.Sort(unsortedList);
-
-            // Assert
-            var sortedList = new List<string> { "A", "B", "C" };
-            result.Should().BeEquivalentTo(sortedList);
+            _fakeSortStrategy = A.Fake<ISortStrategy>();
+            _testee = new NewSortStrategy(_fakeSortStrategy);
         }
 
         [Test]
@@ -37,18 +25,20 @@ namespace Patterns.Test.Adapter
         {
             // Arrange
             var unsortedList = new List<string> { "B", "C", "A" };
-            var fakeSort = A.Fake<ISortStrategy>();
-            A.CallTo(() => fakeSort.Sort(A<List<string>>.Ignored)).Invokes((List<string> input) =>
+            A.CallTo(() => _fakeSortStrategy.Sort(A<List<string>>.Ignored)).Invokes((List<string> input) =>
             {
                 // Assert
-                var expectedList = new List<string> { "A", "B", "C" };
-                input.Should().BeEquivalentTo(expectedList);
+                input.Should().BeEquivalentTo(unsortedList);
+                input.Add("D");
             });
+
             // Act
-            _testee.Sort(unsortedList);
+            var result = _testee.Sort(unsortedList);
 
             // Assert
-            A.CallTo(() => fakeSort.Sort(A<List<string>>.Ignored)).MustHaveHappened();
+            var modifiedList = new List<string> { "B", "C", "A", "D" };
+            result.Should().BeEquivalentTo(modifiedList);
+            result.Should().NotBeSameAs(unsortedList);
         }
     }
 }

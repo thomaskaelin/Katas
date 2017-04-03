@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using FakeItEasy;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using Patterns.Command;
 
@@ -12,10 +10,8 @@ namespace Patterns.Test.Command
         private BoldCommand _testee;
         private WikiText _wikiText;
 
-        [SetUp]
-        public void SetUp()
+        private void CreateTestee(string content)
         {
-            var content = "TestContent";
             _wikiText = new WikiText(content);
             _testee = new BoldCommand(_wikiText);
         }
@@ -23,6 +19,9 @@ namespace Patterns.Test.Command
         [Test]
         public void Do_ReturnsBoldContent()
         {
+            // Arrange
+            CreateTestee("TestContent");
+
             // Act
             _testee.Do();
 
@@ -34,7 +33,7 @@ namespace Patterns.Test.Command
         public void UnDo_ReturnsExpectedContentContent()
         {
             // Assert
-            _testee.Do();
+            CreateTestee("*TestContent*");
 
             // Act
             _testee.Undo();

@@ -4,17 +4,18 @@ using Patterns.Observer;
 
 namespace Patterns.Test.Observer
 {
-    public abstract class SubjectFixtureBase
+    public abstract class SubjectFixtureBase<TTestee>
+        where TTestee : Subject
     {
-        private Subject _testee;
+        protected TTestee Testee { get; private set; }
 
         [SetUp]
         public void SetUp()
         {
-            _testee = CreateTestee();
+            Testee = CreateTestee();
         }
         
-        public abstract Subject CreateTestee();
+        public abstract TTestee CreateTestee();
         
     }
 }

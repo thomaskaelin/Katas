@@ -57,7 +57,7 @@ namespace Patterns.Test.Command
             _testee.Redo(numberOfSteps);
 
             // Assert
-            A.CallTo(() => _fakeCommand.Do()).MustHaveHappened();
+            A.CallTo(() => _fakeCommand.Do()).MustHaveHappened(Repeated.Exactly.Times(6));
         }
 
     }

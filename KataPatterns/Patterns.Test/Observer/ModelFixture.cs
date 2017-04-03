@@ -1,29 +1,45 @@
-﻿using FluentAssertions;
+﻿using FakeItEasy;
+using FluentAssertions;
 using NUnit.Framework;
 using Patterns.Observer;
 
 namespace Patterns.Test.Observer
 {
     [TestFixture]
-    public class ModelFixture : SubjectFixtureBase
+    public class ModelFixture : SubjectFixtureBase<Model>, IObserver
     {
-        private Model _testee;
-
-        public override Subject CreateTestee()
+        private bool wasCalled = false;
+        public override Model CreateTestee()
         {
-            _testee = new Model();
-            return _testee;
+            return new Model();
         }
 
         [Test]
         public void Refresh_RefreshsValue()
         {
             // Act
-            _testee.Refresh();
+            Testee.Refresh();
             
             // Assert
-            _testee.Value.Should().Be("NewValue");
+            Testee.Value.Should().Be("NewValue");
         }
-        
+
+        [Test]
+        public void Refresh_CallsNotify()
+        {
+            // Arrange
+            Testee.Attach(this);
+
+            // Act
+            Testee.Refresh();
+
+            // Assert
+            wasCalled.Should().BeTrue();
+        }
+
+        public void Update()
+        {
+            wasCalled = true;
+        }
     }
 }
