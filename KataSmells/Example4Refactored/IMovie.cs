@@ -6,5 +6,6 @@
         string Title { get; }
 
         double GetCharge(int daysRented);
+        int GetExtraFrequentRenterPoints(int daysRented);
     }
 }

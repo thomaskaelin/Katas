@@ -19,11 +19,9 @@
 
         public int GetFrequentRenterPoints()
         {
-            var frequentRenterPoints = 1;
+            const int basePoints = 1;
+            var frequentRenterPoints = basePoints + Movie.GetExtraFrequentRenterPoints(DaysRented);
             
-            if (Movie.PriceCode == Example4Refactored.Movie.NEW_RELEASE && DaysRented > 1)
-                frequentRenterPoints++;
-
             return frequentRenterPoints;
         }
     }
