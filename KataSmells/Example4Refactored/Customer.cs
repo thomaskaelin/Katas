@@ -5,7 +5,7 @@ namespace KataSmells.Example4Refactored
 {
     public class Customer
     {
-        private readonly List<Rental> _rentals = new List<Rental>();
+        private readonly List<IRental> _rentals = new List<IRental>();
 
         public Customer(string name)
         {
@@ -14,7 +14,7 @@ namespace KataSmells.Example4Refactored
 
         public string Name { get; private set; }
 
-        public void AddRental(Rental rental)
+        public void AddRental(IRental rental)
         {
             _rentals.Add(rental);
         }

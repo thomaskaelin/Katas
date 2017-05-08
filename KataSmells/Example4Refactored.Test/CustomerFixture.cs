@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using FakeItEasy;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace KataSmells.Example4Refactored.Test
@@ -25,7 +26,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeRegular_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.REGULAR, 2);
+            AddRental(Movie.REGULAR, 2);
 
             // Act
             var result = _testee.Statement();
@@ -38,7 +39,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeRegularAndDaysRentedHigherThanTwo_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.REGULAR, 3);
+            AddRental(Movie.REGULAR, 3);
 
             // Act
             var result = _testee.Statement();
@@ -51,7 +52,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeNewReleaseAndOneRentalDay_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.NEW_RELEASE, 1);
+            AddRental(Movie.NEW_RELEASE, 1);
 
             // Act
             var result = _testee.Statement();
@@ -64,7 +65,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeNewReleaseAndTwoRentalDays_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.NEW_RELEASE, 2);
+            AddRental(Movie.NEW_RELEASE, 2);
 
             // Act
             var result = _testee.Statement();
@@ -77,7 +78,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeChildren_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.CHILDREN, 2);
+            AddRental(Movie.CHILDREN, 2);
 
             // Act
             var result = _testee.Statement();
@@ -90,7 +91,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeChildrenAndDaysRentedHigherThanThree_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.CHILDREN, 4);
+            AddRental(Movie.CHILDREN, 4);
 
             // Act
             var result = _testee.Statement();
@@ -103,8 +104,8 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithTwoRentals_ReturnsExpectedResult()
         {
             // Arrange
-            PrepareTestee(Movie.NEW_RELEASE, 2);
-            PrepareTestee(Movie.REGULAR, 1);
+            AddRental(Movie.NEW_RELEASE, 2);
+            AddRental(Movie.REGULAR, 1);
 
             // Act
             var result = _testee.Statement();
@@ -113,14 +114,15 @@ namespace KataSmells.Example4Refactored.Test
             result.Should().Be("Rental record for NewName\r\n	Titel	6\r\n	Titel	2\r\nAmount owed is 8\r\nYou earned 3 frequent renter points");
         }
 
-        private void PrepareTestee(int priceCode, int daysRented)
+        private void AddRental(int priceCode, int daysRented)
         {
-            var movie = new Movie("Titel", priceCode);
-            var rental = new Rental(movie, daysRented);
-            _testee.AddRental(rental);
+            var fakeMovie = A.Fake<IMovie>();
+            A.CallTo(() => fakeMovie.Title).Returns("Titel");
+            A.CallTo(() => fakeMovie.PriceCode).Returns(priceCode);
+            var fakeRental = A.Fake<IRental>();
+            A.CallTo(() => fakeRental.Movie).Returns(fakeMovie);
+            A.CallTo(() => fakeRental.DaysRented).Returns(daysRented);
+            _testee.AddRental(fakeRental);
         }
-
-
-
     }
 }

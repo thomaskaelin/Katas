@@ -1,14 +1,14 @@
 ﻿namespace KataSmells.Example4Refactored
 {
-    public class Rental
+    public class Rental : IRental
     {
-        public Rental(Movie movie, int daysRented)
+        public Rental(IMovie movie, int daysRented)
         {
             Movie = movie;
             DaysRented = daysRented;
         }
 
-        public Movie Movie { get; private set; }
+        public IMovie Movie { get; private set; }
 
         public int DaysRented { get; private set; }
     }

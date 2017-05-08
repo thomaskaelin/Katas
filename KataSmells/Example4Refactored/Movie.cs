@@ -1,6 +1,6 @@
 ﻿namespace KataSmells.Example4Refactored
 {
-    public class Movie
+    public class Movie : IMovie
     {
         public const int CHILDREN = 2;
         public const int REGULAR = 0;
