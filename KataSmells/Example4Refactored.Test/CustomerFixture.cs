@@ -26,7 +26,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeRegular_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.REGULAR, 2);
+            AddRegularState(2);
 
             // Act
             var result = _testee.Statement();
@@ -39,7 +39,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeRegularAndDaysRentedHigherThanTwo_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.REGULAR, 3);
+            AddRegularState(3);
 
             // Act
             var result = _testee.Statement();
@@ -52,7 +52,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeNewReleaseAndOneRentalDay_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.NEW_RELEASE, 1);
+            AddNewReleaseState(1);
 
             // Act
             var result = _testee.Statement();
@@ -65,7 +65,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeNewReleaseAndTwoRentalDays_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.NEW_RELEASE, 2);
+            AddNewReleaseState(2);
 
             // Act
             var result = _testee.Statement();
@@ -78,7 +78,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeChildren_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.CHILDREN, 2);
+            AddChildrenRental(2);
 
             // Act
             var result = _testee.Statement();
@@ -91,7 +91,7 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithPriceCodeChildrenAndDaysRentedHigherThanThree_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.CHILDREN, 4);
+            AddChildrenRental(4);
 
             // Act
             var result = _testee.Statement();
@@ -104,8 +104,8 @@ namespace KataSmells.Example4Refactored.Test
         public void Statement_WithTwoRentals_ReturnsExpectedResult()
         {
             // Arrange
-            AddRental(Movie.NEW_RELEASE, 2);
-            AddRental(Movie.REGULAR, 1);
+            AddNewReleaseState(2);
+            AddRegularState(1);
 
             // Act
             var result = _testee.Statement();
@@ -114,7 +114,7 @@ namespace KataSmells.Example4Refactored.Test
             result.Should().Be("Rental record for NewName\r\n	Titel	6\r\n	Titel	2\r\nAmount owed is 8\r\nYou earned 3 frequent renter points");
         }
 
-        private void AddRental(int priceCode, int daysRented)
+        private void AddRental(IMovieState movieState, int daysRented)
         {
             // toDo use fakes
             /*var fakeMovie = A.Fake<IMovie>();
@@ -123,9 +123,27 @@ namespace KataSmells.Example4Refactored.Test
             /*var fakeRental = A.Fake<IRental>();
             A.CallTo(() => fakeRental.Movie).Returns(fakeMovie);
             A.CallTo(() => fakeRental.DaysRented).Returns(daysRented);*/
-            var movie = new Movie("Titel", priceCode);
+            var movie = new Movie("Titel", movieState);
             var rental = new Rental(movie, daysRented);
             _testee.AddRental(rental);
+        }
+
+        private void AddChildrenRental(int daysRented)
+        {
+            var childrenState = new ChildrenState();
+            AddRental(childrenState, daysRented);
+        }
+
+        private void AddNewReleaseState(int daysRented)
+        {
+            var newReleaseState = new NewReleaseState();
+            AddRental(newReleaseState, daysRented);
+        }
+
+        private void AddRegularState(int daysRented)
+        {
+            var regularState = new RegularState();
+            AddRental(regularState, daysRented);
         }
     }
 }
