@@ -117,13 +117,14 @@ namespace KataSmells.Example4Refactored.Test
         private void AddRental(int priceCode, int daysRented)
         {
             // toDo use fakes
-            var fakeMovie = A.Fake<IMovie>();
+            /*var fakeMovie = A.Fake<IMovie>();
             A.CallTo(() => fakeMovie.Title).Returns("Titel");
-            A.CallTo(() => fakeMovie.PriceCode).Returns(priceCode);
+            A.CallTo(() => fakeMovie.PriceCode).Returns(priceCode);*/
             /*var fakeRental = A.Fake<IRental>();
             A.CallTo(() => fakeRental.Movie).Returns(fakeMovie);
             A.CallTo(() => fakeRental.DaysRented).Returns(daysRented);*/
-            var rental = new Rental(fakeMovie, daysRented);
+            var movie = new Movie("Titel", priceCode);
+            var rental = new Rental(movie, daysRented);
             _testee.AddRental(rental);
         }
     }

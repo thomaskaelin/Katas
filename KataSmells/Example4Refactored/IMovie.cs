@@ -4,5 +4,7 @@
     {
         int PriceCode { get; set; }
         string Title { get; }
+
+        double GetCharge(int daysRented);
     }
 }
