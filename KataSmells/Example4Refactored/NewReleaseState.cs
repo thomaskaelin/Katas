@@ -6,5 +6,12 @@
         {
             return daysRented * 3;
         }
+
+        public int GetExtraFrequentRenterPoints(int daysRented)
+        {
+            if (daysRented > 1)
+                return 1;
+            return 0;
+        }
     }
 }

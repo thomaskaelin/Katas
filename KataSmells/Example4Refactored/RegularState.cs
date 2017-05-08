@@ -9,5 +9,10 @@
                 amount += (daysRented - 2) * 1.5;
             return amount;
         }
+
+        public int GetExtraFrequentRenterPoints(int daysRented)
+        {
+            return 0;
+        }
     }
 }

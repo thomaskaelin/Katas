@@ -36,9 +36,7 @@
 
         public int GetExtraFrequentRenterPoints(int daysRented)
         {
-            if (PriceCode == NEW_RELEASE && daysRented > 1)
-                return 1;
-            return 0;
+            return _movieState.GetExtraFrequentRenterPoints(daysRented);
         }
     }
 }
