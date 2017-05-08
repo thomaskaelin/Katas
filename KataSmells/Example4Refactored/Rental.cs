@@ -16,5 +16,15 @@
         {
             return Movie.GetCharge(DaysRented);
         }
+
+        public int GetFrequentRenterPoints()
+        {
+            var frequentRenterPoints = 1;
+            
+            if (Movie.PriceCode == Example4Refactored.Movie.NEW_RELEASE && DaysRented > 1)
+                frequentRenterPoints++;
+
+            return frequentRenterPoints;
+        }
     }
 }

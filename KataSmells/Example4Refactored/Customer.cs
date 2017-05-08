@@ -29,14 +29,10 @@ namespace KataSmells.Example4Refactored
             foreach (var rental in _rentals)
             {
                 var amount = rental.GetAmountForRental();
-
-                // add frequent renter points
-                frequentRenterPoints++;
-
-                // add bonus for a two day new release rental
-                if (rental.Movie.PriceCode == Movie.NEW_RELEASE && rental.DaysRented > 1)
-                    frequentRenterPoints++;
-
+                var points = rental.GetFrequentRenterPoints();
+                
+                frequentRenterPoints+= points;
+                
                 // show figures for this rental
                 result += "\t" + rental.Movie.Title + "\t" + amount + Environment.NewLine;
 

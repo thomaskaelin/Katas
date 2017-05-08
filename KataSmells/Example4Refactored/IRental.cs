@@ -6,5 +6,6 @@
         IMovie Movie { get; }
 
         double GetAmountForRental();
+        int GetFrequentRenterPoints();
     }
 }
