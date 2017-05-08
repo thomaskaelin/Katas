@@ -4,5 +4,7 @@
     {
         int DaysRented { get; }
         IMovie Movie { get; }
+
+        double GetAmountForRental();
     }
 }

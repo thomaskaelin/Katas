@@ -28,25 +28,7 @@ namespace KataSmells.Example4Refactored
 
             foreach (var rental in _rentals)
             {
-                double amount = 0;
-                switch (rental.Movie.PriceCode)
-                {
-                    case Movie.REGULAR:
-                        amount += 2;
-                        if (rental.DaysRented > 2)
-                            amount += (rental.DaysRented - 2) * 1.5;
-                        break;
-
-                    case Movie.NEW_RELEASE:
-                        amount += rental.DaysRented * 3;
-                        break;
-
-                    case Movie.CHILDREN:
-                        amount += 1.5;
-                        if (rental.DaysRented > 3)
-                            amount += (rental.DaysRented - 3) * 1.5;
-                        break;
-                }
+                var amount = rental.GetAmountForRental();
 
                 // add frequent renter points
                 frequentRenterPoints++;
