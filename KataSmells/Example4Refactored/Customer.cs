@@ -19,6 +19,7 @@ namespace KataSmells.Example4Refactored
             _rentals.Add(rental);
         }
 
+        //toDo extract methods GetTotalAmount(), GetTotalFrequentRenterPoints()
         public string Statement()
         {
             double totalAmount = 0;
