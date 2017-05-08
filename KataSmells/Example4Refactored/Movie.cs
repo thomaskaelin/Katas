@@ -6,10 +6,23 @@
         public const int REGULAR = 0;
         public const int NEW_RELEASE = 1;
 
+        private IMovieState _movieState;
         public Movie(string title, int priceCode)
         {
             Title = title;
             PriceCode = priceCode;
+            switch (PriceCode)
+            {
+                case NEW_RELEASE:
+                    _movieState = new NewReleaseState();
+                    break;
+                case CHILDREN:
+                    _movieState = new ChildrenState();
+                    break;
+                default:
+                    _movieState = new RegularState();
+                    break;
+            }
         }
 
         public string Title { get; private set; }
@@ -18,26 +31,7 @@
 
         public double GetCharge(int daysRented)
         {
-            double amount = 0;
-            switch (PriceCode)
-            {
-                case REGULAR:
-                    amount += 2;
-                    if (daysRented > 2)
-                        amount += (daysRented - 2) * 1.5;
-                    break;
-
-                case NEW_RELEASE:
-                    amount += daysRented * 3;
-                    break;
-
-                case CHILDREN:
-                    amount += 1.5;
-                    if (daysRented > 3)
-                        amount += (daysRented - 3) * 1.5;
-                    break;
-            }
-            return amount;
+            return _movieState.GetCharge(daysRented);
         }
 
         public int GetExtraFrequentRenterPoints(int daysRented)

@@ -1,0 +1,13 @@
+﻿namespace KataSmells.Example4Refactored
+{
+    public class RegularState : IMovieState
+    {
+        public double GetCharge(int daysRented)
+        {
+            double amount = 2;
+            if (daysRented > 2)
+                amount += (daysRented - 2) * 1.5;
+            return amount;
+        }
+    }
+}

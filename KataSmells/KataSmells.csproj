@@ -80,10 +80,14 @@
     <Compile Include="Example4Refactored.Test\CustomerFixture.cs" />
     <Compile Include="Example4Refactored.Test\MovieFixture.cs" />
     <Compile Include="Example4Refactored.Test\RentralFixture.cs" />
+    <Compile Include="Example4Refactored\ChildrenState.cs" />
     <Compile Include="Example4Refactored\Customer.cs" />
     <Compile Include="Example4Refactored\IMovie.cs" />
     <Compile Include="Example4Refactored\IRental.cs" />
+    <Compile Include="Example4Refactored\IMovieState.cs" />
     <Compile Include="Example4Refactored\Movie.cs" />
+    <Compile Include="Example4Refactored\NewReleaseState.cs" />
+    <Compile Include="Example4Refactored\RegularState.cs" />
     <Compile Include="Example4Refactored\Rental.cs" />
     <Compile Include="Example4\Customer.cs" />
     <Compile Include="Example4\Movie.cs" />
