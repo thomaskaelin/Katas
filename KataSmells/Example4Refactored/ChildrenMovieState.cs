@@ -1,6 +1,6 @@
 ﻿namespace KataSmells.Example4Refactored
 {
-    public class ChildrenState : IMovieState
+    public class ChildrenMovieState : IMovieState
     {
         public double GetCharge(int daysRented)
         {

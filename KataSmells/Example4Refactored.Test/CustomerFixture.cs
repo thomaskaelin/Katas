@@ -130,19 +130,19 @@ namespace KataSmells.Example4Refactored.Test
 
         private void AddChildrenRental(int daysRented)
         {
-            var childrenState = new ChildrenState();
+            var childrenState = new ChildrenMovieState();
             AddRental(childrenState, daysRented);
         }
 
         private void AddNewReleaseState(int daysRented)
         {
-            var newReleaseState = new NewReleaseState();
+            var newReleaseState = new NewReleaseMovieState();
             AddRental(newReleaseState, daysRented);
         }
 
         private void AddRegularState(int daysRented)
         {
-            var regularState = new RegularState();
+            var regularState = new RegularMovieState();
             AddRental(regularState, daysRented);
         }
     }
