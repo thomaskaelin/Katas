@@ -77,8 +77,11 @@
     <Compile Include="Example3\Client.cs" />
     <Compile Include="Example3\ConsoleLogger.cs" />
     <Compile Include="Example3\ILogger.cs" />
+    <Compile Include="Example4Refactored.Test\ChildrenMovieStateFixture.cs" />
     <Compile Include="Example4Refactored.Test\CustomerFixture.cs" />
     <Compile Include="Example4Refactored.Test\MovieFixture.cs" />
+    <Compile Include="Example4Refactored.Test\NewReleayseMovieStateFixture.cs" />
+    <Compile Include="Example4Refactored.Test\RegularMovieStateFixture.cs" />
     <Compile Include="Example4Refactored.Test\RentralFixture.cs" />
     <Compile Include="Example4Refactored\ChildrenMovieState.cs" />
     <Compile Include="Example4Refactored\Customer.cs" />

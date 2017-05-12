@@ -14,7 +14,7 @@ namespace KataSmells.Example4Refactored.Test
         {
             _testee = new Customer(Name);
         }
-
+        
         [Test]
         public void Property_Name_Initializes_WithExpectedName()
         {

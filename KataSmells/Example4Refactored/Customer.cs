@@ -19,32 +19,46 @@ namespace KataSmells.Example4Refactored
             _rentals.Add(rental);
         }
 
-        //toDo extract methods GetTotalAmount(), GetTotalFrequentRenterPoints()
         public string Statement()
         {
-            double totalAmount = 0;
-            var frequentRenterPoints = 0;
-
             var result = "Rental record for " + Name + Environment.NewLine;
 
             foreach (var rental in _rentals)
             {
                 var amount = rental.GetAmountForRental();
-                var points = rental.GetFrequentRenterPoints();
-                
-                frequentRenterPoints+= points;
-                
+
                 // show figures for this rental
                 result += "\t" + rental.Movie.Title + "\t" + amount + Environment.NewLine;
-
-                totalAmount += amount;
             }
-
+            var frequentRenterPoints = GetTotalFrequentRentalPoints();
+            var totalAmount = GetTotalAmount();
             // add footer lines
             result += "Amount owed is " + totalAmount + Environment.NewLine;
             result += "You earned " + frequentRenterPoints + " frequent renter points";
 
             return result;
+        }
+
+        private int GetTotalFrequentRentalPoints()
+        {
+            var frequentRenterPoints = 0;
+            foreach (var rental in _rentals)
+            {
+                var points = rental.GetFrequentRenterPoints();
+                frequentRenterPoints += points;
+            }
+            return frequentRenterPoints;
+        }
+
+        private double GetTotalAmount()
+        {
+            double totalAmount = 0;
+            foreach (var rental in _rentals)
+            {
+                var amount = rental.GetAmountForRental();
+                totalAmount += amount;
+            }
+            return totalAmount;
         }
     }
 }
