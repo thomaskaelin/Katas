@@ -2,7 +2,7 @@
 {
     public class Movie : IMovie
     {
-        private IMovieState _movieState;
+        private readonly IMovieState _movieState;
 
         public Movie(string title, IMovieState movieState)
         {
@@ -10,7 +10,7 @@
             _movieState = movieState;
         }
 
-        public string Title { get; private set; }
+        public string Title { get; }
         
         public double GetCharge(int daysRented)
         {

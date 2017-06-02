@@ -12,7 +12,7 @@ namespace KataSmells.Example4Refactored
             Name = name;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public void AddRental(IRental rental)
         {
