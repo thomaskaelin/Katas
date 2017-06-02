@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataDatastructures", "KataDatastructures\KataDatastructures.csproj", "{3E275289-BB01-4A70-BEE3-CE37803B583C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataDatastructures.Test", "KataDatastructures.Test\KataDatastructures.Test.csproj", "{12A9ED15-6135-4AF3-8E90-C226E6ED750E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E275289-BB01-4A70-BEE3-CE37803B583C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E275289-BB01-4A70-BEE3-CE37803B583C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E275289-BB01-4A70-BEE3-CE37803B583C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E275289-BB01-4A70-BEE3-CE37803B583C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A9ED15-6135-4AF3-8E90-C226E6ED750E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A9ED15-6135-4AF3-8E90-C226E6ED750E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A9ED15-6135-4AF3-8E90-C226E6ED750E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A9ED15-6135-4AF3-8E90-C226E6ED750E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
