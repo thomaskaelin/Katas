@@ -1,0 +1,23 @@
+﻿using System.Data.SqlTypes;
+
+namespace KataDatastructures
+{
+    public interface INode<TItem> 
+    {
+        INode<TItem> Next { get; set; }
+
+        INode<TItem> Previous { get; set; }
+
+        TItem Element { get; set; }
+
+        bool HasNext();
+
+        bool HasPrevious();
+
+        INode<TItem> GetFirst();
+
+        INode<TItem> GetLast();
+
+        void AddBefore(INode<TItem> node);
+    }
+}
