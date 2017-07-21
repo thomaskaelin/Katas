@@ -192,8 +192,8 @@ namespace KataDatastructures.Test
         public void GetLast_NotOnLastElement_ReturnsLastNode()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var secondNode = new Node<string>();
+            var firstNode = CreateTestee();
+            var secondNode = CreateTestee()
             var thirdNode = new Node<string>();
 
             firstNode.Next = secondNode;
