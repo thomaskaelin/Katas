@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace KataDatastructures
+namespace KataDatastructures.List
 {
-    public class List<TItem>
+    public class ListWithArray<TItem> : IList<TItem>
     {
         private TItem[] _items;
 
-        public List()
+        public ListWithArray()
         {
             _items = new TItem[0];
         }
@@ -67,4 +67,5 @@ namespace KataDatastructures
                 throw new ArgumentOutOfRangeException();
         }
     }
+    
 }

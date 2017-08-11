@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListFixture.cs" />
-    <Compile Include="NodeFixture.cs" />
+    <Compile Include="List\ListBaseFixture.cs" />
+    <Compile Include="List\ListWithArrayFixture.cs" />
+    <Compile Include="List\ListWithNodeFixture.cs" />
+    <Compile Include="Node\NodeFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

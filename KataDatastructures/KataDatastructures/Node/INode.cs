@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace KataDatastructures
+﻿namespace KataDatastructures
 {
     public interface INode<TItem> 
     {

@@ -1,19 +1,20 @@
-﻿using System;
+using System;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace KataDatastructures.Test
+namespace KataDatastructures.Test.List
 {
-    [TestFixture]
-    public class ListFixture
+    public abstract class ListBaseFixture
     {
-        private List<string> _testee;
+        private IList<string> _testee;
 
         [SetUp]
         public void SetUp()
         {
-            _testee = new List<string>();
+            _testee = CreateTestee();
         }
+
+        protected abstract IList<string> CreateTestee();
 
         [Test]
         public void Add_AddsElementAtTheEndOfTheList()
@@ -158,7 +159,5 @@ namespace KataDatastructures.Test
             // Assert
             result.Should().Be(0);
         }
-
-        
     }
 }

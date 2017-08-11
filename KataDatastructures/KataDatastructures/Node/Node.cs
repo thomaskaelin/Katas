@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KataDatastructures
+﻿namespace KataDatastructures
 {
     public class Node<TItem> : INode<TItem>
     {

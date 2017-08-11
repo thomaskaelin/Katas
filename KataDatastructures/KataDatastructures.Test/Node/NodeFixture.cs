@@ -193,7 +193,7 @@ namespace KataDatastructures.Test
         {
             // Arrange
             var firstNode = CreateTestee();
-            var secondNode = CreateTestee()
+            var secondNode = CreateTestee();
             var thirdNode = new Node<string>();
 
             firstNode.Next = secondNode;
