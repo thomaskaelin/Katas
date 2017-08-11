@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Dictionary.cs" />
+    <Compile Include="Dictionary\KeyValuePair.cs" />
     <Compile Include="List\IList.cs" />
     <Compile Include="List\ListWithNode.cs" />
     <Compile Include="Node\INode.cs" />

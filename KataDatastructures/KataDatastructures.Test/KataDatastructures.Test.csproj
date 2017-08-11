@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\DictionaryFixture.cs" />
     <Compile Include="List\ListBaseFixture.cs" />
     <Compile Include="List\ListWithArrayFixture.cs" />
     <Compile Include="List\ListWithNodeFixture.cs" />
