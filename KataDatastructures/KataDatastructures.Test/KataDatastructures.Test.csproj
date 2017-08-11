@@ -57,6 +57,7 @@
     <Compile Include="List\ListWithNodeFixture.cs" />
     <Compile Include="Node\NodeFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue\QueueFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
