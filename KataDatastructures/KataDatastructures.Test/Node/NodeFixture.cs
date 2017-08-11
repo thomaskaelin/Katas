@@ -1,8 +1,7 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 
-namespace KataDatastructures.Test
+namespace KataDatastructures.Test.Node
 {
     public class NodeFixture
     {
