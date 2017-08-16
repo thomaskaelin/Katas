@@ -4,7 +4,7 @@ namespace KataDatastructures.Queue
 {
     public class Queue <TItem>
     {
-        private List<TItem> _queue;
+        private readonly List<TItem> _queue;
 
         public Queue()
         {
@@ -21,6 +21,13 @@ namespace KataDatastructures.Queue
             var item = _queue[0];
             _queue.RemoveAt(0);
             return item;
+        }
+
+        public TItem Front()
+        {
+            if (_queue.Count == 0)
+                return default(TItem);
+            return _queue[0];
         }
     }
 }

@@ -32,5 +32,29 @@ namespace KataDatastructures.Test.Queue
             
             result.Should().Be("3");
         }
+
+        [Test]
+        public void Front_WithNonEmptyList_ReturnsFirstElement()
+        {
+            // Arrange
+            _testee.Enqueue("1");
+            _testee.Enqueue("2");
+
+            // Act
+            var result = _testee.Front();
+
+            // Assert
+            result.Should().Be("1");
+        }
+
+        [Test]
+        public void Front_WithEmptyList_ReturnsNull()
+        {
+            // Act
+            var result = _testee.Front();
+
+            // Assert
+            result.Should().BeNullOrEmpty();
+        }
     }
 }
