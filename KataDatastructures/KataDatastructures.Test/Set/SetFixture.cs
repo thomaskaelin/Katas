@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using KataDatastructures.Set;
 using NUnit.Framework;
 
@@ -58,6 +59,29 @@ namespace KataDatastructures.Test.Set
 
             // Assert
             result.Should().BeFalse();
+        }
+
+        [Test]
+        public void Remove_WithExtistingElement_RemovesElemen()
+        {
+            // Arrange
+            _testee.Add("1");
+            _testee.Add("2");
+
+            // Act
+            _testee.Remove("1");
+
+            // Assert
+            _testee.Contains("1").Should().BeFalse();
+            _testee.Size().Should().Be(1);
+        }
+
+        [Test]
+        public void Remove_WithoutExistingElement_ThrowsInvalidOperationException()
+        {
+            // Act & Assert
+            Action a = () => _testee.Remove("1");
+            a.ShouldThrow<InvalidOperationException>();
         }
     }
 }
