@@ -44,5 +44,23 @@ namespace KataDatastructures.Dictionary
                 kvp.Value = value;
             }
         }
+
+        public int Size()
+        {
+            return _list.Count;
+        }
+
+        public void Remove(TKey key)
+        {
+            var kvp = GetKeyValuePair(key);
+            if(kvp == null)
+                throw new InvalidOperationException();
+            _list.Remove(kvp);
+        }
+
+        public List<KeyValuePair<TKey, TValue>> Entries()
+        {
+            return _list;
+        }
     }
 }
