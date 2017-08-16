@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Security;
+using FluentAssertions;
+using KataDatastructures.Node;
 using NUnit.Framework;
 
 namespace KataDatastructures.Test.Node
@@ -239,6 +241,83 @@ namespace KataDatastructures.Test.Node
             // Assert
             newNode.Next.Should().Be(firstNode);
             firstNode.Previous.Should().Be(newNode);
+        }
+
+        [Test]
+        public void AddAfter_WithoutNextNode_AddsNodeAfterCurrentNode()
+        {
+            // Arrange
+            var firstNode = new Node<string>();
+            var newNode = new Node<string>();
+            
+
+            // Act
+            firstNode.AddAfter(newNode);
+
+            // Assert
+            firstNode.Next.Should().Be(newNode);
+            newNode.Previous.Should().Be(firstNode);
+        }
+
+        [Test]
+        public void AddAfter_WithNextNode_AddsNodeAfterCurrentNode()
+        {
+            // Arrange
+            var firstNode = new Node<string>();
+            var secondNode = new Node<string>();
+            var newNode = new Node<string>();
+
+            firstNode.Next = secondNode;
+            secondNode.Previous = firstNode;
+
+            // Act
+            firstNode.AddAfter(newNode);
+
+            // Assert
+            firstNode.Next.Should().Be(newNode);
+            newNode.Previous.Should().Be(firstNode);
+        }
+
+        [Test]
+        public void Size_ReturnsNumberOfNodes()
+        {
+            // Arrange
+            var firstNode = new Node<string>();
+            var secondNode = new Node<string>();
+            var thirdNode = new Node<string>();
+            firstNode.Next = secondNode;
+            secondNode.Previous = firstNode;
+            secondNode.Next = thirdNode;
+            thirdNode.Previous = secondNode;
+
+            // Act
+            var result = secondNode.Size();
+
+            // Assert
+            result.Should().Be(3);
+        }
+
+        [Test]
+        public void Remove_WithNextNode_RemovesNode()
+        {
+            // Arrange
+            var firstNode = new Node<string>();
+            var secondNode = new Node<string>();
+            var thirdNode = new Node<string>();
+            firstNode.Next = secondNode;
+            secondNode.Previous = firstNode;
+            secondNode.Next = thirdNode;
+            thirdNode.Previous = secondNode;
+
+            // Act
+            secondNode.Remove();
+
+            // Assert
+            secondNode.HasNext().Should().BeFalse();
+            secondNode.HasPrevious().Should().BeFalse();
+            secondNode.Next.Should().BeNull();
+            firstNode.Next.Should().Be(thirdNode);
+            thirdNode.Previous.Should().Be(firstNode);
         }
 
         private INode<string> CreateTestee()

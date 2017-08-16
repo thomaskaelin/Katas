@@ -1,4 +1,4 @@
-﻿namespace KataDatastructures
+﻿namespace KataDatastructures.Node
 {
     public interface INode<TItem> 
     {
@@ -17,5 +17,9 @@
         INode<TItem> GetLast();
 
         void AddBefore(INode<TItem> node);
+
+        void AddAfter(INode<TItem> node);
+
+        void Remove();
     }
 }
