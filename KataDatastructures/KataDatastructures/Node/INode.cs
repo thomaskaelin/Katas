@@ -6,6 +6,10 @@
 
         INode<TItem> Previous { get; set; }
 
+        INode<TItem> Head { get; set; }
+
+        INode<TItem> Tail { get; set; }
+
         TItem Element { get; set; }
 
         bool HasNext();
@@ -21,5 +25,7 @@
         void AddAfter(INode<TItem> node);
 
         void Remove();
+
+        int Size();
     }
 }

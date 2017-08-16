@@ -1,12 +1,37 @@
-﻿namespace KataDatastructures.Node
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
+
+namespace KataDatastructures.Node
 {
     public class Node<TItem> : INode<TItem>
     {
+        private INode<TItem> _head;
+        private INode<TItem> _tail;
+
         public INode<TItem> Next { get; set; }
 
         public INode<TItem> Previous { get; set; }
-
+        
         public TItem Element { get; set; }
+
+        public INode<TItem> Head {
+            get
+            {
+                _head = GetFirst();
+                return _head;
+            }
+            set { _head = value; }
+        }
+
+        public INode<TItem> Tail {
+            get
+            {
+                _tail = GetLast();
+                return _tail;
+            }
+            set { _tail = value; }
+        }
+
         public bool HasNext()
         {
             if (Next == null)
@@ -99,7 +124,7 @@
             var size = 0;
             while (nextNode.HasNext())
             {
-                nextNode = Next;
+                nextNode = nextNode.Next;
                 size++;
             }
             return size;
@@ -111,7 +136,7 @@
             var size = 0;
             while (previousNode.HasPrevious())
             {
-                previousNode = Previous;
+                previousNode = previousNode.Previous;
                 size++;
             }
             return size;
@@ -126,12 +151,22 @@
             RemoveNextConenction();
             
             ConnectNodes(previousNode, nextNode);
+
+            ResetRemovedNode();
+        }
+
+        private void ResetRemovedNode()
+        {
+            Next = null;
+            Previous = null;
+            Element = default(TItem);
         }
 
         private void RemovePreviousConnection()
         {
             if(HasPrevious())
                 Previous = null;
+
         }
 
         private void RemoveNextConenction()
@@ -140,9 +175,19 @@
                 Next = null;
         }
 
-        private static void ConnectNodes(INode<TItem> previousNode, INode<TItem> nextNode)
+        private void ConnectNodes(INode<TItem> previousNode, INode<TItem> nextNode)
         {
-            if (previousNode != null && nextNode != null)
+            if (previousNode == null && nextNode != null)
+            {
+                Tail = nextNode;
+                nextNode.Previous = null;
+            }
+            else if (nextNode == null && previousNode != null)
+            {
+                Head = previousNode;
+                previousNode.Next = null;
+            }
+            else if(nextNode != null && previousNode!=null)
             {
                 previousNode.Next = nextNode;
                 nextNode.Previous = previousNode;
