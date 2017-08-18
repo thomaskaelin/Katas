@@ -1,5 +1,4 @@
-﻿using System.Security;
-using FluentAssertions;
+﻿using FluentAssertions;
 using KataDatastructures.Node;
 using NUnit.Framework;
 
@@ -12,64 +11,55 @@ namespace KataDatastructures.Test.Node
         [SetUp]
         public void SetUp()
         {
-            _testee = CreateTestee();
+            _testee = CreateNode();
         }
 
         [Test]
-        public void PropertyNext_CanBeModified()
+        public void Constructor_InitializesProperty_Head()
+        {
+            // Assert
+            _testee.Head.Should().NotBeNull();
+        }
+
+        [Test]
+        public void Constructor_InitializesProperty_Tail()
+        {
+            // Assert
+            _testee.Tail.Should().NotBeNull();
+        }
+
+        [Test]
+        public void Property_Next_CanBeModified()
         {
             // Arrange
-            var oldNode = new Node<string>();
+            var oldNode = CreateNode();
+            var newNode = CreateNode();
             _testee.Next = oldNode;
 
             // Act
-            _testee.Next = new Node<string>();
+            _testee.Next = newNode;
 
             // Assert
-            _testee.Next.Should().NotBeSameAs(oldNode);
-        }
-        [Test]
-        public void PropertyNext_ReturnsNode()
-        {
-            // Arrange
-            var node = new Node<string>();
-            _testee.Next = node;
-
-            // Act
-            var result = _testee.Next;
-
-            result.Should().BeSameAs(node);
+            _testee.Next.Should().Be(newNode);
         }
 
         [Test]
-        public void PropertyPrevious_CanBeModified()
+        public void Property_Previous_CanBeModified()
         {
             // Arrange
-            var oldNode = new Node<string>();
+            var oldNode = CreateNode();
+            var newNode = CreateNode();
             _testee.Previous = oldNode;
 
             // Act
-            _testee.Previous = new Node<string>();
+            _testee.Previous = newNode;
 
             // Assert
-            _testee.Previous.Should().NotBeSameAs(oldNode);
+            _testee.Previous.Should().Be(newNode);
         }
 
         [Test]
-        public void PropertyPrevious_ReturnsNode()
-        {
-            // Arrange
-            var oldNode = new Node<string>();
-            _testee.Previous = oldNode;
-
-            // Act
-            var result = _testee.Previous;
-
-            result.Should().BeSameAs(oldNode);
-        }
-
-        [Test]
-        public void PropertyElement_CanBeModified()
+        public void Property_Element_CanBeModified()
         {
             // Arrange
             const string oldElement = "old element";
@@ -84,24 +74,44 @@ namespace KataDatastructures.Test.Node
         }
 
         [Test]
-        public void PropertyElement_ReturnsProperty()
+        public void Property_Head_CanBeModified()
         {
             // Arrange
-            const string element = "element";
-            _testee.Element = element;
+            var head = CreateNode("old");
+            var modifiedHead = CreateNode("new");
+
+            _testee.Head = head;
 
             // Act
-            var result = _testee.Element;
+            _testee.Head = modifiedHead;
 
             // Assert
-            result.Should().Be(element);
+            _testee.Head.Should().BeSameAs(modifiedHead);
+            _testee.Head.Element.Should().Be("new");
+        }
+
+        [Test]
+        public void Property_Tail_CanBeModified()
+        {
+            // Arrange
+            var tail = CreateNode("old");
+            var modifiedTail = CreateNode("new");
+
+            _testee.Tail = tail;
+
+            // Act
+            _testee.Tail = modifiedTail;
+
+            // Assert
+            _testee.Tail.Should().BeSameAs(modifiedTail);
+            _testee.Tail.Element.Should().Be("new");
         }
 
         [Test]
         public void HasNext_WithNextNode_ReturnsTrue()
         {
             // Arrange
-            _testee.Next = new Node<string>();
+            _testee.Next = CreateNode();
 
             // Act
             var result = _testee.HasNext();
@@ -124,7 +134,7 @@ namespace KataDatastructures.Test.Node
         public void HasPrevious_WithPreviousNode_ReturnsTrue()
         {
             // Arrange
-            _testee.Previous = new Node<string>();
+            _testee.Previous = CreateNode();
 
             // Act
             var result = _testee.HasPrevious();
@@ -147,14 +157,12 @@ namespace KataDatastructures.Test.Node
         public void GetFirst_NotOnFirstElements_ReturnsFirstNode()
         {
             // Arrange
-            var firstNode = CreateTestee();
-            var secondNode = CreateTestee();
-            var thirdNode = CreateTestee();
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var thirdNode = CreateNode();
 
-            firstNode.Next = secondNode;
-            secondNode.Previous = firstNode;
-            secondNode.Next = thirdNode;
-            thirdNode.Previous = secondNode;
+            firstNode.AddAfter(secondNode);
+            secondNode.AddAfter(thirdNode);
 
             // Act
             var result = thirdNode.GetFirst();
@@ -167,7 +175,7 @@ namespace KataDatastructures.Test.Node
         public void GetFirst_OnFirstElement_ReturnsFirstNode()
         {
             // Arrange
-            var firstNode = CreateTestee();
+            var firstNode = CreateNode();
 
             // Act
             var result = firstNode.GetFirst();
@@ -180,7 +188,7 @@ namespace KataDatastructures.Test.Node
         public void GetLast_OnLastElement_ReturnsLastNode()
         {
             // Arrange
-            var lastNode = CreateTestee();
+            var lastNode = CreateNode();
 
             // Act
             var result = lastNode.GetLast();
@@ -193,12 +201,12 @@ namespace KataDatastructures.Test.Node
         public void GetLast_NotOnLastElement_ReturnsLastNode()
         {
             // Arrange
-            var firstNode = CreateTestee();
-            var secondNode = CreateTestee();
-            var thirdNode = new Node<string>();
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var thirdNode = CreateNode();
 
-            firstNode.Next = secondNode;
-            secondNode.Next = thirdNode;
+            firstNode.AddAfter(secondNode);
+            secondNode.AddAfter(thirdNode);
 
             // Act
             var result = firstNode.GetLast();
@@ -211,12 +219,11 @@ namespace KataDatastructures.Test.Node
         public void AddBefore_WithPreviousNode_AddsNodeBeforeCurrentNode()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var secondNode = new Node<string>();
-            var newNode = new Node<string>();
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var newNode = CreateNode();
 
-            firstNode.Next = secondNode;
-            secondNode.Previous = firstNode;
+            firstNode.AddAfter(secondNode);
 
             // Act
             secondNode.AddBefore(newNode);
@@ -232,8 +239,8 @@ namespace KataDatastructures.Test.Node
         public void AddBefore_WithoutPreviousNode_AddsNodeBeforeCurrentNode()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var newNode = new Node<string>();
+            var firstNode = CreateNode();
+            var newNode = CreateNode();
 
             // Act
             firstNode.AddBefore(newNode);
@@ -244,11 +251,25 @@ namespace KataDatastructures.Test.Node
         }
 
         [Test]
+        public void AddBefore_WithoutPrevioutNode_UpdatesHead()
+        {
+            // Arrange
+            var firstNode = CreateNode();
+            var newNode = CreateNode();
+
+            // Act
+            firstNode.AddBefore(newNode);
+
+            // Assert
+            firstNode.Head.Should().Be(newNode);
+        }
+
+        [Test]
         public void AddAfter_WithoutNextNode_AddsNodeAfterCurrentNode()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var newNode = new Node<string>();
+            var firstNode = CreateNode();
+            var newNode = CreateNode();
             
 
             // Act
@@ -263,12 +284,10 @@ namespace KataDatastructures.Test.Node
         public void AddAfter_WithNextNode_AddsNodeAfterCurrentNode()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var secondNode = new Node<string>();
-            var newNode = new Node<string>();
-
-            firstNode.Next = secondNode;
-            secondNode.Previous = firstNode;
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var newNode = CreateNode();
+            firstNode.AddAfter(secondNode);
 
             // Act
             firstNode.AddAfter(newNode);
@@ -279,16 +298,28 @@ namespace KataDatastructures.Test.Node
         }
 
         [Test]
+        public void AddAfter_WithoutNextNode_UpdatesTail()
+        {
+            // Arrange
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var newNode = CreateNode();
+
+            firstNode.AddAfter(secondNode);
+
+            // Act
+            firstNode.AddAfter(newNode);
+        }
+
+        [Test]
         public void Size_ReturnsNumberOfNodes()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var secondNode = new Node<string>();
-            var thirdNode = new Node<string>();
-            firstNode.Next = secondNode;
-            secondNode.Previous = firstNode;
-            secondNode.Next = thirdNode;
-            thirdNode.Previous = secondNode;
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var thirdNode = CreateNode();
+            firstNode.AddAfter(secondNode);
+            secondNode.AddAfter(thirdNode);
 
             // Act
             var result = secondNode.Size();
@@ -301,13 +332,11 @@ namespace KataDatastructures.Test.Node
         public void Remove_WithNextNode_RemovesNode()
         {
             // Arrange
-            var firstNode = new Node<string>();
-            var secondNode = new Node<string>();
-            var thirdNode = new Node<string>();
-            firstNode.Next = secondNode;
-            secondNode.Previous = firstNode;
-            secondNode.Next = thirdNode;
-            thirdNode.Previous = secondNode;
+            var firstNode = CreateNode();
+            var secondNode = CreateNode();
+            var thirdNode = CreateNode();
+            firstNode.AddAfter(secondNode);
+            secondNode.AddAfter(thirdNode);
 
             // Act
             secondNode.Remove();
@@ -320,9 +349,14 @@ namespace KataDatastructures.Test.Node
             thirdNode.Previous.Should().Be(firstNode);
         }
 
-        private INode<string> CreateTestee()
+        #region Helper Methods
+        
+        private static Node<string> CreateNode(string element = "")
         {
-            return new Node<string>();
+            var head = new Node<string> { Element = element };
+            return head;
         }
+
+        #endregion
     }
 }

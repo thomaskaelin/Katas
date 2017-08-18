@@ -25,9 +25,7 @@ namespace KataDatastructures.Queue
 
         public TItem Front()
         {
-            if (_queue.Count == 0)
-                return default(TItem);
-            return _queue[0];
+            return _queue.Count == 0 ? default(TItem) : _queue[0];
         }
     }
 }

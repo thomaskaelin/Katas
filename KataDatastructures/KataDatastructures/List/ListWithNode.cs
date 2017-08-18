@@ -15,8 +15,7 @@ namespace KataDatastructures.List
 
         public void Add(TItem item)
         {
-            var newNode = new Node<TItem>();
-            newNode.Element = item;
+            var newNode = new Node<TItem> {Element = item};
             if (CurrentNode == null)
             {
                 InitializeHeadAndTail(newNode);
@@ -71,8 +70,7 @@ namespace KataDatastructures.List
         public void Set(int index, TItem item)
         {
             ThrowArgumentOurOfRangeExceptionIfIndexIsInvalid(index);
-            var newNode = new Node<TItem>();
-            newNode.Element = item;
+            var newNode = new Node<TItem> {Element = item};
 
             var node = GetNodeAtIndex(index);
             if (node == null)

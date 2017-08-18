@@ -1,49 +1,31 @@
-﻿using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
-
-namespace KataDatastructures.Node
+﻿namespace KataDatastructures.Node
 {
     public class Node<TItem> : INode<TItem>
     {
-        private INode<TItem> _head;
-        private INode<TItem> _tail;
-
+        public Node()
+        {
+            Head = this;
+            Tail = this;
+        }
+        
         public INode<TItem> Next { get; set; }
 
         public INode<TItem> Previous { get; set; }
         
         public TItem Element { get; set; }
 
-        public INode<TItem> Head {
-            get
-            {
-                _head = GetFirst();
-                return _head;
-            }
-            set { _head = value; }
-        }
+        public INode<TItem> Head { get; set; }
 
-        public INode<TItem> Tail {
-            get
-            {
-                _tail = GetLast();
-                return _tail;
-            }
-            set { _tail = value; }
-        }
+        public INode<TItem> Tail { get; set; }
 
         public bool HasNext()
         {
-            if (Next == null)
-                return false;
-            return true;
+            return Next != null;
         }
 
         public bool HasPrevious()
         {
-            if (Previous == null)
-                return false;
-            return true;
+            return Previous != null;
         }
 
         public INode<TItem> GetFirst()
@@ -93,7 +75,11 @@ namespace KataDatastructures.Node
                 var previousElement = Previous;
                 previousElement.Next = newNode;
                 newNode.Previous = previousElement;
+                newNode.Head = this;
             }
+            else if (!HasPrevious())
+                newNode.Head = this;
+            newNode.Tail = Tail;
             newNode.Next = this;
             Previous = newNode;            
         }
@@ -105,93 +91,75 @@ namespace KataDatastructures.Node
                 var nextNode = Next;
                 Next = newNode;
                 nextNode.Next = nextNode;
+                newNode.Tail = nextNode.Tail;
             }
+            else if (!HasNext())
+                newNode.Tail = this;
+            newNode.Head = Head;
             newNode.Previous = this;
             Next = newNode;
         }
 
         public int Size()
         {
-            const int currentNode = 1;
-            var numberOfNext = GetNumberOfNextNodes();
-            var numberOfPrevious = GetNumberOfPreviousNodes();
-            return currentNode + numberOfPrevious + numberOfNext;
-        }
-
-        private int GetNumberOfNextNodes()
-        {
-            INode<TItem> nextNode = this;
-            var size = 0;
-            while (nextNode.HasNext())
+            var size = 1;
+            if (Head != null)
             {
-                nextNode = nextNode.Next;
-                size++;
-            }
-            return size;
-        }
-
-        private int GetNumberOfPreviousNodes()
-        {
-            INode<TItem> previousNode = this;
-            var size = 0;
-            while (previousNode.HasPrevious())
-            {
-                previousNode = previousNode.Previous;
-                size++;
+                var current = Head;
+                while (current.HasNext())
+                {
+                    current = current.Next;
+                    size++;
+                }
             }
             return size;
         }
 
         public void Remove()
         {
-            var previousNode = Previous;
-            var nextNode = Next;
-
-            RemovePreviousConnection();
-            RemoveNextConenction();
-            
-            ConnectNodes(previousNode, nextNode);
-
-            ResetRemovedNode();
+            var previous = Previous;
+            var next = Next;
+            RemoveNode();
+            ConnectNodes(previous, next);
         }
 
-        private void ResetRemovedNode()
+        private void RemoveNode()
         {
             Next = null;
             Previous = null;
-            Element = default(TItem);
         }
 
-        private void RemovePreviousConnection()
+        private void ConnectNodes(INode<TItem> previous, INode<TItem> next)
         {
-            if(HasPrevious())
-                Previous = null;
-
+            if (IsFirstItem(previous, next))
+            {
+                Head = next;
+                next.Previous = null;
+            }
+            else if (IsLastItem(previous, next))
+            {
+                Tail = previous;
+                previous.Next = null;
+            }
+            else if(IsMiddleItem(previous, next))
+            {
+                previous.Next = next;
+                next.Previous = previous;
+            }
+        }
+        private static bool IsFirstItem(INode<TItem> previous, INode<TItem> next)
+        {
+            return previous == null;
         }
 
-        private void RemoveNextConenction()
+        private static bool IsLastItem(INode<TItem> previous, INode<TItem> next)
         {
-            if (HasNext())
-                Next = null;
+            return next == null;
         }
 
-        private void ConnectNodes(INode<TItem> previousNode, INode<TItem> nextNode)
+        private static bool IsMiddleItem(INode<TItem> previous, INode<TItem> next)
         {
-            if (previousNode == null && nextNode != null)
-            {
-                Tail = nextNode;
-                nextNode.Previous = null;
-            }
-            else if (nextNode == null && previousNode != null)
-            {
-                Head = previousNode;
-                previousNode.Next = null;
-            }
-            else if(nextNode != null && previousNode!=null)
-            {
-                previousNode.Next = nextNode;
-                nextNode.Previous = previousNode;
-            }
+            return previous != null && next != null;
         }
     }
 }
