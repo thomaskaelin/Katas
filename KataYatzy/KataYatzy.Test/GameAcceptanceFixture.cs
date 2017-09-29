@@ -12,21 +12,33 @@ namespace KataYatzy.Test
         public void FirstTest()
         {
             var scoreBoard = new ScoreBoard();
-            var fakePlayer = CreatePlayer();
-            var fakeCombination = CreateCombination();
+            var player1 = CreatePlayer();
+            scoreBoard.AddPlayer(player1);
 
-            scoreBoard.AddPlayer(fakePlayer);
-            scoreBoard.AddCombination(fakeCombination);
+            var onesCombination = CreateOnesCombination();
+            var tripletCombination = CreateTripletCombination();
+            scoreBoard.AddCombination(onesCombination);
+            scoreBoard.AddCombination(tripletCombination);
 
-            var fakeToss = CreateToss();
+            var firstToss = CreateToss(1,1,1,6,6);
+            scoreBoard.AssignToss(player1, firstToss, CombinationType.Ones);
 
-            scoreBoard.AssignToss(fakePlayer, fakeToss, CombinationType.Ones);
+            var pointsForFirstCombination = scoreBoard.GetPointsForCombination(player1, CombinationType.Ones);
+            pointsForFirstCombination.Value.Should().Be(3);
 
-            var pointsForCombination = scoreBoard.GetPointsForCombination(fakePlayer, CombinationType.Ones);
-            pointsForCombination.Value.Should().Be(3);
-
-            var totalPoints = scoreBoard.GetTotalPoints(fakePlayer);
+            var totalPoints = scoreBoard.GetTotalPoints(player1);
             totalPoints.Value.Should().Be(3);
+
+            var secondToss = CreateToss(1,1,1,4,5);
+            scoreBoard.AssignToss(player1, secondToss, CombinationType.Triplet);
+
+            var pointsForSecondCombination = scoreBoard.GetPointsForCombination(player1, CombinationType.Triplet);
+            pointsForSecondCombination.Value.Should().Be(12);
+
+            totalPoints = scoreBoard.GetTotalPoints(player1);
+            totalPoints.Value.Should().Be(15);
+
+
         }
 
         private IPlayer CreatePlayer()
@@ -34,26 +46,27 @@ namespace KataYatzy.Test
             return new Player("Kevin");
         }
 
-        private IToss CreateToss()
+        private IToss CreateToss(params int[] diceValues)
         {
+            // TODO Dices in Konstruktor übergeben?
             var toss = new Toss();
-            toss.AddDice(new Dice(1));
-            toss.AddDice(new Dice(1));
-            toss.AddDice(new Dice(1));
-            toss.AddDice(new Dice(6));
-            toss.AddDice(new Dice(6));
+
+            foreach (var diceValue in diceValues)
+            {
+                toss.AddDice(new Dice(diceValue));
+            }
 
             return toss;
         }
 
-        private ICombination CreateCombination()
+        private ICombination CreateOnesCombination()
         {
             return new OnesCombination();
         }
 
-        private IPoints CreatePoints(int value)
+        private ICombination CreateTripletCombination()
         {
-            return new Points(value);
+            return new TripletCombination();
         }
     }
 }

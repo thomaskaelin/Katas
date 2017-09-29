@@ -26,6 +26,9 @@ namespace KataYatzy
 
         public void AssignToss(IPlayer player, IToss toss, CombinationType combinationType)
         {
+            // TODO Was passiert wenn kein Player
+            // TODO Was passiert wenn CombinationType nicht exisitert
+            // TODO Was passiert wenn CombinationType schon Toss exisitiert
             var newTossMapping = new TossMapping
             {
                 Player = player,

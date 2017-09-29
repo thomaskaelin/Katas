@@ -2,6 +2,7 @@
 {
     public enum CombinationType
     {
-        Ones
+        Ones, 
+        Triplet
     }
 }

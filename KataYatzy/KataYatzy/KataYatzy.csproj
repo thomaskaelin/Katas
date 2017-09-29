@@ -55,6 +55,7 @@
     <Compile Include="ScoreBoard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toss.cs" />
+    <Compile Include="TripletCombination.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
