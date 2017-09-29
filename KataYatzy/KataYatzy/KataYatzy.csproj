@@ -40,16 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Combination.cs" />
     <Compile Include="CombinationType.cs" />
+    <Compile Include="Dice.cs" />
     <Compile Include="ICombination.cs" />
     <Compile Include="IDice.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IPoints.cs" />
     <Compile Include="IScoreBoard.cs" />
     <Compile Include="IToss.cs" />
+    <Compile Include="OnesCombination.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Points.cs" />
     <Compile Include="ScoreBoard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Toss.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

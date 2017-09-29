@@ -46,11 +46,7 @@ namespace KataYatzy
         public IPoints GetTotalPoints(IPlayer player)
         {
             var matchingMappings = _tossMappings.FindAll((mapping) => mapping.Player == player);
-            var points = 0;
-            foreach (var matchingMapping in matchingMappings)
-            {
-                points += GetPointsForCombination(player, matchingMapping.CombinationType).Value;
-            }
+            var points = matchingMappings.Sum(matchingMapping => GetPointsForCombination(player, matchingMapping.CombinationType).Value);
             return new Points(points);
         }
 

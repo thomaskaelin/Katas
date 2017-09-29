@@ -31,27 +31,29 @@ namespace KataYatzy.Test
 
         private IPlayer CreatePlayer()
         {
-            return A.Fake<IPlayer>();
+            return new Player("Kevin");
         }
 
         private IToss CreateToss()
         {
-            return A.Fake<IToss>();
+            var toss = new Toss();
+            toss.AddDice(new Dice(1));
+            toss.AddDice(new Dice(1));
+            toss.AddDice(new Dice(1));
+            toss.AddDice(new Dice(6));
+            toss.AddDice(new Dice(6));
+
+            return toss;
         }
 
         private ICombination CreateCombination()
         {
-            var combination = A.Fake<ICombination>();
-            var points = CreatePoints(3);
-            A.CallTo(() => combination.Calculate(A<IToss>.Ignored)).Returns(points);
-            return combination;
+            return new OnesCombination();
         }
 
         private IPoints CreatePoints(int value)
         {
-            var points = A.Fake<IPoints>();
-            A.CallTo(() => points.Value).Returns(value);
-            return points;
+            return new Points(value);
         }
     }
 }
