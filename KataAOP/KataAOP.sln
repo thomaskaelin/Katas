@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataAOP", "KataAOP\KataAOP.csproj", "{03D6F9BF-AFAE-4698-B99B-E97491E1603F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataAOP.Test", "KataAOP.Test\KataAOP.Test.csproj", "{EFB7EB93-190E-4AD2-8B42-0D61711E85E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03D6F9BF-AFAE-4698-B99B-E97491E1603F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D6F9BF-AFAE-4698-B99B-E97491E1603F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D6F9BF-AFAE-4698-B99B-E97491E1603F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D6F9BF-AFAE-4698-B99B-E97491E1603F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB7EB93-190E-4AD2-8B42-0D61711E85E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB7EB93-190E-4AD2-8B42-0D61711E85E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB7EB93-190E-4AD2-8B42-0D61711E85E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB7EB93-190E-4AD2-8B42-0D61711E85E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B15AD3-D768-4C4B-8268-7579D09C01E8}
+	EndGlobalSection
+EndGlobal
