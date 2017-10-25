@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace KataYatzy
+namespace KataYatzy.Combinations
 {
     public class OnesCombination : Combination
     {

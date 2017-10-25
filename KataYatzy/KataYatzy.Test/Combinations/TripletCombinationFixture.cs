@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using KataYatzy.Combinations;
+using NUnit.Framework;
 
-namespace KataYatzy.Test
+namespace KataYatzy.Test.Combinations
 {
     [TestFixture]
     public class TripletCombinationFixture : CombinationFixture<TripletCombination>

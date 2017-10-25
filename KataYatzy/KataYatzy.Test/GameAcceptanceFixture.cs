@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
+using KataYatzy.Combinations;
 using NUnit.Framework;
 
 namespace KataYatzy.Test

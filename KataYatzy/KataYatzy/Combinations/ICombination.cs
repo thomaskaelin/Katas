@@ -1,4 +1,4 @@
-﻿namespace KataYatzy
+﻿namespace KataYatzy.Combinations
 {
     public interface ICombination
     {

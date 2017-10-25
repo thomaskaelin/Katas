@@ -1,8 +1,7 @@
-﻿using FakeItEasy;
-using FluentAssertions;
+﻿using KataYatzy.Combinations;
 using NUnit.Framework;
 
-namespace KataYatzy.Test
+namespace KataYatzy.Test.Combinations
 {
     [TestFixture]
     public class OnesCombinationFixture : CombinationFixture<OnesCombination>
