@@ -9,7 +9,7 @@ namespace KataYatzy.Test
     public class GameAcceptanceFixture
     {
         [Test]
-        public void FirstTest()
+        public void OnePlayer_WithTwoCombinations_WithTwoTosses()
         {
             var scoreBoard = new ScoreBoard();
             var player1 = CreatePlayer();
@@ -37,8 +37,6 @@ namespace KataYatzy.Test
 
             totalPoints = scoreBoard.GetTotalPoints(player1);
             totalPoints.Value.Should().Be(15);
-
-
         }
 
         private IPlayer CreatePlayer()

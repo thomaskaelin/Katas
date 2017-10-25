@@ -6,7 +6,9 @@
         {
             Type = type;
         }
+
         public CombinationType Type { get; }
+
         public abstract IPoints Calculate(IToss toss);
     }
 }
