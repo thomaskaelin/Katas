@@ -6,15 +6,21 @@ namespace KataYatzy
 {
     public class ScoreBoard : IScoreBoard
     {
-        private List<TossMapping> _tossMappings;
+        private readonly List<TossMapping> _tossMappings;
+
         public ScoreBoard()
         {
             Player = new List<IPlayer>();
             Combinations = new List<ICombination>();
             _tossMappings = new List<TossMapping>();
         }
+
+        #region IScoreBoard
+
         public List<IPlayer> Player { get; }
+
         public List<ICombination> Combinations { get; }
+
         public void AddPlayer(IPlayer player)
         {
             Player.Add(player);
@@ -29,30 +35,39 @@ namespace KataYatzy
         {
             // TODO Was passiert wenn kein Player
             // TODO Was passiert wenn CombinationType nicht exisitert
-            // TODO Was passiert wenn CombinationType schon Toss exisitiert
+            // TODO Was passiert wenn für CombinationType schon ein Toss exisitiert
             var newTossMapping = new TossMapping
             {
                 Player = player,
                 Toss = toss,
                 CombinationType = combinationType
             };
+
             _tossMappings.Add(newTossMapping);
         }
 
         public IPoints GetPointsForCombination(IPlayer player, CombinationType combinationType)
         {
-            var matchingMapping = _tossMappings.FirstOrDefault(
-                (mapping) => mapping.Player == player && mapping.CombinationType == combinationType);
-            var matchingCombination = Combinations.FirstOrDefault((combination) => combination.Type == combinationType);
-            return matchingCombination.Calculate(matchingMapping.Toss);
+            // TODO Was passiert wenn CombinationType nicht exisitert
+            var matchingMapping = _tossMappings.First(mapping => mapping.Player == player && mapping.CombinationType == combinationType);
+            var matchingCombination = Combinations.First(combination => combination.Type == combinationType);
+            var pointsForCombination = matchingCombination.Calculate(matchingMapping.Toss);
+
+            return pointsForCombination;
         }
 
         public IPoints GetTotalPoints(IPlayer player)
         {
-            var matchingMappings = _tossMappings.FindAll((mapping) => mapping.Player == player);
-            var points = matchingMappings.Sum(matchingMapping => GetPointsForCombination(player, matchingMapping.CombinationType).Value);
-            return new Points(points);
+            var matchingMappings = _tossMappings.FindAll(mapping => mapping.Player == player);
+            var totalPointsAsInt = matchingMappings.Sum(matchingMapping => GetPointsForCombination(player, matchingMapping.CombinationType).Value);
+            var totalPointsAsPoints = new Points(totalPointsAsInt);
+
+            return totalPointsAsPoints;
         }
+
+        #endregion
+
+        #region Private Class TossMapping
 
         private class TossMapping
         {
@@ -61,7 +76,8 @@ namespace KataYatzy
             public IToss Toss { get; set; }
 
             public CombinationType CombinationType { get; set; }
-            
         }
+
+        #endregion
     }
 }

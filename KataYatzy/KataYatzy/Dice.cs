@@ -7,6 +7,10 @@
             Value = value;
         }
 
+        #region IDice
+
         public int Value { get; }
+
+        #endregion
     }
 }

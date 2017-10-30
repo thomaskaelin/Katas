@@ -6,12 +6,18 @@ namespace KataYatzy.Test.Combinations
     [TestFixture]
     public class TripletCombinationFixture : CombinationFixture<TripletCombination>
     {
+        #region Overrides
+
+        protected override CombinationType ExpectedCombinationType => CombinationType.Triplet;
+
         protected override TripletCombination CreateTestee()
         {
             return new TripletCombination();
         }
 
-        protected override CombinationType ExpectedCombinationType => CombinationType.Triplet;
+        #endregion
+
+        #region Tests
 
         [Test]
         public void Calculate_With_23456_Returns_0()
@@ -24,5 +30,7 @@ namespace KataYatzy.Test.Combinations
         {
             TestCalculate(new[] { 1, 1, 1, 2, 3 }, 8);
         }
+
+        #endregion
     }
 }

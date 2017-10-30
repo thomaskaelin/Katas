@@ -9,34 +9,48 @@ namespace KataYatzy.Combinations
         {
         }
 
+        #region Overrides
+
         public override IPoints Calculate(IToss toss)
         {
             var groupedDiceValues = GroupByDiceValue(toss);
-            if (groupedDiceValues.Values.Any((v) => v >= 3))
+
+            if (groupedDiceValues.Values.Any(v => v >= 3))
             {
                 return SumUpAllValues(toss);
             }
+
             return new Points(0);
         }
 
-        private Dictionary<int,int> GroupByDiceValue(IToss toss)
+        #endregion
+
+        #region Private Methods
+
+        private static Dictionary<int,int> GroupByDiceValue(IToss toss)
         {
-            var tossedValues = toss.Dices.Select(d => d.Value);
+            // TODO Diese Methode könnte evtl. in der Basis benötigt werden
+            var grouped = new Dictionary<int, int>();
+            var tossedValues = toss.Dices.Select(d => d.Value).ToList();
             var distinctTossedValues = tossedValues.Distinct();
-            var dict = new Dictionary<int, int>{};
+
             foreach (var distinctTossedValue in distinctTossedValues)
             {
-                var count = tossedValues.Count((tv) => tv == distinctTossedValue);
-                dict.Add(distinctTossedValue, count);
+                var count = tossedValues.Count(tv => tv == distinctTossedValue);
+                grouped.Add(distinctTossedValue, count);
             }
 
-            return dict;
+            return grouped;
         }
 
-        private IPoints SumUpAllValues(IToss toss)
+        private static IPoints SumUpAllValues(IToss toss)
         {
-            var sum = toss.Dices.Select(d => d.Value).Sum();
-            return new Points(sum);
+            var sumAsInt = toss.Dices.Select(d => d.Value).Sum();
+            var sumAsPoints = new Points(sumAsInt);
+
+            return sumAsPoints;
         }
+
+        #endregion
     }
 }

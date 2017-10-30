@@ -10,34 +10,19 @@ namespace KataYatzy.Test.Combinations
     public abstract class CombinationFixture<TTestee>
         where TTestee : Combination
     {
-        protected TTestee Testee { get; private set; }
-
         [SetUp]
         public void SetUp()
         {
             Testee = CreateTestee();
         }
 
+        #region Protected Properties and Methods
+
+        protected TTestee Testee { get; private set; }
+
         protected abstract TTestee CreateTestee();
 
         protected abstract CombinationType ExpectedCombinationType { get; }
-
-        protected IToss CreateFakeToss(params int[] diceValues)
-        {
-            var fakeDices = new List<IDice>();
-
-            foreach (var diceValue in diceValues)
-            {
-                var fakeDice = A.Fake<IDice>();
-                A.CallTo(() => fakeDice.Value).Returns(diceValue);
-                fakeDices.Add(fakeDice);
-            }
-
-            var fakeToss = A.Fake<IToss>();
-            A.CallTo(() => fakeToss.Dices).Returns(fakeDices);
-
-            return fakeToss;
-        }
 
         protected void TestCalculate(int[] diceValues, int expectedPoints)
         {
@@ -52,6 +37,32 @@ namespace KataYatzy.Test.Combinations
             result.Value.Should().Be(expectedPoints);
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private static IToss CreateFakeToss(IEnumerable<int> diceValues)
+        {
+            var fakeDices = new List<IDice>();
+
+            foreach (var diceValue in diceValues)
+            {
+                var fakeDice = A.Fake<IDice>();
+                A.CallTo(() => fakeDice.Value).Returns(diceValue);
+
+                fakeDices.Add(fakeDice);
+            }
+
+            var fakeToss = A.Fake<IToss>();
+            A.CallTo(() => fakeToss.Dices).Returns(fakeDices);
+
+            return fakeToss;
+        }
+
+        #endregion
+
+        #region Tests
+
         [Test]
         public void Constructor_Initializes_Type()
         {
@@ -64,5 +75,6 @@ namespace KataYatzy.Test.Combinations
             TestCalculate(new int[0], 0);
         }
 
+        #endregion
     }
 }

@@ -7,6 +7,10 @@
             Name = name;
         }
 
+        #region IPlayer
+
         public string Name { get; }
+
+        #endregion
     }
 }

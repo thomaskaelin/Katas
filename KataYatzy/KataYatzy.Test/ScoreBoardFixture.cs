@@ -12,7 +12,5 @@ namespace KataYatzy.Test
         {
             _testee = new ScoreBoard();
         }
-
-
     }
 }

@@ -7,8 +7,12 @@
             Type = type;
         }
 
+        #region ICombination
+
         public CombinationType Type { get; }
 
         public abstract IPoints Calculate(IToss toss);
+
+        #endregion
     }
 }

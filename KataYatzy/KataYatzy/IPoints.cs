@@ -3,6 +3,5 @@
     public interface IPoints
     {
         int Value { get; }
-        
     }
 }

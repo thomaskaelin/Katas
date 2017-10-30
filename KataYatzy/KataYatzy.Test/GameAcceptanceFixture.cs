@@ -1,51 +1,56 @@
-﻿using FakeItEasy;
-using FluentAssertions;
+﻿using FluentAssertions;
 using KataYatzy.Combinations;
 using NUnit.Framework;
 
 namespace KataYatzy.Test
 {
     [TestFixture]
-
     public class GameAcceptanceFixture
     {
         [Test]
         public void OnePlayer_WithTwoCombinations_WithTwoTosses()
         {
             var scoreBoard = new ScoreBoard();
-            var player1 = CreatePlayer();
+
+            // Add Players
+            var player1 = CreatePlayer("Kevin");
             scoreBoard.AddPlayer(player1);
 
+            // Add Combinations
             var onesCombination = CreateOnesCombination();
             var tripletCombination = CreateTripletCombination();
             scoreBoard.AddCombination(onesCombination);
             scoreBoard.AddCombination(tripletCombination);
 
-            var firstToss = CreateToss(1,1,1,6,6);
-            scoreBoard.AssignToss(player1, firstToss, CombinationType.Ones);
+            // First Toss
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.Ones, new[] { 1, 1, 1, 6, 6 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.Ones, 3);
+            CheckTotalPoints(scoreBoard, player1, 3);
 
-            var pointsForFirstCombination = scoreBoard.GetPointsForCombination(player1, CombinationType.Ones);
-            pointsForFirstCombination.Value.Should().Be(3);
-
-            var totalPoints = scoreBoard.GetTotalPoints(player1);
-            totalPoints.Value.Should().Be(3);
-
-            var secondToss = CreateToss(1,1,1,4,5);
-            scoreBoard.AssignToss(player1, secondToss, CombinationType.Triplet);
-
-            var pointsForSecondCombination = scoreBoard.GetPointsForCombination(player1, CombinationType.Triplet);
-            pointsForSecondCombination.Value.Should().Be(12);
-
-            totalPoints = scoreBoard.GetTotalPoints(player1);
-            totalPoints.Value.Should().Be(15);
+            // Second Toss
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.Triplet, new[] { 1, 1, 1, 4, 5 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.Triplet, 12);
+            CheckTotalPoints(scoreBoard, player1, 15);
         }
 
-        private IPlayer CreatePlayer()
+        #region Private Methods
+
+        private static IPlayer CreatePlayer(string name)
         {
-            return new Player("Kevin");
+            return new Player(name);
         }
 
-        private IToss CreateToss(params int[] diceValues)
+        private static ICombination CreateOnesCombination()
+        {
+            return new OnesCombination();
+        }
+
+        private static ICombination CreateTripletCombination()
+        {
+            return new TripletCombination();
+        }
+
+        private static IToss CreateToss(params int[] diceValues)
         {
             // TODO Dices in Konstruktor übergeben?
             var toss = new Toss();
@@ -58,14 +63,35 @@ namespace KataYatzy.Test
             return toss;
         }
 
-        private ICombination CreateOnesCombination()
+        private static void CreateAndAssignToss(
+            IScoreBoard scoreBoard,
+            IPlayer player,
+            CombinationType combinationType,
+            int[] diceValues)
         {
-            return new OnesCombination();
+            var toss = CreateToss(diceValues);
+            scoreBoard.AssignToss(player, toss, combinationType);
         }
 
-        private ICombination CreateTripletCombination()
+        private static void CheckPointsForCombination(
+            IScoreBoard scoreBoard,
+            IPlayer player,
+            CombinationType combinationType,
+            int expectedPoints)
         {
-            return new TripletCombination();
+            var pointsForCombination = scoreBoard.GetPointsForCombination(player, combinationType);
+            pointsForCombination.Value.Should().Be(expectedPoints);
         }
+
+        private static void CheckTotalPoints(
+            IScoreBoard scoreBoard,
+            IPlayer player,
+            int expectedTotalPoints)
+        {
+            var totalPoints = scoreBoard.GetTotalPoints(player);
+            totalPoints.Value.Should().Be(expectedTotalPoints);
+        }
+
+        #endregion
     }
 }

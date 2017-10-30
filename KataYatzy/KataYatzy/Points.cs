@@ -6,6 +6,11 @@
         {
             Value = value;
         }
+
+        #region IPoints
+
         public int Value { get; }
+
+        #endregion
     }
 }

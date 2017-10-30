@@ -8,6 +8,9 @@ namespace KataYatzy
         {
             Dices = new List<IDice>();
         }
+
+        #region IToss
+
         public List<IDice> Dices { get; }
 
         public void AddDice(IDice dice)
@@ -16,6 +19,6 @@ namespace KataYatzy
             Dices.Add(dice);
         }
 
-
+        #endregion
     }
 }
