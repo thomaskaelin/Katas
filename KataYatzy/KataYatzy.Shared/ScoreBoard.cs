@@ -10,14 +10,14 @@ namespace KataYatzy.Shared
 
         public ScoreBoard()
         {
-            Player = new List<IPlayer>();
+            Players = new List<IPlayer>();
             Combinations = new List<ICombination>();
             _tossMappings = new List<TossMapping>();
         }
 
         #region IScoreBoard
 
-        public List<IPlayer> Player { get; }
+        public List<IPlayer> Players { get; }
 
         public List<ICombination> Combinations { get; }
 
@@ -25,7 +25,7 @@ namespace KataYatzy.Shared
         {
             // TODO Validierung: Player null?
             // TODO Validierung: Player schon vorhanden?
-            Player.Add(player);
+            Players.Add(player);
         }
 
         public void AddCombination(ICombination combination)

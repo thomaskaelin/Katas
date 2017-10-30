@@ -4,7 +4,7 @@ namespace KataYatzy.Contracts
 {
     public interface IScoreBoard
     {
-        List<IPlayer> Player { get; }
+        List<IPlayer> Players { get; }
 
         List<ICombination> Combinations { get; }
 
