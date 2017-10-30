@@ -12,8 +12,11 @@ namespace KataYatzy.Combinations
 
         public override IPoints Calculate(IToss toss)
         {
-            var value = toss.Dices.Count((dice) => dice.Value == 1);
-            return new Points(value);
+            // TODO Diese Methode evtl. auf eine eigene Klasse verschieben (TossAnalyzer) wg. Testing?
+            var numberOfOnesInToss = toss.Dices.Count(dice => dice.Value == 1);
+            var points = new Points(numberOfOnesInToss);
+
+            return points;
         }
 
         #endregion

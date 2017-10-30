@@ -29,7 +29,7 @@ namespace KataYatzy.Combinations
 
         private static Dictionary<int,int> GroupByDiceValue(IToss toss)
         {
-            // TODO Diese Methode könnte evtl. in der Basis benötigt werden
+            // TODO Diese Methode evtl. auf eine eigene Klasse verschieben (TossAnalyzer) wg. Testing?
             var grouped = new Dictionary<int, int>();
             var tossedValues = toss.Dices.Select(d => d.Value).ToList();
             var distinctTossedValues = tossedValues.Distinct();
@@ -45,6 +45,7 @@ namespace KataYatzy.Combinations
 
         private static IPoints SumUpAllValues(IToss toss)
         {
+            // TODO Diese Methode evtl. auf eine eigene Klasse verschieben (TossAnalyzer) wg. Testing?
             var sumAsInt = toss.Dices.Select(d => d.Value).Sum();
             var sumAsPoints = new Points(sumAsInt);
 
