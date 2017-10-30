@@ -53,8 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Combinations\CombinationFixture.cs" />
+    <Compile Include="Combinations\Helper\TossAnalyzerFixture.cs" />
     <Compile Include="GameAcceptanceFixture.cs" />
     <Compile Include="Combinations\OnesCombinationFixture.cs" />
+    <Compile Include="Helper\FakeCreator.cs" />
     <Compile Include="ScoreBoardFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Combinations\TripletCombinationFixture.cs" />

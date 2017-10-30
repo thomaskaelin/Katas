@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using KataYatzy.Contracts;
+﻿using KataYatzy.Contracts;
+using KataYatzy.Shared.Combinations.Helper;
 
 namespace KataYatzy.Shared.Combinations
 {
@@ -11,13 +11,9 @@ namespace KataYatzy.Shared.Combinations
 
         #region Overrides
 
-        public override IPoints Calculate(IToss toss)
+        protected override int Calculate(TossAnalyzer tossAnalyzer)
         {
-            // TODO Diese Methode evtl. auf eine eigene Klasse verschieben (TossAnalyzer) wg. Testing?
-            var numberOfOnesInToss = toss.Dices.Count(dice => dice.Value == 1);
-            var points = new Points(numberOfOnesInToss);
-
-            return points;
+            return tossAnalyzer.CountOccurencesOfDiceValue(1);
         }
 
         #endregion

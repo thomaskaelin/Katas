@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using FakeItEasy;
-using FluentAssertions;
+﻿using FluentAssertions;
 using KataYatzy.Contracts;
 using KataYatzy.Shared.Combinations;
+using KataYatzy.Shared.Test.Helper;
 using NUnit.Framework;
 
 namespace KataYatzy.Shared.Test.Combinations
@@ -28,7 +27,7 @@ namespace KataYatzy.Shared.Test.Combinations
         protected void TestCalculate(int[] diceValues, int expectedPoints)
         {
             // Arrange
-            var fakeToss = CreateFakeToss(diceValues);
+            var fakeToss = FakeCreator.CreateFakeToss(diceValues);
 
             // Act
             var result = Testee.Calculate(fakeToss);
@@ -36,28 +35,6 @@ namespace KataYatzy.Shared.Test.Combinations
             // Assert
             result.Should().NotBeNull();
             result.Value.Should().Be(expectedPoints);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private static IToss CreateFakeToss(IEnumerable<int> diceValues)
-        {
-            var fakeDices = new List<IDice>();
-
-            foreach (var diceValue in diceValues)
-            {
-                var fakeDice = A.Fake<IDice>();
-                A.CallTo(() => fakeDice.Value).Returns(diceValue);
-
-                fakeDices.Add(fakeDice);
-            }
-
-            var fakeToss = A.Fake<IToss>();
-            A.CallTo(() => fakeToss.Dices).Returns(fakeDices);
-
-            return fakeToss;
         }
 
         #endregion
