@@ -9,7 +9,7 @@ namespace KataYatzy.Shared.Test
     public class GameAcceptanceFixture
     {
         [Test]
-        public void OnePlayer_WithTwoCombinations_WithTwoTosses()
+        public void OnePlayer_WithThreeCombinations_WithThreeTosses()
         {
             var scoreBoard = new ScoreBoard();
 
@@ -20,8 +20,10 @@ namespace KataYatzy.Shared.Test
             // Add Combinations
             var onesCombination = CreateOnesCombination();
             var tripletCombination = CreateTripletCombination();
+            var fullHouseCombination = CreateFullHouseCombination();
             scoreBoard.AddCombination(onesCombination);
             scoreBoard.AddCombination(tripletCombination);
+            scoreBoard.AddCombination(fullHouseCombination);
 
             // First Toss
             CreateAndAssignToss(scoreBoard, player1, CombinationType.Ones, new[] { 1, 1, 1, 6, 6 });
@@ -32,6 +34,11 @@ namespace KataYatzy.Shared.Test
             CreateAndAssignToss(scoreBoard, player1, CombinationType.Triplet, new[] { 1, 1, 1, 4, 5 });
             CheckPointsForCombination(scoreBoard, player1, CombinationType.Triplet, 12);
             CheckTotalPoints(scoreBoard, player1, 15);
+
+            // Thrid Toss
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.FullHouse, new []{ 3, 3, 3, 4, 4 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.FullHouse, 25);
+            CheckTotalPoints(scoreBoard, player1, 40);
         }
 
         #region Private Methods
@@ -49,6 +56,11 @@ namespace KataYatzy.Shared.Test
         private static ICombination CreateTripletCombination()
         {
             return new TripletCombination();
+        }
+
+        private static ICombination CreateFullHouseCombination()
+        {
+            return new FullHouseCombination();
         }
 
         private static IToss CreateToss(params int[] diceValues)

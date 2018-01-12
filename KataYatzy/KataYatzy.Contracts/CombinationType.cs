@@ -3,6 +3,7 @@
     public enum CombinationType
     {
         Ones, 
-        Triplet
+        Triplet,
+        FullHouse
     }
 }
