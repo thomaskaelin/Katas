@@ -125,5 +125,51 @@ namespace KataYatzy.Shared.Test.Combinations.Helper
             // Assert
             result.Should().BeTrue();
         }
+
+        [Test]
+        public void GetOccurencesPerDiceValues_WithEmptyToss_ReturnsEmptyDictionary()
+        {
+            // Arrange
+            CreateTestee();
+
+            // Act
+            var result = _testee.GetOccurencesPerDiceValue();
+
+            // Assert
+            result.Should().BeEmpty();
+        }
+
+        [Test]
+        public void GetOccurencesPerDiceValues_With12345_ReturnsCorrectDictionary()
+        {
+            // Arrange
+            CreateTestee(1, 2, 3, 4, 5);
+
+            // Act
+            var result = _testee.GetOccurencesPerDiceValue();
+
+            // Assert
+            result.Count.Should().Be(5);
+            result[1].Should().Be(1);
+            result[2].Should().Be(1);
+            result[3].Should().Be(1);
+            result[4].Should().Be(1);
+            result[5].Should().Be(1);
+        }
+
+        [Test]
+        public void GetOccurencesPerDiceValues_With33344_ReturnsCorrectDictionary()
+        {
+            // Arrange
+            CreateTestee(3, 3, 3, 4, 4);
+
+            // Act
+            var result = _testee.GetOccurencesPerDiceValue();
+
+            // Assert
+            result.Count.Should().Be(2);
+            result[3].Should().Be(3);
+            result[4].Should().Be(2);
+        }
     }
 }

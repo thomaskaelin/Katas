@@ -52,6 +52,11 @@ namespace KataYatzy.Shared.Combinations.Helper
             return _diceValueToOccurences.Values.Any(occurences => occurences >= numberOfTimes);
         }
 
+        public IDictionary<int, int> GetOccurencesPerDiceValue()
+        {
+            return _diceValueToOccurences;
+        }
+
         #endregion
 
         #region Private Methods
