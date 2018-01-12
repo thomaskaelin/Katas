@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Combinations\ChanceCombinationFixture.cs" />
     <Compile Include="Combinations\CombinationFixture.cs" />
     <Compile Include="Combinations\FullHouseCombinationFixture.cs" />
     <Compile Include="Combinations\Helper\TossAnalyzerFixture.cs" />

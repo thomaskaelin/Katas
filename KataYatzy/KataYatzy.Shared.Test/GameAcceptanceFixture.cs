@@ -9,7 +9,7 @@ namespace KataYatzy.Shared.Test
     public class GameAcceptanceFixture
     {
         [Test]
-        public void OnePlayer_WithFourCombinations_WithFourTosses()
+        public void OnePlayer_WithFiveCombinations_WithFifthTosses()
         {
             var scoreBoard = new ScoreBoard();
 
@@ -22,10 +22,12 @@ namespace KataYatzy.Shared.Test
             var tripletCombination = CreateTripletCombination();
             var fullHouseCombination = CreateFullHouseCombination();
             var smallStreetCombination = CreateSmallStreetCombination();
+            var chanceCombination = CreateChanceCombination();
             scoreBoard.AddCombination(onesCombination);
             scoreBoard.AddCombination(tripletCombination);
             scoreBoard.AddCombination(fullHouseCombination);
             scoreBoard.AddCombination(smallStreetCombination);
+            scoreBoard.AddCombination(chanceCombination);
 
             // First Toss
             CreateAndAssignToss(scoreBoard, player1, CombinationType.Ones, new[] { 1, 1, 1, 6, 6 });
@@ -46,6 +48,11 @@ namespace KataYatzy.Shared.Test
             CreateAndAssignToss(scoreBoard, player1, CombinationType.SmallStreet, new[] { 1, 2, 3, 4, 4 });
             CheckPointsForCombination(scoreBoard, player1, CombinationType.SmallStreet, 30);
             CheckTotalPoints(scoreBoard, player1, 70);
+
+            // Fifth Toss
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.Chance, new[] { 1, 2, 3, 4, 4 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.Chance, 14);
+            CheckTotalPoints(scoreBoard, player1, 84);
         }
 
         #region Private Methods
@@ -73,6 +80,11 @@ namespace KataYatzy.Shared.Test
         private static ICombination CreateSmallStreetCombination()
         {
             return new SmallStreetCombination();
+        }
+
+        private static ICombination CreateChanceCombination()
+        {
+            return new ChanceCombination();
         }
 
         private static IToss CreateToss(params int[] diceValues)

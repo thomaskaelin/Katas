@@ -5,6 +5,7 @@
         Ones, 
         Triplet,
         FullHouse,
-        SmallStreet
+        SmallStreet,
+        Chance
     }
 }
