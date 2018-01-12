@@ -43,6 +43,7 @@
     <Compile Include="Combinations\Combination.cs" />
     <Compile Include="Combinations\FullHouseCombination.cs" />
     <Compile Include="Combinations\Helper\TossAnalyzer.cs" />
+    <Compile Include="Combinations\SmallStreetCombination.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Combinations\OnesCombination.cs" />
     <Compile Include="Player.cs" />

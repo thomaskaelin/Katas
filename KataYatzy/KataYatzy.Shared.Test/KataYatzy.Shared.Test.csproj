@@ -55,6 +55,7 @@
     <Compile Include="Combinations\CombinationFixture.cs" />
     <Compile Include="Combinations\FullHouseCombinationFixture.cs" />
     <Compile Include="Combinations\Helper\TossAnalyzerFixture.cs" />
+    <Compile Include="Combinations\SmallStreetCombinationFixture.cs" />
     <Compile Include="GameAcceptanceFixture.cs" />
     <Compile Include="Combinations\OnesCombinationFixture.cs" />
     <Compile Include="Helper\FakeCreator.cs" />

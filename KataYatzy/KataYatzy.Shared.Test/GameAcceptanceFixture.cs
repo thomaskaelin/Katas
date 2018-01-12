@@ -9,7 +9,7 @@ namespace KataYatzy.Shared.Test
     public class GameAcceptanceFixture
     {
         [Test]
-        public void OnePlayer_WithThreeCombinations_WithThreeTosses()
+        public void OnePlayer_WithFourCombinations_WithFourTosses()
         {
             var scoreBoard = new ScoreBoard();
 
@@ -21,9 +21,11 @@ namespace KataYatzy.Shared.Test
             var onesCombination = CreateOnesCombination();
             var tripletCombination = CreateTripletCombination();
             var fullHouseCombination = CreateFullHouseCombination();
+            var smallStreetCombination = CreateSmallStreetCombination();
             scoreBoard.AddCombination(onesCombination);
             scoreBoard.AddCombination(tripletCombination);
             scoreBoard.AddCombination(fullHouseCombination);
+            scoreBoard.AddCombination(smallStreetCombination);
 
             // First Toss
             CreateAndAssignToss(scoreBoard, player1, CombinationType.Ones, new[] { 1, 1, 1, 6, 6 });
@@ -35,10 +37,15 @@ namespace KataYatzy.Shared.Test
             CheckPointsForCombination(scoreBoard, player1, CombinationType.Triplet, 12);
             CheckTotalPoints(scoreBoard, player1, 15);
 
-            // Thrid Toss
+            // Third Toss
             CreateAndAssignToss(scoreBoard, player1, CombinationType.FullHouse, new []{ 3, 3, 3, 4, 4 });
             CheckPointsForCombination(scoreBoard, player1, CombinationType.FullHouse, 25);
             CheckTotalPoints(scoreBoard, player1, 40);
+
+            // Fourth Toss
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.SmallStreet, new[] { 1, 2, 3, 4, 4 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.SmallStreet, 30);
+            CheckTotalPoints(scoreBoard, player1, 70);
         }
 
         #region Private Methods
@@ -61,6 +68,11 @@ namespace KataYatzy.Shared.Test
         private static ICombination CreateFullHouseCombination()
         {
             return new FullHouseCombination();
+        }
+
+        private static ICombination CreateSmallStreetCombination()
+        {
+            return new SmallStreetCombination();
         }
 
         private static IToss CreateToss(params int[] diceValues)

@@ -4,6 +4,7 @@
     {
         Ones, 
         Triplet,
-        FullHouse
+        FullHouse,
+        SmallStreet
     }
 }
