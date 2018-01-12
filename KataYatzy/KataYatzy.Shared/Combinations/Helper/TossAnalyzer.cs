@@ -52,6 +52,39 @@ namespace KataYatzy.Shared.Combinations.Helper
             return _diceValueToOccurences.Values.Any(occurences => occurences >= numberOfTimes);
         }
 
+        public bool AreThereXDiceValuesInSequence(int sequenceLength)
+        {
+            if (_diceValueToOccurences.Count < sequenceLength)
+                return false;
+
+            var diceValues = _diceValueToOccurences.Keys;
+
+            var sequenceLengthCounter = 1; 
+            int? lastDiceValue = null;
+
+            foreach (var diceValue in diceValues)
+            {
+                if (lastDiceValue.HasValue)
+                {
+                    if (lastDiceValue + 1 == diceValue)
+                    {
+                        sequenceLengthCounter++;
+                    }
+                    else
+                    {
+                        sequenceLengthCounter = 1;
+                    }
+                }
+
+                if (sequenceLengthCounter == sequenceLength)
+                    return true;
+
+                lastDiceValue = diceValue;
+            }
+
+            return false;
+        }
+
         public IDictionary<int, int> GetOccurencesPerDiceValue()
         {
             return _diceValueToOccurences;
@@ -66,7 +99,7 @@ namespace KataYatzy.Shared.Combinations.Helper
             var occurencesPerDiceValue = new Dictionary<int, int>();
 
             var tossedDiceValues = toss.Dices.Select(d => d.Value).ToList();
-            var distinctTossedDiceValues = tossedDiceValues.Distinct();
+            var distinctTossedDiceValues = tossedDiceValues.Distinct().OrderBy(v => v);
 
             foreach (var distinctTossedDiceValue in distinctTossedDiceValues)
             {
