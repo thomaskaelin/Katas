@@ -12,7 +12,7 @@ namespace KataYatzy.Contracts
 
         void AddCombination(ICombination combination);
 
-        void AssignToss(IPlayer fakePlayer, IToss fakeToss, CombinationType ones);
+        void AssignToss(IPlayer player, IToss toss, CombinationType ones);
 
         IPoints GetPointsForCombination(IPlayer player, CombinationType combinationType);
 

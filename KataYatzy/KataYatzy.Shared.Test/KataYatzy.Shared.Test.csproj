@@ -63,6 +63,7 @@
     <Compile Include="ScoreBoardFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Combinations\ThreeOfAKindCombinationFixture.cs" />
+    <Compile Include="TossFactoryFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
