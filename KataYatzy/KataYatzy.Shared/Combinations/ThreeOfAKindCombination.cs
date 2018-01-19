@@ -3,9 +3,9 @@ using KataYatzy.Shared.Combinations.Helper;
 
 namespace KataYatzy.Shared.Combinations
 {
-    public class TripletCombination : Combination
+    public class ThreeOfAKindCombination : Combination
     {
-        public TripletCombination() : base(CombinationType.Triplet)
+        public ThreeOfAKindCombination() : base(CombinationType.ThreeOfAKind)
         {
         }
 

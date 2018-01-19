@@ -5,15 +5,15 @@ using NUnit.Framework;
 namespace KataYatzy.Shared.Test.Combinations
 {
     [TestFixture]
-    public class SmallStreetCombinationFixture : CombinationFixture<SmallStreetCombination>
+    public class SmallStraightCombinationFixture : CombinationFixture<SmallStraightCombination>
     {
         #region Overrides
 
-        protected override CombinationType ExpectedCombinationType => CombinationType.SmallStreet;
+        protected override CombinationType ExpectedCombinationType => CombinationType.SmallStraight;
 
-        protected override SmallStreetCombination CreateTestee()
+        protected override SmallStraightCombination CreateTestee()
         {
-            return new SmallStreetCombination();
+            return new SmallStraightCombination();
         }
 
         #endregion

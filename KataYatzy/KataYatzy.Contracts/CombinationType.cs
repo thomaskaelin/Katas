@@ -3,9 +3,9 @@
     public enum CombinationType
     {
         Ones, 
-        Triplet,
+        ThreeOfAKind,
         FullHouse,
-        SmallStreet,
+        SmallStraight,
         Chance
     }
 }

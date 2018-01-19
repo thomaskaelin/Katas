@@ -5,15 +5,15 @@ using NUnit.Framework;
 namespace KataYatzy.Shared.Test.Combinations
 {
     [TestFixture]
-    public class TripletCombinationFixture : CombinationFixture<TripletCombination>
+    public class ThreeOfAKindCombinationFixture : CombinationFixture<ThreeOfAKindCombination>
     {
         #region Overrides
 
-        protected override CombinationType ExpectedCombinationType => CombinationType.Triplet;
+        protected override CombinationType ExpectedCombinationType => CombinationType.ThreeOfAKind;
 
-        protected override TripletCombination CreateTestee()
+        protected override ThreeOfAKindCombination CreateTestee()
         {
-            return new TripletCombination();
+            return new ThreeOfAKindCombination();
         }
 
         #endregion

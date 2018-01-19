@@ -3,9 +3,9 @@ using KataYatzy.Shared.Combinations.Helper;
 
 namespace KataYatzy.Shared.Combinations
 {
-    public class SmallStreetCombination : Combination
+    public class SmallStraightCombination : Combination
     {
-        public SmallStreetCombination() : base(CombinationType.SmallStreet)
+        public SmallStraightCombination() : base(CombinationType.SmallStraight)
         {
         }
 

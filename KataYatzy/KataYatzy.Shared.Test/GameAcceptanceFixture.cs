@@ -19,14 +19,14 @@ namespace KataYatzy.Shared.Test
 
             // Add Combinations
             var onesCombination = CreateOnesCombination();
-            var tripletCombination = CreateTripletCombination();
+            var threeOfAKindCombination = CreateThreeOfAKindCombination();
             var fullHouseCombination = CreateFullHouseCombination();
-            var smallStreetCombination = CreateSmallStreetCombination();
+            var smallStraightCombination = CreateSmallStraightCombination();
             var chanceCombination = CreateChanceCombination();
             scoreBoard.AddCombination(onesCombination);
-            scoreBoard.AddCombination(tripletCombination);
+            scoreBoard.AddCombination(threeOfAKindCombination);
             scoreBoard.AddCombination(fullHouseCombination);
-            scoreBoard.AddCombination(smallStreetCombination);
+            scoreBoard.AddCombination(smallStraightCombination);
             scoreBoard.AddCombination(chanceCombination);
 
             // First Toss
@@ -35,8 +35,8 @@ namespace KataYatzy.Shared.Test
             CheckTotalPoints(scoreBoard, player1, 3);
 
             // Second Toss
-            CreateAndAssignToss(scoreBoard, player1, CombinationType.Triplet, new[] { 1, 1, 1, 4, 5 });
-            CheckPointsForCombination(scoreBoard, player1, CombinationType.Triplet, 12);
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.ThreeOfAKind, new[] { 1, 1, 1, 4, 5 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.ThreeOfAKind, 12);
             CheckTotalPoints(scoreBoard, player1, 15);
 
             // Third Toss
@@ -45,8 +45,8 @@ namespace KataYatzy.Shared.Test
             CheckTotalPoints(scoreBoard, player1, 40);
 
             // Fourth Toss
-            CreateAndAssignToss(scoreBoard, player1, CombinationType.SmallStreet, new[] { 1, 2, 3, 4, 4 });
-            CheckPointsForCombination(scoreBoard, player1, CombinationType.SmallStreet, 30);
+            CreateAndAssignToss(scoreBoard, player1, CombinationType.SmallStraight, new[] { 1, 2, 3, 4, 4 });
+            CheckPointsForCombination(scoreBoard, player1, CombinationType.SmallStraight, 30);
             CheckTotalPoints(scoreBoard, player1, 70);
 
             // Fifth Toss
@@ -67,9 +67,9 @@ namespace KataYatzy.Shared.Test
             return new OnesCombination();
         }
 
-        private static ICombination CreateTripletCombination()
+        private static ICombination CreateThreeOfAKindCombination()
         {
-            return new TripletCombination();
+            return new ThreeOfAKindCombination();
         }
 
         private static ICombination CreateFullHouseCombination()
@@ -77,9 +77,9 @@ namespace KataYatzy.Shared.Test
             return new FullHouseCombination();
         }
 
-        private static ICombination CreateSmallStreetCombination()
+        private static ICombination CreateSmallStraightCombination()
         {
-            return new SmallStreetCombination();
+            return new SmallStraightCombination();
         }
 
         private static ICombination CreateChanceCombination()
