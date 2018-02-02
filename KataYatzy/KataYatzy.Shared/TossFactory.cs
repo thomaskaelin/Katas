@@ -3,8 +3,7 @@ using KataYatzy.Contracts;
 
 namespace KataYatzy.Shared
 {
-    //TODO Create interface?
-    public class TossFactory
+    public class TossFactory : ITossFactory
     {
         private readonly int _numberOfDices;
         private readonly int _minValue;
@@ -19,6 +18,8 @@ namespace KataYatzy.Shared
             _random = new Random();
         }
 
+        #region ITossFactory
+
         public IToss CreateToss()
         {
             var toss = new Toss();
@@ -30,5 +31,7 @@ namespace KataYatzy.Shared
 
             return toss;
         }
+
+        #endregion
     }
 }
