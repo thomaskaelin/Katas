@@ -34,6 +34,8 @@ namespace KataYatzy.Shared
         public void FinishTurn(CombinationType combinationType)
         {
             //todo how to finish the game?!?
+            if(_scoreBoard.HasPointsForCombination(_currentPlayer, combinationType))
+                return;
             _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
             AssignNewPlayer();
             StartNewTurn();
