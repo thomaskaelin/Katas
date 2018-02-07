@@ -61,6 +61,7 @@
     <Compile Include="Combinations\OnesCombinationFixture.cs" />
     <Compile Include="GameEngineFixture.cs" />
     <Compile Include="Helper\FakeCreator.cs" />
+    <Compile Include="PlayerFixture.cs" />
     <Compile Include="ScoreBoardFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Combinations\ThreeOfAKindCombinationFixture.cs" />
