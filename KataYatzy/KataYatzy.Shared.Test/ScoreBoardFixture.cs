@@ -34,7 +34,7 @@ namespace KataYatzy.Shared.Test
         }
 
         [Test]
-        public void AddPlayer_WithValidPlayer_AddsParameterToPlayers()
+        public void AddPlayer_AddsParameterToPlayers()
         {
             // Arrange
             var fakePlayer = CreateFakePlayer();
@@ -48,7 +48,7 @@ namespace KataYatzy.Shared.Test
         }
 
         [Test]
-        public void AddPlayer_WithValidNullPlayer_ThrowsArgumentNullException()
+        public void AddPlayer_WithNullPlayer_ThrowsArgumentNullException()
         {
             // Arrange
             Action action = () => _testee.AddPlayer(null);
@@ -66,11 +66,11 @@ namespace KataYatzy.Shared.Test
             action();
 
             // Act & Assert
-            action.ShouldThrow<ArgumentException>();
+            action.ShouldThrow<ArgumentException>().WithMessage("Player has already been added.");
         }
 
         [Test]
-        public void AddCombination_WithValidPlayer_AddsParameterToPlayers()
+        public void AddCombination_AddsParameterToPlayers()
         {
             // Arrange
             var fakeCombination = CreateFakeCombination();
@@ -84,7 +84,7 @@ namespace KataYatzy.Shared.Test
         }
 
         [Test]
-        public void AddCombination_WithValidNullPlayer_ThrowsArgumentNullException()
+        public void AddCombination_WithNullCombination_ThrowsArgumentNullException()
         {
             // Arrange
             Action action = () => _testee.AddCombination(null);
@@ -94,7 +94,7 @@ namespace KataYatzy.Shared.Test
         }
 
         [Test]
-        public void AddCombination_WithAlreadyAddedPlayer_ThrowsArgumentException()
+        public void AddCombination_WithAlreadyAddedCombination_ThrowsArgumentException()
         {
             // Arrange
             var fakeCombination = CreateFakeCombination();
@@ -102,7 +102,7 @@ namespace KataYatzy.Shared.Test
             action();
 
             // Act & Assert
-            action.ShouldThrow<ArgumentException>();
+            action.ShouldThrow<ArgumentException>().WithMessage("Combination has already been added.");
         }
 
         #region Private Methods

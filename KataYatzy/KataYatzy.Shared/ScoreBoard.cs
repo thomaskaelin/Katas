@@ -28,7 +28,7 @@ namespace KataYatzy.Shared
                 throw new ArgumentNullException(nameof(player));
 
             if (Players.Contains(player))
-                throw new ArgumentException("Player has already been added", nameof(player));
+                throw new ArgumentException("Player has already been added.");
 
             Players.Add(player);
         }
@@ -39,7 +39,7 @@ namespace KataYatzy.Shared
                 throw new ArgumentNullException(nameof(combination));
 
             if (Combinations.Contains(combination))
-                throw new ArgumentException("Combination has already been added", nameof(combination));
+                throw new ArgumentException("Combination has already been added.");
 
             Combinations.Add(combination);
         }
