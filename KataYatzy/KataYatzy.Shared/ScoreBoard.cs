@@ -62,6 +62,11 @@ namespace KataYatzy.Shared
             return pointsForCombination;
         }
 
+        public bool HasPointsForCombination(IPlayer player, CombinationType combinationType)
+        {
+            return _tossMappings.Any(mapping => mapping.Player == player && mapping.CombinationType == combinationType);
+        }
+
         public IPoints GetTotalPoints(IPlayer player)
         {
             // TODO Validierung: Was passiert, wenn Player nicht vorhanden ist?

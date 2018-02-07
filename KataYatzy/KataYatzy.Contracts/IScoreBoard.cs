@@ -16,6 +16,8 @@ namespace KataYatzy.Contracts
 
         IPoints GetPointsForCombination(IPlayer player, CombinationType combinationType);
 
+        bool HasPointsForCombination(IPlayer player, CombinationType combinationType);
+
         IPoints GetTotalPoints(IPlayer player);
     }
 }

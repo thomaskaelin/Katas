@@ -9,6 +9,15 @@
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Label Content="{Binding CurrentToss}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
         <Button Content="New Toss" Command="{Binding CreateTossCommand}"/>
+        <DataGrid ItemsSource="{Binding Table}" 
+                  AutoGenerateColumns="True" 
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  CanUserSortColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="False"/>
     </StackPanel>
+    
 
 </Window>
