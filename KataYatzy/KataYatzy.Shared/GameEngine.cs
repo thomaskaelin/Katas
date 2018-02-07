@@ -17,21 +17,26 @@ namespace KataYatzy.Shared
 
         public GameEngine()
         {
-            InitializeScoreBoard();
-            InitializeTossFactory();
-            _currentPlayer = _scoreBoard.Players[0];
+            InitializesGame();
         }
 
         public IScoreBoard ScoreBoard => _scoreBoard;
 
         public event EventHandler<NewTurnEventArgs> NewTurnStarted;
 
-        public event EventHandler<EventArgs> GameFinished;
-    
+        public event EventHandler<GameFinishedEventArgs> GameFinished;
+
         public void StartNewTurn()
         {
             _currentToss = _tossFactory.CreateToss();
             OnNewTurnStarted(_currentPlayer, _currentToss);
+        }
+
+        public void InitializesGame()
+        {
+            InitializeScoreBoard();
+            InitializeTossFactory();
+            _currentPlayer = _scoreBoard.Players[0];
         }
 
         public void FinishTurn(CombinationType combinationType)
@@ -41,7 +46,8 @@ namespace KataYatzy.Shared
             _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
             if (IsGameFinished())
             {
-                OnGameFinished();
+                var winner = GetWinner();
+                OnGameFinished(winner);
                 return;
             }
             AssignNewPlayer();
@@ -49,6 +55,21 @@ namespace KataYatzy.Shared
         }
 
         #region Private Methods
+
+        private IPlayer GetWinner()
+        {
+            var maxPoints = 0;
+            var winner = _scoreBoard.Players[0];
+            foreach (var player in _scoreBoard.Players)
+            {
+                if (maxPoints < _scoreBoard.GetTotalPoints(player).Value)
+                {
+                    maxPoints = _scoreBoard.GetTotalPoints(player).Value;
+                    winner = player;
+                }
+            }
+            return winner;
+        }
 
         private void AssignNewPlayer()
         {
@@ -108,9 +129,10 @@ namespace KataYatzy.Shared
             NewTurnStarted?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnGameFinished()
+        protected virtual void OnGameFinished(IPlayer player)
         {
-            GameFinished?.Invoke(this, EventArgs.Empty);
+            var gameFinishedEventArgs = new GameFinishedEventArgs(player);
+            GameFinished?.Invoke(this, gameFinishedEventArgs);
         }
     }
 
@@ -125,5 +147,15 @@ namespace KataYatzy.Shared
         public IPlayer Player { get; private set; }
 
         public IToss Toss { get; private set; }
+    }
+
+    public sealed class GameFinishedEventArgs : EventArgs
+    {
+        public GameFinishedEventArgs(IPlayer winner)
+        {
+            Winner = winner;
+        }
+
+        public IPlayer Winner { get; private set; }
     }
 }

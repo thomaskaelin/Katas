@@ -1,6 +1,10 @@
-﻿using KataYatzy.UI.VM;
+﻿using System;
+using KataYatzy.UI.VM;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using KataYatzy.Shared;
+using MessageBox = System.Windows.MessageBox;
 
 namespace KataYatzy.UI.WPF
 {
@@ -13,7 +17,17 @@ namespace KataYatzy.UI.WPF
             InitializeComponent();
 
             _scoreBoardViewModel = new ScoreBoardViewModel();
+            _scoreBoardViewModel.ShowGameFinishedMessage += DoOnShowGameFinishedMessage;
             DataContext = _scoreBoardViewModel;
+        }
+
+        private void DoOnShowGameFinishedMessage(object sender, GameFinishedEventArgs e)
+        {
+            var message = MessageBox.Show("Gewinner: "+ e.Winner.Name + Environment.NewLine + "Erneut spielen?" , "Spiel beendet", MessageBoxButton.YesNo);
+            if (message == MessageBoxResult.Yes)
+            {
+                _scoreBoardViewModel.RestartGame();
+            }
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
