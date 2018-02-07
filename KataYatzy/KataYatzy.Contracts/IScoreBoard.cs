@@ -20,6 +20,8 @@ namespace KataYatzy.Contracts
 
         IPoints GetTotalPoints(IPlayer player);
 
+        bool IsGameFinished();
+
         void ClearPoints();
     }
 }

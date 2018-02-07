@@ -114,6 +114,24 @@ namespace KataYatzy.Shared
             return totalPointsAsPoints;
         }
 
+        public bool IsGameFinished()
+        {
+            // TODO Evtl. alle Spieler prüfen wegen Reihenfolge?
+            // TODO Unit Tests fehlen
+            var lastPlayer = Players.Last();
+
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (var combination in Combinations)
+            {
+                if (!HasPointsForCombination(lastPlayer, combination.Type))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public void ClearPoints()
         {
             _tossMappings.Clear();

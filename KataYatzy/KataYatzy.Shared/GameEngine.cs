@@ -34,13 +34,15 @@ namespace KataYatzy.Shared
         public void StartNewGame()
         {
             _scoreBoard.ClearPoints();
-            SetCurrentPlayer(0);
             StartNewTurn();
         }
 
         public void StartNewTurn()
         {
-            _currentToss = _tossFactory.CreateToss();
+            // TODO Validierung: Exception wenn StartNewTurn() 2x aufgerufen ohne FinishTurn()
+            AssignCurrentPlayer();
+            AssignCurrentToss();
+
             OnNewTurnStarted(_currentPlayer, _currentToss);
         }
 
@@ -48,14 +50,17 @@ namespace KataYatzy.Shared
         {
             if(_scoreBoard.HasPointsForCombination(_currentPlayer, combinationType))
                 return;
+
             _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
-            if (IsGameFinished())
+
+            if (_scoreBoard.IsGameFinished())
             {
                 var winner = GetWinner();
                 OnGameFinished(winner);
                 return;
             }
-            AssignNewPlayer();
+
+            // TODO Unit Test für "Neue Runde" fehlt noch
             StartNewTurn();
         }
 
@@ -75,39 +80,43 @@ namespace KataYatzy.Shared
 
         private IPlayer GetWinner()
         {
-            var maxPoints = 0;
-            var winner = _scoreBoard.Players[0];
+            IPlayer winner = null;
+            var maxPoints = -1;
+
             foreach (var player in _scoreBoard.Players)
             {
-                if (maxPoints < _scoreBoard.GetTotalPoints(player).Value)
+                var pointsOfPlayer = _scoreBoard.GetTotalPoints(player).Value;
+
+                if (maxPoints < pointsOfPlayer)
                 {
-                    maxPoints = _scoreBoard.GetTotalPoints(player).Value;
+                    maxPoints = pointsOfPlayer;
                     winner = player;
                 }
             }
+
             return winner;
         }
         
-        private void AssignNewPlayer()
+        private void AssignCurrentPlayer()
         {
-            var currentPlayerIndex =_scoreBoard.Players.IndexOf(_currentPlayer);
-            var nextPlayerIndex = (currentPlayerIndex + 1) % _scoreBoard.Players.Count;
+            int nextPlayerIndex;
 
-            SetCurrentPlayer(nextPlayerIndex);
+            if (_currentPlayer == null)
+            {
+                nextPlayerIndex = 0;
+            }
+            else
+            {
+                var currentPlayerIndex = _scoreBoard.Players.IndexOf(_currentPlayer);
+                nextPlayerIndex = (currentPlayerIndex + 1) % _scoreBoard.Players.Count;
+            }
+
+            _currentPlayer = _scoreBoard.Players[nextPlayerIndex];
         }
 
-        private bool IsGameFinished()
+        private void AssignCurrentToss()
         {
-            var lastPlayer = _scoreBoard.Players.Last();
-            var isGameFinished = true;
-            foreach (var combination in _scoreBoard.Combinations)
-            {
-                if (!_scoreBoard.HasPointsForCombination(lastPlayer, combination.Type))
-                {
-                    isGameFinished = false;
-                }
-            }
-            return isGameFinished;
+            _currentToss = _tossFactory.CreateToss();
         }
 
         private void AddPlayer(string playerName)
@@ -118,11 +127,6 @@ namespace KataYatzy.Shared
         private void AddCombination(ICombination combination)
         {
             _scoreBoard.AddCombination(combination);
-        }
-
-        private void SetCurrentPlayer(int playerIndex)
-        {
-            _currentPlayer = _scoreBoard.Players[playerIndex];
         }
 
         #endregion
