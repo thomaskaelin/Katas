@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using KataYatzy.Contracts;
 using KataYatzy.Shared.Combinations;
 
@@ -23,7 +24,9 @@ namespace KataYatzy.Shared
 
         public IScoreBoard ScoreBoard => _scoreBoard;
 
-        public event EventHandler<NewTurnEventArgs> NewTurnStarted; 
+        public event EventHandler<NewTurnEventArgs> NewTurnStarted;
+
+        public event EventHandler<EventArgs> GameFinished;
     
         public void StartNewTurn()
         {
@@ -33,10 +36,14 @@ namespace KataYatzy.Shared
 
         public void FinishTurn(CombinationType combinationType)
         {
-            //todo how to finish the game?!?
             if(_scoreBoard.HasPointsForCombination(_currentPlayer, combinationType))
                 return;
             _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
+            if (IsGameFinished())
+            {
+                OnGameFinished();
+                return;
+            }
             AssignNewPlayer();
             StartNewTurn();
         }
@@ -48,6 +55,20 @@ namespace KataYatzy.Shared
             var currentPlayerIndex =_scoreBoard.Players.IndexOf(_currentPlayer);
             var nextPlayerIndex = currentPlayerIndex + 1;
             _currentPlayer = nextPlayerIndex < _scoreBoard.Players.Count ? _scoreBoard.Players[nextPlayerIndex] : _scoreBoard.Players[0];
+        }
+
+        private bool IsGameFinished()
+        {
+            var lastPlayer = _scoreBoard.Players.Last();
+            var isGameFinished = true;
+            foreach (var combination in _scoreBoard.Combinations)
+            {
+                if (!_scoreBoard.HasPointsForCombination(lastPlayer, combination.Type))
+                {
+                    isGameFinished = false;
+                }
+            }
+            return isGameFinished;
         }
 
         private void InitializeScoreBoard()
@@ -81,12 +102,15 @@ namespace KataYatzy.Shared
 
         #endregion
 
-
-
         protected virtual void OnNewTurnStarted(IPlayer player, IToss toss)
         {
             var eventArgs = new NewTurnEventArgs(player, toss);
             NewTurnStarted?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void OnGameFinished()
+        {
+            GameFinished?.Invoke(this, EventArgs.Empty);
         }
     }
 

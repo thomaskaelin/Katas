@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using GalaSoft.MvvmLight;
@@ -17,6 +18,7 @@ namespace KataYatzy.UI.VM
         {
             _gameEngine = new GameEngine();
             _gameEngine.NewTurnStarted += DoOnNewTurnStarted;
+            _gameEngine.GameFinished += DoOnGameFinished;
             _gameEngine.StartNewTurn();
         }
 
@@ -75,7 +77,12 @@ namespace KataYatzy.UI.VM
 
             CreateTable();
         }
-        
+
+        private void DoOnGameFinished(object sender, EventArgs e)
+        {
+            CreateTable();
+        }
+
         private void CreateTable()
         {
             var dataTable =  new DataTable();
