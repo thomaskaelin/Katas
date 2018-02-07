@@ -11,6 +11,8 @@ namespace KataYatzy.Shared
     {
         private ScoreBoard _scoreBoard;
         private TossFactory _tossFactory;
+        private IToss _currentToss;
+        private IPlayer _currentPlayer;
 
         public GameEngine()
         {
@@ -22,9 +24,18 @@ namespace KataYatzy.Shared
 
         public event EventHandler<NewTurnEventArgs> NewTurnStarted; 
     
-        public void Start()
+        public void StartNewTurn()
         {
-            OnNewTurnStarted(_scoreBoard.Players[0], _tossFactory.CreateToss());
+            _currentToss = _tossFactory.CreateToss();
+            _currentPlayer = _scoreBoard.Players[0];
+            OnNewTurnStarted(_currentPlayer, _currentToss);
+        }
+
+        public void FinishTurn(CombinationType combinationType)
+        {
+            //todo how to finish the game?!?
+            _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
+            StartNewTurn();
         }
 
         private void InitializeScoreBoard()

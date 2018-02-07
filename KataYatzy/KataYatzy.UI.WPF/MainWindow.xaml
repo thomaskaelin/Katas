@@ -9,7 +9,8 @@
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Label Content="{Binding CurrentPlayer}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
         <Label Content="{Binding CurrentToss}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
-        <DataGrid ItemsSource="{Binding Table}" 
+        <DataGrid x:Name="scoreBoardTable" ItemsSource="{Binding Table}" 
+                  SelectionChanged="Selector_OnSelectionChanged"
                   AutoGenerateColumns="True" 
                   SelectionMode="Single"
                   IsReadOnly="True"

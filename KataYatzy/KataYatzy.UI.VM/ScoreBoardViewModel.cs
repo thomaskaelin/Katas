@@ -10,21 +10,37 @@ namespace KataYatzy.UI.VM
     {
         private readonly GameEngine _gameEngine;
         private DataView _table;
+        private string _currentToss;
+        private string _currentPlayer;
 
         public ScoreBoardViewModel()
         {
             _gameEngine = new GameEngine();
             _gameEngine.NewTurnStarted += DoOnNewTurnStarted;
-            _gameEngine.Start();
-
-            CreateTable();
+            _gameEngine.StartNewTurn();
         }
 
         #region Properties for Binding
 
-        public string CurrentToss { get; private set; }
+        public string CurrentToss
+        {
+            get { return _currentToss; }
+            private set
+            {
+                _currentToss = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        public string CurrentPlayer { get; private set; }
+        public string CurrentPlayer
+        {
+            get { return _currentPlayer; }
+            private set
+            {
+                _currentPlayer = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public DataView Table
         {
@@ -38,12 +54,26 @@ namespace KataYatzy.UI.VM
 
         #endregion
 
+        #region Public Methods
+
+        public void ChooseCombination(int index)
+        {
+            if(index < 0 || index >= _gameEngine.ScoreBoard.Combinations.Count)
+                return;
+            var selectedCombination =_gameEngine.ScoreBoard.Combinations[index];
+            _gameEngine.FinishTurn(selectedCombination.Type);
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void DoOnNewTurnStarted(object sender, NewTurnEventArgs e)
         {
             CurrentToss = string.Join(",", e.Toss.Dices.Select(d => d.Value.ToString()));
             CurrentPlayer = e.Player.Name;
+
+            CreateTable();
         }
         
         private void CreateTable()
