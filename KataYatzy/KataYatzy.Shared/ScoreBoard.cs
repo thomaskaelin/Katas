@@ -74,16 +74,6 @@ namespace KataYatzy.Shared
 
         public IPoints GetPointsForCombination(IPlayer player, CombinationType combinationType)
         {
-            if (player == null)
-                throw new ArgumentNullException(nameof(player));
-
-            if (!Players.Contains(player))
-                throw new ArgumentException("Player has not been added.");
-
-            // ReSharper disable once SimplifyLinqExpression
-            if (!Combinations.Any(c => c.Type == combinationType))
-                throw new ArgumentException("CombinationType has not been added.");
-
             if (!HasPointsForCombination(player, combinationType))
                 throw new ArgumentException("No toss assigned for this Player and CombinationType.");
 
@@ -96,12 +86,27 @@ namespace KataYatzy.Shared
 
         public bool HasPointsForCombination(IPlayer player, CombinationType combinationType)
         {
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
+            if (!Players.Contains(player))
+                throw new ArgumentException("Player has not been added.");
+
+            // ReSharper disable once SimplifyLinqExpression
+            if (!Combinations.Any(c => c.Type == combinationType))
+                throw new ArgumentException("CombinationType has not been added.");
+
             return _tossMappings.Any(mapping => mapping.Player == player && mapping.CombinationType == combinationType);
         }
 
         public IPoints GetTotalPoints(IPlayer player)
         {
-            // TODO Validierung: Was passiert, wenn Player nicht vorhanden ist?
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
+            if (!Players.Contains(player))
+                throw new ArgumentException("Player has not been added.");
+
             var matchingMappings = _tossMappings.FindAll(mapping => mapping.Player == player);
             var totalPointsAsInt = matchingMappings.Sum(matchingMapping => GetPointsForCombination(player, matchingMapping.CombinationType).Value);
             var totalPointsAsPoints = new Points(totalPointsAsInt);

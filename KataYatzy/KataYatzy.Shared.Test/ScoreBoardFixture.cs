@@ -199,11 +199,8 @@ namespace KataYatzy.Shared.Test
         {
             // Arrange
             var fakePlayer = CreateFakePlayer();
-            var fakeCombination = CreateFakeCombination();
+            var fakeCombination = CreateFakeCombination(CombinationType.Ones, 25);
             var fakeToss = CreateFakeToss();
-            var fakePoints = CreateFakePoints();
-
-            A.CallTo(() => fakeCombination.Calculate(fakeToss)).Returns(fakePoints);
 
             _testee.AddPlayer(fakePlayer);
             _testee.AddCombination(fakeCombination);
@@ -213,7 +210,7 @@ namespace KataYatzy.Shared.Test
             var result = _testee.GetPointsForCombination(fakePlayer, fakeCombination.Type);
 
             // Assert
-            result.Should().BeSameAs(fakePoints);
+            result.Value.Should().Be(25);
         }
 
         [Test]
@@ -267,6 +264,109 @@ namespace KataYatzy.Shared.Test
             action.ShouldThrow<ArgumentException>().WithMessage("No toss assigned for this Player and CombinationType.");
         }
 
+        [TestCase(false, false)]
+        [TestCase(true, true)]
+        public void HasPointsForCombination_ReturnsCorrectResult(bool callAssignToss, bool expectedResult)
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeCombination = CreateFakeCombination();
+            var fakeToss = CreateFakeToss();
+
+            _testee.AddPlayer(fakePlayer);
+            _testee.AddCombination(fakeCombination);
+
+            if (callAssignToss)
+            {
+                _testee.AssignToss(fakePlayer, fakeToss, fakeCombination.Type);
+            }
+
+            // Act
+            var result = _testee.HasPointsForCombination(fakePlayer, fakeCombination.Type);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
+
+        [Test]
+        public void HasPointsForCombination_WithNullPlayer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            Action action = () => _testee.HasPointsForCombination(null, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HasPointsForCombination_WithUnknownPlayer_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+
+            Action action = () => _testee.HasPointsForCombination(fakePlayer, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>().WithMessage("Player has not been added.");
+        }
+
+        [Test]
+        public void HasPointsForCombination_WithUnknownCombinationType_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            _testee.AddPlayer(fakePlayer);
+
+            Action action = () => _testee.HasPointsForCombination(fakePlayer, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>().WithMessage("CombinationType has not been added.");
+        }
+
+        [Test]
+        public void GetTotalPoints_ReturnsCorrectResult()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeCombination1 = CreateFakeCombination(CombinationType.FullHouse, 10);
+            var fakeCombination2 = CreateFakeCombination(CombinationType.Chance, 20);
+            var fakeToss = CreateFakeToss();
+
+            _testee.AddPlayer(fakePlayer);
+            _testee.AddCombination(fakeCombination1);
+            _testee.AddCombination(fakeCombination2);
+            _testee.AssignToss(fakePlayer, fakeToss, fakeCombination1.Type);
+            _testee.AssignToss(fakePlayer, fakeToss, fakeCombination2.Type);
+
+            // Act
+            var result = _testee.GetTotalPoints(fakePlayer);
+
+            // Assert
+            result.Value.Should().Be(30);
+        }
+
+        [Test]
+        public void GetTotalPoints_WithNullPlayer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            Action action = () => _testee.GetTotalPoints(null);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void GetTotalPoints_WithUnknownPlayer_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+
+            Action action = () => _testee.GetTotalPoints(fakePlayer);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>().WithMessage("Player has not been added.");
+        }
+
         #region Private Methods
 
         private static IPlayer CreateFakePlayer()
@@ -274,11 +374,13 @@ namespace KataYatzy.Shared.Test
             return A.Fake<IPlayer>();
         }
 
-        private static ICombination CreateFakeCombination(CombinationType combinationType = CombinationType.Ones)
+        private static ICombination CreateFakeCombination(CombinationType combinationType = CombinationType.Ones, int points = 0)
         {
-            var fakeCombination = A.Fake<ICombination>();
+            var fakePoints = CreateFakePoints(points);
 
+            var fakeCombination = A.Fake<ICombination>();
             A.CallTo(() => fakeCombination.Type).Returns(combinationType);
+            A.CallTo(() => fakeCombination.Calculate(A<IToss>.That.Not.IsNull())).Returns(fakePoints);
 
             return fakeCombination;
         }
@@ -288,9 +390,13 @@ namespace KataYatzy.Shared.Test
             return A.Fake<IToss>();
         }
 
-        private static IPoints CreateFakePoints()
+        private static IPoints CreateFakePoints(int points)
         {
-            return A.Fake<IPoints>();
+            var fakePoints = A.Fake<IPoints>();
+
+            A.CallTo(() => fakePoints.Value).Returns(points);
+
+            return fakePoints;
         }
 
         #endregion
