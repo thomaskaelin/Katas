@@ -367,6 +367,27 @@ namespace KataYatzy.Shared.Test
             action.ShouldThrow<ArgumentException>().WithMessage("Player has not been added.");
         }
 
+        [Test]
+        public void ClearPoints_RemovesAllAssignments()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeCombination = CreateFakeCombination();
+            var fakeToss = CreateFakeToss();
+
+            _testee.AddPlayer(fakePlayer);
+            _testee.AddCombination(fakeCombination);
+            _testee.AssignToss(fakePlayer, fakeToss, fakeCombination.Type);
+
+            // Act
+            _testee.ClearPoints();
+
+            // Assert
+            var result = _testee.HasPointsForCombination(fakePlayer, fakeCombination.Type);
+
+            result.Should().BeFalse();
+        }
+
         #region Private Methods
 
         private static IPlayer CreateFakePlayer()

@@ -114,6 +114,11 @@ namespace KataYatzy.Shared
             return totalPointsAsPoints;
         }
 
+        public void ClearPoints()
+        {
+            _tossMappings.Clear();
+        }
+
         #endregion
 
         #region Private Class TossMapping

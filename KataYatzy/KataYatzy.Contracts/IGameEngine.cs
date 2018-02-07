@@ -10,7 +10,7 @@ namespace KataYatzy.Contracts
 
         IScoreBoard ScoreBoard { get; }
         
-        void InitializesGame();
+        void StartNewGame();
 
         void StartNewTurn();
         

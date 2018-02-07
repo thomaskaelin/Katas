@@ -20,7 +20,7 @@ namespace KataYatzy.UI.VM
             _gameEngine = new GameEngine();
             _gameEngine.NewTurnStarted += DoOnNewTurnStarted;
             _gameEngine.GameFinished += DoOnGameFinished;
-            _gameEngine.StartNewTurn();
+            _gameEngine.StartNewGame();
         }
 
         #region Properties for Binding
@@ -71,8 +71,7 @@ namespace KataYatzy.UI.VM
 
         public void RestartGame()
         {
-            _gameEngine.InitializesGame();
-            _gameEngine.StartNewTurn();
+            _gameEngine.StartNewGame();
         }
 
         #endregion

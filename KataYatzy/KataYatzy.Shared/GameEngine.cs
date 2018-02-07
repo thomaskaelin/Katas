@@ -22,7 +22,7 @@ namespace KataYatzy.Shared
             _scoreBoard = scoreBoard;
             _tossFactory = tossFactory;
 
-            InitializesGame();
+            InitializeScoreBoard();
         }
 
         public IScoreBoard ScoreBoard => _scoreBoard;
@@ -31,24 +31,17 @@ namespace KataYatzy.Shared
 
         public event EventHandler<GameFinishedEventArgs> GameFinished;
 
+        public void StartNewGame()
+        {
+            _scoreBoard.ClearPoints();
+            SetCurrentPlayer(0);
+            StartNewTurn();
+        }
+
         public void StartNewTurn()
         {
             _currentToss = _tossFactory.CreateToss();
             OnNewTurnStarted(_currentPlayer, _currentToss);
-        }
-
-        public void InitializesGame()
-        {
-            AddPlayer("Loana");
-            AddPlayer("Thomas");
-
-            AddCombination(new OnesCombination());
-            AddCombination(new ThreeOfAKindCombination());
-            AddCombination(new FullHouseCombination());
-            AddCombination(new SmallStraightCombination());
-            AddCombination(new ChanceCombination());
-
-            SetCurrentPlayer(0);
         }
 
         public void FinishTurn(CombinationType combinationType)
@@ -68,6 +61,18 @@ namespace KataYatzy.Shared
 
         #region Private Methods
 
+        private void InitializeScoreBoard()
+        {
+            AddPlayer("Loana");
+            AddPlayer("Thomas");
+
+            AddCombination(new OnesCombination());
+            AddCombination(new ThreeOfAKindCombination());
+            AddCombination(new FullHouseCombination());
+            AddCombination(new SmallStraightCombination());
+            AddCombination(new ChanceCombination());
+        }
+
         private IPlayer GetWinner()
         {
             var maxPoints = 0;
@@ -82,7 +87,7 @@ namespace KataYatzy.Shared
             }
             return winner;
         }
-
+        
         private void AssignNewPlayer()
         {
             var currentPlayerIndex =_scoreBoard.Players.IndexOf(_currentPlayer);
@@ -133,5 +138,7 @@ namespace KataYatzy.Shared
             var gameFinishedEventArgs = new GameFinishedEventArgs(player);
             GameFinished?.Invoke(this, gameFinishedEventArgs);
         }
+
+        
     }
  }
