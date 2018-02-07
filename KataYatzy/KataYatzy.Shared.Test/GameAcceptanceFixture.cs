@@ -89,7 +89,6 @@ namespace KataYatzy.Shared.Test
 
         private static IToss CreateToss(params int[] diceValues)
         {
-            // TODO Dices in Konstruktor übergeben?
             var toss = new Toss();
 
             foreach (var diceValue in diceValues)

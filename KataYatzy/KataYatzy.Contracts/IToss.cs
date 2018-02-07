@@ -4,8 +4,6 @@ namespace KataYatzy.Contracts
 {
     public interface IToss
     {
-        List<IDice> Dices { get; }
-
-        void AddDice(IDice dice);
+        IReadOnlyList<IDice> Dices { get; }
     }
 }

@@ -5,19 +5,24 @@ namespace KataYatzy.Shared
 {
     public class Toss : IToss
     {
+        private readonly List<IDice> _dices;
+
         public Toss()
         {
-            Dices = new List<IDice>();
+            _dices = new List<IDice>();
         }
 
         #region IToss
 
-        public List<IDice> Dices { get; }
+        public IReadOnlyList<IDice> Dices => _dices.AsReadOnly();
+
+        #endregion
+
+        #region Public Methods
 
         public void AddDice(IDice dice)
         {
-            // TODO max 5 Würfel?!?
-            Dices.Add(dice);
+            _dices.Add(dice);
         }
 
         #endregion
