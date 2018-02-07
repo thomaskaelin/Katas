@@ -2,8 +2,7 @@
 using KataYatzy.UI.VM;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using KataYatzy.Shared;
+using KataYatzy.Contracts;
 using MessageBox = System.Windows.MessageBox;
 
 namespace KataYatzy.UI.WPF

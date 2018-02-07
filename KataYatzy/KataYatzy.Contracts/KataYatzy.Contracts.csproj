@@ -43,6 +43,7 @@
     <Compile Include="CombinationType.cs" />
     <Compile Include="ICombination.cs" />
     <Compile Include="IDice.cs" />
+    <Compile Include="IGameEngine.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IPoints.cs" />
     <Compile Include="IScoreBoard.cs" />

@@ -59,6 +59,7 @@
     <Compile Include="Combinations\SmallStraightCombinationFixture.cs" />
     <Compile Include="GameAcceptanceFixture.cs" />
     <Compile Include="Combinations\OnesCombinationFixture.cs" />
+    <Compile Include="GameEngineFixture.cs" />
     <Compile Include="Helper\FakeCreator.cs" />
     <Compile Include="ScoreBoardFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

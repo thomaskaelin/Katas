@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using KataYatzy.Contracts;
 using KataYatzy.Shared.Combinations;
@@ -7,16 +6,22 @@ using KataYatzy.Shared.Combinations;
 namespace KataYatzy.Shared
 {
     //toDo write unit tests
-    //toDo introduce interface
-    public class GameEngine
+    public class GameEngine : IGameEngine
     {
-        private ScoreBoard _scoreBoard;
-        private TossFactory _tossFactory;
+        private readonly IScoreBoard _scoreBoard;
+        private readonly ITossFactory _tossFactory;
         private IToss _currentToss;
         private IPlayer _currentPlayer;
 
-        public GameEngine()
+        public GameEngine() : this(new ScoreBoard(), new TossFactory(5,1,6))
         {
+        }
+
+        public GameEngine(IScoreBoard scoreBoard, ITossFactory tossFactory)
+        {
+            _scoreBoard = scoreBoard;
+            _tossFactory = tossFactory;
+
             InitializesGame();
         }
 
@@ -34,9 +39,16 @@ namespace KataYatzy.Shared
 
         public void InitializesGame()
         {
-            InitializeScoreBoard();
-            InitializeTossFactory();
-            _currentPlayer = _scoreBoard.Players[0];
+            AddPlayer("Loana");
+            AddPlayer("Thomas");
+
+            AddCombination(new OnesCombination());
+            AddCombination(new ThreeOfAKindCombination());
+            AddCombination(new FullHouseCombination());
+            AddCombination(new SmallStraightCombination());
+            AddCombination(new ChanceCombination());
+
+            SetCurrentPlayer(0);
         }
 
         public void FinishTurn(CombinationType combinationType)
@@ -74,8 +86,9 @@ namespace KataYatzy.Shared
         private void AssignNewPlayer()
         {
             var currentPlayerIndex =_scoreBoard.Players.IndexOf(_currentPlayer);
-            var nextPlayerIndex = currentPlayerIndex + 1;
-            _currentPlayer = nextPlayerIndex < _scoreBoard.Players.Count ? _scoreBoard.Players[nextPlayerIndex] : _scoreBoard.Players[0];
+            var nextPlayerIndex = (currentPlayerIndex + 1) % _scoreBoard.Players.Count;
+
+            SetCurrentPlayer(nextPlayerIndex);
         }
 
         private bool IsGameFinished()
@@ -92,25 +105,6 @@ namespace KataYatzy.Shared
             return isGameFinished;
         }
 
-        private void InitializeScoreBoard()
-        {
-            _scoreBoard = new ScoreBoard();
-
-            AddPlayer("Loana");
-            AddPlayer("Thomas");
-
-            AddCombination(new OnesCombination());
-            AddCombination(new ThreeOfAKindCombination());
-            AddCombination(new FullHouseCombination());
-            AddCombination(new SmallStraightCombination());
-            AddCombination(new ChanceCombination());
-        }
-
-        private void InitializeTossFactory()
-        {
-            _tossFactory = new TossFactory(5, 1, 6);
-        }
-
         private void AddPlayer(string playerName)
         {
             _scoreBoard.AddPlayer(new Player(playerName));
@@ -119,6 +113,11 @@ namespace KataYatzy.Shared
         private void AddCombination(ICombination combination)
         {
             _scoreBoard.AddCombination(combination);
+        }
+
+        private void SetCurrentPlayer(int playerIndex)
+        {
+            _currentPlayer = _scoreBoard.Players[playerIndex];
         }
 
         #endregion
@@ -135,27 +134,4 @@ namespace KataYatzy.Shared
             GameFinished?.Invoke(this, gameFinishedEventArgs);
         }
     }
-
-    public sealed class NewTurnEventArgs : EventArgs
-    {
-        public NewTurnEventArgs(IPlayer player, IToss toss)
-        {
-            Player = player;
-            Toss = toss;
-        }
-
-        public IPlayer Player { get; private set; }
-
-        public IToss Toss { get; private set; }
-    }
-
-    public sealed class GameFinishedEventArgs : EventArgs
-    {
-        public GameFinishedEventArgs(IPlayer winner)
-        {
-            Winner = winner;
-        }
-
-        public IPlayer Winner { get; private set; }
-    }
-}
+ }
