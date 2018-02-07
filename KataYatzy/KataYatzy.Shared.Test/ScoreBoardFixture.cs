@@ -1,4 +1,7 @@
-﻿using FluentAssertions;
+﻿using System;
+using FakeItEasy;
+using FluentAssertions;
+using KataYatzy.Contracts;
 using NUnit.Framework;
 
 namespace KataYatzy.Shared.Test
@@ -29,5 +32,91 @@ namespace KataYatzy.Shared.Test
             _testee.Combinations.Should().NotBeNull();
             _testee.Combinations.Should().BeEmpty();
         }
+
+        [Test]
+        public void AddPlayer_WithValidPlayer_AddsParameterToPlayers()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+
+            // Act
+            _testee.AddPlayer(fakePlayer);
+
+            // Assert
+            _testee.Players.Count.Should().Be(1);
+            _testee.Players.Should().Contain(fakePlayer);
+        }
+
+        [Test]
+        public void AddPlayer_WithValidNullPlayer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            Action action = () => _testee.AddPlayer(null);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void AddPlayer_WithAlreadyAddedPlayer_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            Action action = () => _testee.AddPlayer(fakePlayer);
+            action();
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void AddCombination_WithValidPlayer_AddsParameterToPlayers()
+        {
+            // Arrange
+            var fakeCombination = CreateFakeCombination();
+
+            // Act
+            _testee.AddCombination(fakeCombination);
+
+            // Assert
+            _testee.Combinations.Count.Should().Be(1);
+            _testee.Combinations.Should().Contain(fakeCombination);
+        }
+
+        [Test]
+        public void AddCombination_WithValidNullPlayer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            Action action = () => _testee.AddCombination(null);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void AddCombination_WithAlreadyAddedPlayer_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakeCombination = CreateFakeCombination();
+            Action action = () => _testee.AddCombination(fakeCombination);
+            action();
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>();
+        }
+
+        #region Private Methods
+
+        private static IPlayer CreateFakePlayer()
+        {
+            return A.Fake<IPlayer>();
+        }
+
+        private static ICombination CreateFakeCombination()
+        {
+            return A.Fake<ICombination>();
+        }
+
+        #endregion
     }
 }

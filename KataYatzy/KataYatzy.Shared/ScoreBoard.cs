@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KataYatzy.Contracts;
 
@@ -10,9 +11,9 @@ namespace KataYatzy.Shared
 
         public ScoreBoard()
         {
+            _tossMappings = new List<TossMapping>();
             Players = new List<IPlayer>();
             Combinations = new List<ICombination>();
-            _tossMappings = new List<TossMapping>();
         }
 
         #region IScoreBoard
@@ -23,15 +24,23 @@ namespace KataYatzy.Shared
 
         public void AddPlayer(IPlayer player)
         {
-            // TODO Validierung: Player null?
-            // TODO Validierung: Player schon vorhanden?
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
+            if (Players.Contains(player))
+                throw new ArgumentException("Player has already been added", nameof(player));
+
             Players.Add(player);
         }
 
         public void AddCombination(ICombination combination)
         {
-            // TODO Validierung: Combination null?
-            // TODO Validierung: Combination schon vorhanden?
+            if (combination == null)
+                throw new ArgumentNullException(nameof(combination));
+
+            if (Combinations.Contains(combination))
+                throw new ArgumentException("Combination has already been added", nameof(combination));
+
             Combinations.Add(combination);
         }
 
