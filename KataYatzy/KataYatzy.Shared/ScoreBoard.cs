@@ -74,9 +74,19 @@ namespace KataYatzy.Shared
 
         public IPoints GetPointsForCombination(IPlayer player, CombinationType combinationType)
         {
-            // TODO Validierung: Was passiert, wenn Player nicht vorhanden ist?
-            // TODO Validierung: Was passiert, wenn keine Combination für den CombinationType registriert ist?
-            // TODO Validierung: Was passiert, wenn keine Punkte für den CombinationType hinzugefügt wurden?
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
+            if (!Players.Contains(player))
+                throw new ArgumentException("Player has not been added.");
+
+            // ReSharper disable once SimplifyLinqExpression
+            if (!Combinations.Any(c => c.Type == combinationType))
+                throw new ArgumentException("CombinationType has not been added.");
+
+            if (!HasPointsForCombination(player, combinationType))
+                throw new ArgumentException("No toss assigned for this Player and CombinationType.");
+
             var matchingMapping = _tossMappings.First(mapping => mapping.Player == player && mapping.CombinationType == combinationType);
             var matchingCombination = Combinations.First(combination => combination.Type == combinationType);
             var pointsForCombination = matchingCombination.Calculate(matchingMapping.Toss);
