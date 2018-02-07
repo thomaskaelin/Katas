@@ -14,11 +14,5 @@ namespace KataYatzy.Shared
         public int Value { get; }
 
         #endregion
-
-        #region Statics
-
-        public static Points Zero => new Points(0);
-
-        #endregion
     }
 }
