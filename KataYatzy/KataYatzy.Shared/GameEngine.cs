@@ -1,47 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using KataYatzy.Contracts;
 using KataYatzy.Shared.Combinations;
 
 namespace KataYatzy.Shared
 {
     //toDo write unit tests
-    //toDo introduce interface
-    public class GameEngine
+    public class GameEngine : IGameEngine
     {
-        private ScoreBoard _scoreBoard;
-        private TossFactory _tossFactory;
+        private readonly IScoreBoard _scoreBoard;
+        private readonly ITossFactory _tossFactory;
         private IToss _currentToss;
         private IPlayer _currentPlayer;
 
-        public GameEngine()
+        public GameEngine() : this(new ScoreBoard(), new TossFactory(5,1,6))
         {
-            InitializeScoreBoard();
-            InitializeTossFactory();
+        }
+
+        public GameEngine(IScoreBoard scoreBoard, ITossFactory tossFactory)
+        {
+            _scoreBoard = scoreBoard;
+            _tossFactory = tossFactory;
+
+            InitializesGame();
         }
 
         public IScoreBoard ScoreBoard => _scoreBoard;
 
-        public event EventHandler<NewTurnEventArgs> NewTurnStarted; 
-    
+        public event EventHandler<NewTurnEventArgs> NewTurnStarted;
+
+        public event EventHandler<GameFinishedEventArgs> GameFinished;
+
         public void StartNewTurn()
         {
             _currentToss = _tossFactory.CreateToss();
-            _currentPlayer = _scoreBoard.Players[0];
             OnNewTurnStarted(_currentPlayer, _currentToss);
         }
 
-        public void FinishTurn(CombinationType combinationType)
+        public void InitializesGame()
         {
-            //todo how to finish the game?!?
-            _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
-            StartNewTurn();
-        }
-
-        private void InitializeScoreBoard()
-        {
-            _scoreBoard = new ScoreBoard();
-
             AddPlayer("Loana");
             AddPlayer("Thomas");
 
@@ -50,11 +47,62 @@ namespace KataYatzy.Shared
             AddCombination(new FullHouseCombination());
             AddCombination(new SmallStraightCombination());
             AddCombination(new ChanceCombination());
+
+            SetCurrentPlayer(0);
         }
 
-        private void InitializeTossFactory()
+        public void FinishTurn(CombinationType combinationType)
         {
-            _tossFactory = new TossFactory(5, 1, 6);
+            if(_scoreBoard.HasPointsForCombination(_currentPlayer, combinationType))
+                return;
+            _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
+            if (IsGameFinished())
+            {
+                var winner = GetWinner();
+                OnGameFinished(winner);
+                return;
+            }
+            AssignNewPlayer();
+            StartNewTurn();
+        }
+
+        #region Private Methods
+
+        private IPlayer GetWinner()
+        {
+            var maxPoints = 0;
+            var winner = _scoreBoard.Players[0];
+            foreach (var player in _scoreBoard.Players)
+            {
+                if (maxPoints < _scoreBoard.GetTotalPoints(player).Value)
+                {
+                    maxPoints = _scoreBoard.GetTotalPoints(player).Value;
+                    winner = player;
+                }
+            }
+            return winner;
+        }
+
+        private void AssignNewPlayer()
+        {
+            var currentPlayerIndex =_scoreBoard.Players.IndexOf(_currentPlayer);
+            var nextPlayerIndex = (currentPlayerIndex + 1) % _scoreBoard.Players.Count;
+
+            SetCurrentPlayer(nextPlayerIndex);
+        }
+
+        private bool IsGameFinished()
+        {
+            var lastPlayer = _scoreBoard.Players.Last();
+            var isGameFinished = true;
+            foreach (var combination in _scoreBoard.Combinations)
+            {
+                if (!_scoreBoard.HasPointsForCombination(lastPlayer, combination.Type))
+                {
+                    isGameFinished = false;
+                }
+            }
+            return isGameFinished;
         }
 
         private void AddPlayer(string playerName)
@@ -67,23 +115,23 @@ namespace KataYatzy.Shared
             _scoreBoard.AddCombination(combination);
         }
 
+        private void SetCurrentPlayer(int playerIndex)
+        {
+            _currentPlayer = _scoreBoard.Players[playerIndex];
+        }
+
+        #endregion
+
         protected virtual void OnNewTurnStarted(IPlayer player, IToss toss)
         {
             var eventArgs = new NewTurnEventArgs(player, toss);
             NewTurnStarted?.Invoke(this, eventArgs);
         }
-    }
 
-    public sealed class NewTurnEventArgs : EventArgs
-    {
-        public NewTurnEventArgs(IPlayer player, IToss toss)
+        protected virtual void OnGameFinished(IPlayer player)
         {
-            Player = player;
-            Toss = toss;
+            var gameFinishedEventArgs = new GameFinishedEventArgs(player);
+            GameFinished?.Invoke(this, gameFinishedEventArgs);
         }
-
-        public IPlayer Player { get; private set; }
-
-        public IToss Toss { get; private set; }
     }
-}
+ }

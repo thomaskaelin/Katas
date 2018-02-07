@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using GalaSoft.MvvmLight;
+using KataYatzy.Contracts;
 using KataYatzy.Shared;
 
 namespace KataYatzy.UI.VM
@@ -17,6 +19,7 @@ namespace KataYatzy.UI.VM
         {
             _gameEngine = new GameEngine();
             _gameEngine.NewTurnStarted += DoOnNewTurnStarted;
+            _gameEngine.GameFinished += DoOnGameFinished;
             _gameEngine.StartNewTurn();
         }
 
@@ -52,16 +55,24 @@ namespace KataYatzy.UI.VM
             }
         }
 
+        public event EventHandler<GameFinishedEventArgs> ShowGameFinishedMessage;
+
         #endregion
 
         #region Public Methods
 
         public void ChooseCombination(int index)
         {
-            if(index < 0 || index >= _gameEngine.ScoreBoard.Combinations.Count)
+            if (index < 0 || index >= _gameEngine.ScoreBoard.Combinations.Count)
                 return;
-            var selectedCombination =_gameEngine.ScoreBoard.Combinations[index];
+            var selectedCombination = _gameEngine.ScoreBoard.Combinations[index];
             _gameEngine.FinishTurn(selectedCombination.Type);
+        }
+
+        public void RestartGame()
+        {
+            _gameEngine.InitializesGame();
+            _gameEngine.StartNewTurn();
         }
 
         #endregion
@@ -75,10 +86,16 @@ namespace KataYatzy.UI.VM
 
             CreateTable();
         }
-        
+
+        private void DoOnGameFinished(object sender, GameFinishedEventArgs e)
+        {
+            CreateTable();
+            OnShowGameFinishedMessage(e);
+        }
+
         private void CreateTable()
         {
-            var dataTable =  new DataTable();
+            var dataTable = new DataTable();
             dataTable.Columns.Add("Combination");
             foreach (var player in _gameEngine.ScoreBoard.Players)
             {
@@ -93,7 +110,8 @@ namespace KataYatzy.UI.VM
                 {
                     if (_gameEngine.ScoreBoard.HasPointsForCombination(player, combination.Type))
                     {
-                        columnsForCombination.Add(_gameEngine.ScoreBoard.GetPointsForCombination(player, combination.Type).Value);
+                        columnsForCombination.Add(
+                            _gameEngine.ScoreBoard.GetPointsForCombination(player, combination.Type).Value);
                     }
                     else
                     {
@@ -103,7 +121,7 @@ namespace KataYatzy.UI.VM
 
                 dataTable.Rows.Add(columnsForCombination.ToArray());
             }
-            var columnsForTotal = new List<object>{"Total"};
+            var columnsForTotal = new List<object> {"Total"};
             foreach (var player in _gameEngine.ScoreBoard.Players)
             {
                 columnsForTotal.Add(_gameEngine.ScoreBoard.GetTotalPoints(player).Value);
@@ -114,5 +132,11 @@ namespace KataYatzy.UI.VM
         }
 
         #endregion
+
+        protected virtual void OnShowGameFinishedMessage(GameFinishedEventArgs e)
+        {
+            ShowGameFinishedMessage?.Invoke(this, e);
+        }
     }
 }
+    
