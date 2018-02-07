@@ -105,6 +105,95 @@ namespace KataYatzy.Shared.Test
             action.ShouldThrow<ArgumentException>().WithMessage("Combination has already been added.");
         }
 
+        [Test]
+        public void AssignToss_AddsNewMapping()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeToss = CreateFakeToss();
+            var fakeCombination = CreateFakeCombination();
+
+            _testee.AddPlayer(fakePlayer);
+            _testee.AddCombination(fakeCombination);
+
+            // Act
+            _testee.AssignToss(fakePlayer, fakeToss, fakeCombination.Type);
+
+            // Assert
+            _testee.HasPointsForCombination(fakePlayer, fakeCombination.Type).Should().BeTrue();
+        }
+
+        [Test]
+        public void AssignToss_WithNullPlayer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var fakeToss = CreateFakeToss();
+
+            Action action = () => _testee.AssignToss(null, fakeToss, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void AssignToss_WithUnknownPlayer_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeToss = CreateFakeToss();
+
+            Action action = () => _testee.AssignToss(fakePlayer, fakeToss, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>().WithMessage("Player has not been added.");
+        }
+
+        [Test]
+        public void AssignToss_WithNullToss_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            _testee.AddPlayer(fakePlayer);
+
+            Action action = () => _testee.AssignToss(fakePlayer, null, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void AssignToss_WithUnknownCombinationType_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeToss = CreateFakeToss();
+
+            _testee.AddPlayer(fakePlayer);
+
+            Action action = () => _testee.AssignToss(fakePlayer, fakeToss, CombinationType.Ones);
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>().WithMessage("CombinationType has not been added.");
+        }
+
+        [Test]
+        public void AssignToss_WithAlreadyUsedPlayerAndCombinationType_ThrowsArgumentException()
+        {
+            // Arrange
+            var fakePlayer = CreateFakePlayer();
+            var fakeToss = CreateFakeToss();
+            var fakeCombination = CreateFakeCombination();
+
+            _testee.AddPlayer(fakePlayer);
+            _testee.AddCombination(fakeCombination);
+
+            Action action = () => _testee.AssignToss(fakePlayer, fakeToss, fakeCombination.Type);
+            action();
+
+            // Act & Assert
+            action.ShouldThrow<ArgumentException>().WithMessage("Already assigned a toss for this Player and CombinationType.");
+        }
+
         #region Private Methods
 
         private static IPlayer CreateFakePlayer()
@@ -112,9 +201,18 @@ namespace KataYatzy.Shared.Test
             return A.Fake<IPlayer>();
         }
 
-        private static ICombination CreateFakeCombination()
+        private static ICombination CreateFakeCombination(CombinationType combinationType = CombinationType.Ones)
         {
-            return A.Fake<ICombination>();
+            var fakeCombination = A.Fake<ICombination>();
+
+            A.CallTo(() => fakeCombination.Type).Returns(combinationType);
+
+            return fakeCombination;
+        }
+
+        private static IToss CreateFakeToss()
+        {
+            return A.Fake<IToss>();
         }
 
         #endregion

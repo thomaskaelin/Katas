@@ -46,9 +46,22 @@ namespace KataYatzy.Shared
 
         public void AssignToss(IPlayer player, IToss toss, CombinationType combinationType)
         {
-            // TODO Validierung: Was passiert, wenn Player nicht vorhanden ist?
-            // TODO Validierung: Was passiert, wenn keine Combination für den CombinationType registriert ist?
-            // TODO Validierung: Was passiert, wenn für den CombinationType schon ein Toss zugewiesen wurde?
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
+            if (!Players.Contains(player))
+                throw new ArgumentException("Player has not been added.");
+
+            if (toss == null)
+                throw new ArgumentNullException(nameof(toss));
+
+            // ReSharper disable once SimplifyLinqExpression
+            if (!Combinations.Any(c => c.Type == combinationType))
+                throw new ArgumentException("CombinationType has not been added.");
+
+            if (_tossMappings.Any(tm => tm.Player == player && tm.CombinationType == combinationType))
+                throw new ArgumentException("Already assigned a toss for this Player and CombinationType.");
+
             var newTossMapping = new TossMapping
             {
                 Player = player,
