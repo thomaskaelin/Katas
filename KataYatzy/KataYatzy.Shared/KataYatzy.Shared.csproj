@@ -47,6 +47,7 @@
     <Compile Include="Combinations\SmallStraightCombination.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Combinations\OnesCombination.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Points.cs" />
     <Compile Include="ScoreBoard.cs" />

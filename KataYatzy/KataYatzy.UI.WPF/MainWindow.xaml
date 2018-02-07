@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Label Content="{Binding CurrentPlayer}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
         <Label Content="{Binding CurrentToss}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
-        <Button Content="New Toss" Command="{Binding CreateTossCommand}"/>
         <DataGrid ItemsSource="{Binding Table}" 
                   AutoGenerateColumns="True" 
                   SelectionMode="Single"

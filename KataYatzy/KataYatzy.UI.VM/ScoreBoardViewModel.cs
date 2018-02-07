@@ -2,36 +2,29 @@
 using System.Data;
 using System.Linq;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using KataYatzy.Contracts;
 using KataYatzy.Shared;
-using KataYatzy.Shared.Combinations;
 
 namespace KataYatzy.UI.VM
 {
     public class ScoreBoardViewModel : ViewModelBase
     {
-        private IScoreBoard _scoreBoard;
-        private ITossFactory _tossFactory;
+        private readonly GameEngine _gameEngine;
         private DataView _table;
 
         public ScoreBoardViewModel()
         {
-            InitializeScoreBoard();
-            InitializeTossFactory();
+            _gameEngine = new GameEngine();
+            _gameEngine.NewTurnStarted += DoOnNewTurnStarted;
+            _gameEngine.Start();
 
-            CreateTossCommand = new RelayCommand(CreateTossCommandExecute);
+            CreateTable();
         }
 
         #region Properties for Binding
 
-        public IList<IPlayer> Players => _scoreBoard.Players;
-
-        public IList<ICombination> Combinations => _scoreBoard.Combinations;
-
         public string CurrentToss { get; private set; }
 
-        public RelayCommand CreateTossCommand { get; }
+        public string CurrentPlayer { get; private set; }
 
         public DataView Table
         {
@@ -47,64 +40,30 @@ namespace KataYatzy.UI.VM
 
         #region Private Methods
 
-        private void InitializeScoreBoard()
+        private void DoOnNewTurnStarted(object sender, NewTurnEventArgs e)
         {
-            _scoreBoard = new ScoreBoard();
-
-            AddPlayer("Loana");
-            AddPlayer("Thomas");
-
-            AddCombination(new OnesCombination());
-            AddCombination(new ThreeOfAKindCombination());
-            AddCombination(new FullHouseCombination());
-            AddCombination(new SmallStraightCombination());
-            AddCombination(new ChanceCombination());
-
-            CreateTable();
+            CurrentToss = string.Join(",", e.Toss.Dices.Select(d => d.Value.ToString()));
+            CurrentPlayer = e.Player.Name;
         }
-
-        private void InitializeTossFactory()
-        {
-            _tossFactory = new TossFactory(5, 1, 6);
-        }
-
-        private void AddPlayer(string playerName)
-        {
-            _scoreBoard.AddPlayer(new Player(playerName));
-            RaisePropertyChanged(() => Players);
-        }
-
-        private void AddCombination(ICombination combination)
-        {
-            _scoreBoard.AddCombination(combination);
-            RaisePropertyChanged(() => Combinations);
-        }
-
-        private void CreateTossCommandExecute()
-        {
-            var newToss = _tossFactory.CreateToss();
-            CurrentToss = string.Join(",", newToss.Dices.Select(d => d.Value.ToString()));
-            RaisePropertyChanged(() => CurrentToss);
-        }
-
+        
         private void CreateTable()
         {
             var dataTable =  new DataTable();
             dataTable.Columns.Add("Combination");
-            foreach (var player in Players)
+            foreach (var player in _gameEngine.ScoreBoard.Players)
             {
                 dataTable.Columns.Add(player.Name);
             }
 
-            foreach (var combination in Combinations)
+            foreach (var combination in _gameEngine.ScoreBoard.Combinations)
             {
                 var columnsForCombination = new List<object> {combination.Type.ToString()};
 
-                foreach (var player in Players)
+                foreach (var player in _gameEngine.ScoreBoard.Players)
                 {
-                    if (_scoreBoard.HasPointsForCombination(player, combination.Type))
+                    if (_gameEngine.ScoreBoard.HasPointsForCombination(player, combination.Type))
                     {
-                        columnsForCombination.Add(_scoreBoard.GetPointsForCombination(player, combination.Type).Value);
+                        columnsForCombination.Add(_gameEngine.ScoreBoard.GetPointsForCombination(player, combination.Type).Value);
                     }
                     else
                     {
@@ -115,9 +74,9 @@ namespace KataYatzy.UI.VM
                 dataTable.Rows.Add(columnsForCombination.ToArray());
             }
             var columnsForTotal = new List<object>{"Total"};
-            foreach (var player in Players)
+            foreach (var player in _gameEngine.ScoreBoard.Players)
             {
-                columnsForTotal.Add(_scoreBoard.GetTotalPoints(player).Value);
+                columnsForTotal.Add(_gameEngine.ScoreBoard.GetTotalPoints(player).Value);
             }
             dataTable.Rows.Add(columnsForTotal.ToArray());
 
