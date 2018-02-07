@@ -18,6 +18,7 @@ namespace KataYatzy.Shared
         {
             InitializeScoreBoard();
             InitializeTossFactory();
+            _currentPlayer = _scoreBoard.Players[0];
         }
 
         public IScoreBoard ScoreBoard => _scoreBoard;
@@ -27,7 +28,6 @@ namespace KataYatzy.Shared
         public void StartNewTurn()
         {
             _currentToss = _tossFactory.CreateToss();
-            _currentPlayer = _scoreBoard.Players[0];
             OnNewTurnStarted(_currentPlayer, _currentToss);
         }
 
@@ -35,7 +35,17 @@ namespace KataYatzy.Shared
         {
             //todo how to finish the game?!?
             _scoreBoard.AssignToss(_currentPlayer, _currentToss, combinationType);
+            AssignNewPlayer();
             StartNewTurn();
+        }
+
+        #region Private Methods
+
+        private void AssignNewPlayer()
+        {
+            var currentPlayerIndex =_scoreBoard.Players.IndexOf(_currentPlayer);
+            var nextPlayerIndex = currentPlayerIndex + 1;
+            _currentPlayer = nextPlayerIndex < _scoreBoard.Players.Count ? _scoreBoard.Players[nextPlayerIndex] : _scoreBoard.Players[0];
         }
 
         private void InitializeScoreBoard()
@@ -66,6 +76,10 @@ namespace KataYatzy.Shared
         {
             _scoreBoard.AddCombination(combination);
         }
+
+        #endregion
+
+
 
         protected virtual void OnNewTurnStarted(IPlayer player, IToss toss)
         {
